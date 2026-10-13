@@ -8,3 +8,5 @@ playwright-report/
 test-results/
 
 !docs/evidence/*.log
+.env.*
+!.env.example
