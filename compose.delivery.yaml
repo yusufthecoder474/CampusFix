@@ -1,0 +1,34 @@
+# Separate optional local demonstration; never replaces the user's existing database Compose project.
+services:
+  app:
+    build: .
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: ${DATABASE_URL:?Set DATABASE_URL for an already migrated synthetic database}
+      APP_ORIGIN: http://127.0.0.1:3100
+      SESSION_HOURS: 8
+    ports:
+      - "127.0.0.1:3100:3100"
+    mem_limit: 256m
+    cpus: 0.5
+  worker:
+    build: .
+    command: ["node","extension/run.mjs"]
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?Set DATABASE_URL}
+      DESKA_URL: http://127.0.0.1:4600/desk-a
+      DESKB_URL: http://127.0.0.1:4600/desk-b
+    # Worker and local-only mocks share one network namespace.
+    network_mode: service:mock
+    depends_on: [mock]
+    healthcheck:
+      disable: true
+    mem_limit: 128m
+    cpus: 0.5
+  mock:
+    build: .
+    command: ["node","extension/mock-providers.mjs"]
+    healthcheck:
+      disable: true
+    mem_limit: 128m
+    cpus: 0.5

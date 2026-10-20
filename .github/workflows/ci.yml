@@ -27,6 +27,12 @@ jobs:
       - run: npm run check
       - run: npm run lint
       - run: npm run format:check
+      - name: Outbox adapter and worker checks
+        run: node --test --experimental-test-coverage extension/tests/core.test.mjs
+      - name: Native outbox transaction and concurrency checks
+        run: node --test extension/tests/postgres.integration.mjs
+        env:
+          TEST_DATABASE_URL: postgresql://campusfix:ci-synthetic-password@127.0.0.1:5432/campusfix_test
       - run: npm test
       - run: npm run test:frontend
       - name: Native PostgreSQL integration suite
@@ -48,3 +54,4 @@ jobs:
         with:
           name: campusfix-final-evidence
           path: docs/evidence/m5-*.json
+

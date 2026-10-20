@@ -22,9 +22,9 @@ async function fingerprint(client: pg.Client, schema: string) {
 export async function migrate(
   url: string,
   target = "public",
-  through = "002_workflow.sql",
+  through = "003_outbox.sql",
 ) {
-  const migrations = ["001_initial.sql", "002_workflow.sql"];
+  const migrations = ["001_initial.sql", "002_workflow.sql", "003_outbox.sql"];
   if (!migrations.includes(through))
     throw new Error("Unknown migration target");
   if (!/^[a-z][a-z0-9_]*$/.test(target))
@@ -103,3 +103,4 @@ if (process.argv[1]?.endsWith("migrate.ts"))
     );
     process.exitCode = 1;
   });
+
