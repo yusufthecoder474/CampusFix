@@ -1,0 +1,75 @@
+{
+  "auditedAt": "2026-10-20",
+  "baseCommit": "c1b50a3099d5fbcadf8ed6e1b31bd11b4974094e",
+  "draftPR": "https://github.com/yusufthecoder474/CampusFix/pull/1",
+  "testedCommit": "26fd8dd67088ee6be65f2893d68608fedb59ab46",
+  "run": {
+    "id": 39456233174,
+    "event": "push",
+    "sha": "26fd8dd67088ee6be65f2893d68608fedb59ab46",
+    "conclusion": "success",
+    "url": "https://github.com/yusufthecoder474/CampusFix/actions/runs/39456233174",
+    "created_at": "2026-10-20T16:18:13Z"
+  },
+  "checks": {
+    "core": {
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "adapter/worker, includes real loopback HTTP"
+    },
+    "nativeOutbox": {
+      "scenarios": 7,
+      "parentTests": 1,
+      "failed": 0,
+      "engine": "native PostgreSQL"
+    },
+    "backendDefault": {
+      "passed": 84,
+      "skipped": 2,
+      "engine": "PGlite for database-backed tests; native-only races skipped here"
+    },
+    "react": {
+      "passed": 29
+    },
+    "nativeExisting": {
+      "passed": 59,
+      "skipped": 0,
+      "note": "Overlap with default database scenarios; do not sum as unique tests"
+    },
+    "browserNative": {
+      "regressionAndWorkflow": 10,
+      "realtime": 6
+    },
+    "container": {
+      "measuredAt": "2026-10-20T16:20:22.814Z",
+      "fixture": "ff073bbab128",
+      "ready": true,
+      "outboxDelivered": true,
+      "provider": "deskA",
+      "scope": "Native PostgreSQL plus built API, mock and one-shot worker containers; synthetic data"
+    },
+    "format": "passed",
+    "typecheck": "passed",
+    "lint": "passed",
+    "build": "passed",
+    "productionDependencyAudit": "zero vulnerabilities reported by this run"
+  },
+  "coverage": {
+    "scope": "local loaded policy, providers, worker and mock modules only; excludes store/run, native tests and existing app",
+    "linePercent": 93.75,
+    "branchPercent": 88.39
+  },
+  "cloud": {
+    "deployed": false,
+    "paidResourcesCreated": false,
+    "liveVerifyFlowURL": null
+  },
+  "limits": [
+    "Mocks, not real vendor integrations",
+    "No real compliance certification or screening",
+    "No independent human interview assessment",
+    "No Windows container validation",
+    "No public cloud runtime verified"
+  ]
+}

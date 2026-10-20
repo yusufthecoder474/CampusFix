@@ -27,6 +27,12 @@ jobs:
       - run: npm run check
       - run: npm run lint
       - run: npm run format:check
+      - name: Outbox adapter and worker checks
+        run: node --test --experimental-test-coverage extension/tests/core.test.mjs
+      - name: Native outbox transaction and concurrency checks
+        run: node --test extension/tests/postgres.integration.mjs
+        env:
+          TEST_DATABASE_URL: postgresql://campusfix:ci-synthetic-password@127.0.0.1:5432/campusfix_test
       - run: npm test
       - run: npm run test:frontend
       - name: Native PostgreSQL integration suite
@@ -40,6 +46,11 @@ jobs:
         run: node --import tsx scripts/e2e-native.ts
         env:
           TEST_DATABASE_URL: postgresql://campusfix:ci-synthetic-password@127.0.0.1:5432/campusfix_test
+      - name: Built API and delivery containers with native PostgreSQL
+        run: node --import tsx extension/container-smoke.mjs
+        env:
+          CAMPUSFIX_CONTAINER_TEST: '1'
+          TEST_DATABASE_URL: postgresql://campusfix:ci-synthetic-password@127.0.0.1:5432/campusfix_test
       - run: npm audit --omit=dev --audit-level=high
 
       - name: Preserve verification evidence
@@ -47,4 +58,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: campusfix-final-evidence
-          path: docs/evidence/m5-*.json
+          path: |
+            docs/evidence/m5-*.json
+            docs/evidence/outbox-*
+

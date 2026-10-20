@@ -4,6 +4,10 @@ CampusFix gives students a clear place to report maintenance issues and follow t
 
 ![Desktop CampusFix dashboard](docs/screenshots/dashboard-1440.png)
 
+## Durable delivery extension
+
+The [new backend extension](extension/README.md) adds a PostgreSQL outbox and two simulated maintenance-provider adapters. It preserves the existing React workflow. Verified [hosted CI](https://github.com/yusufthecoder474/CampusFix/actions/runs/39456233174): **29 adapter/worker checks**, **7 native outbox scenarios**, existing backend/React/native/browser regression and a built-container smoke test passed. Public deployment and Windows-specific runtime checks remain unverified. See [test scope and results](docs/OUTBOX_TESTING.md), [architecture](docs/OUTBOX_ARCHITECTURE.md), [setup](docs/OUTBOX_DEPLOYMENT.md) and [baseline audit](docs/AIPRISE_AUDIT.md). No real vendor or compliance verification is claimed.
+
 ## Features
 
 - Reusable React/TypeScript components, controlled forms, accessible states, responsive navigation/cards and confirmation dialogs.
@@ -19,7 +23,7 @@ React 19, TypeScript strict, JavaScript ES6+, HTML5/CSS3, Vite, React Router 7.1
 
 ## Existing Windows installation
 
-Your working configuration uses PostgreSQL host port **5433**, APP_ORIGIN **http://127.0.0.1:3100**, and the **campusfix** Compose project in the original M2 folder. Preserve its volume and credentials. Follow [Windows instructions](docs/WINDOWS.md). The archive excludes .env. No migration 003 or new database is needed.
+Your working configuration uses PostgreSQL host port **5433**, APP_ORIGIN **http://127.0.0.1:3100**, and the **campusfix** Compose project in the original M2 folder. Preserve its volume and credentials. Follow [Windows instructions](docs/WINDOWS.md). The archive excludes .env. The original frontend release required only migrations 001 and 002. This delivery extension adds migration 003; follow docs/OUTBOX_DEPLOYMENT.md before starting the worker. No new application database is required.
 
 ```powershell
 npm ci
@@ -68,4 +72,4 @@ The bundle grows with the new functionality; lazy workspace loading measurably r
 
 ## Limits
 
-One campus/server/process, synthetic data, no public registration/password reset/uploads/reassignment. Notifications are ephemeral with no outbox/durable delivery. Reconnect restores state, not missed notification history. No public deployment, TLS runtime verification, remote CI run or team code review is claimed. Native final-milestone verification remains incomplete in a build environment without PostgreSQL/Docker; run the documented Windows gates before claiming a fully verified final release.
+One campus/server/process, synthetic data, no public registration/password reset/uploads/reassignment. Browser notifications remain ephemeral. The optional new outbox delivers a separate simulated provider notification, not durable browser notification history. Reconnect restores state, not missed notification history. No public deployment, TLS runtime verification or peer code review is claimed. The new extension and existing native/browser suites passed hosted Linux CI, including a built-container smoke test. Windows-specific runtime verification remains separate.

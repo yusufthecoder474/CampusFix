@@ -4,7 +4,7 @@ import { attachRealtime } from "../src/realtime.js";
 import { beforeAll, beforeEach, afterAll, it, expect } from "vitest";
 import { randomUUID } from "node:crypto";
 import { createServer } from "node:net";
-import { writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import pg from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { PGlite } from "@electric-sql/pglite";
@@ -232,23 +232,31 @@ beforeEach(() => {
   app = makeApp();
 });
 afterAll(async () => {
-  for (const socket of clients) socket.disconnect();
-  await live?.close();
-  if (native)
-    await writeFile(
-      "docs/evidence/m5-native-concurrency.json",
-      JSON.stringify(
-        { engine: "native PostgreSQL", scenarios: raceEvidence },
-        null,
-        2,
-      ) + "\n",
-    );
-  if (pool) {
-    await pool.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
-    await pool.end();
+  try {
+    for (const socket of clients) socket.disconnect();
+    await live?.close();
+    if (native) {
+      await mkdir("docs/evidence", { recursive: true });
+      await writeFile(
+        "docs/evidence/m5-native-concurrency.json",
+        JSON.stringify(
+          { engine: "native PostgreSQL", scenarios: raceEvidence },
+          null,
+          2,
+        ) + "\n",
+      );
+    }
+  } finally {
+    if (pool) {
+      try {
+        await pool.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
+      } finally {
+        await pool.end();
+      }
+    }
+    await socket?.stop();
+    await engine?.close();
   }
-  await socket?.stop();
-  await engine?.close();
 }, 20000);
 it("lists only technician names/IDs with bounded pagination for coordinators", async () => {
   const a = await get(coordinator, "/api/technicians?limit=1&page=1"),
@@ -635,7 +643,7 @@ it("M3 migration preserves existing requests/history and safely reruns", async (
     (
       await pool.query("SELECT name FROM campusfix_migrations ORDER BY name")
     ).rows.map((r) => r.name),
-  ).toEqual(["001_initial.sql", "002_workflow.sql"]);
+  ).toEqual(["001_initial.sql", "002_workflow.sql", "003_outbox.sql"]);
 });
 
 it("versioned history rejects a missing previous status", async () => {

@@ -1,0 +1,50 @@
+✔ two distinct provider contracts normalize to the same shape (2.375041ms)
+✔ malformed and unaccepted responses fail closed (0.464264ms)
+✔ retry backoff grows, jitters and caps (0.243128ms)
+✔ permanent, unknown and exhausted failures stop; transient failures retry (0.20379ms)
+✔ provider endpoints reject insecure remote URLs and URL credentials (0.262497ms)
+✔ real loopback HTTP uses stable idempotency and redacts private payload fields (41.689135ms)
+✔ explicit primary 503 falls back to a differently shaped provider (9.225479ms)
+✔ ambiguous timeout never calls the alternate provider (32.678238ms)
+✔ pinned fallback redelivery cannot switch back to a recovered primary (4.47138ms)
+✔ fallback is not sent if persistence fails or the lease is stale (5.02066ms)
+✔ fallback pin database failure leaves the lease recoverable (0.356736ms)
+✔ HTTP 400 classification without fallback (3.735987ms)
+✔ HTTP 401 classification without fallback (2.182717ms)
+✔ HTTP 403 classification without fallback (1.88614ms)
+✔ HTTP 409 classification without fallback (1.826622ms)
+✔ HTTP 422 classification without fallback (2.13758ms)
+✔ HTTP 429 classification without fallback (1.836917ms)
+✔ HTTP 500 classification without fallback (1.961271ms)
+✔ streamed provider response size is limited (1.026193ms)
+✔ malformed JSON is permanent (0.284879ms)
+✔ a conflicting duplicate payload is refused by the mock (3.308888ms)
+✔ idle worker makes no provider call (0.192764ms)
+✔ successful delivery acknowledges the event (0.144283ms)
+✔ transient failure schedules a bounded retry without acknowledging (0.171442ms)
+✔ fifth transient attempt reaches dead letter (0.126737ms)
+✔ repeated worker crashes cannot cause unlimited provider calls (0.17006ms)
+✔ an expired claimant cannot acknowledge another worker lease (0.10862ms)
+✔ database ack failure escapes for lease recovery and does not mark delivered work dead (0.177041ms)
+✔ unknown delivery exceptions are redacted from outcomes (0.287073ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 222.532539
+ℹ start of coverage report
+ℹ ----------------------------------------------------------------------
+ℹ file                | line % | branch % | funcs % | uncovered lines
+ℹ ----------------------------------------------------------------------
+ℹ extension           |        |          |         | 
+ℹ  mock-providers.mjs |  84.91 |    80.00 |   66.67 | 11-12 24-25 50-53
+ℹ  policy.mjs         | 100.00 |   100.00 |  100.00 | 
+ℹ  providers.mjs      |  96.05 |    90.91 |  100.00 | 41-43
+ℹ  worker.mjs         | 100.00 |    86.36 |  100.00 | 
+ℹ ----------------------------------------------------------------------
+ℹ all files           |  93.75 |    88.39 |   86.67 | 
+ℹ ----------------------------------------------------------------------
+ℹ end of coverage report
