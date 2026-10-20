@@ -31,9 +31,9 @@ Three runs, each with 100 sequential requests to a local mock provider on the sa
 
 | Run | Requests | Errors | Median ms | p95 ms | Maximum ms |
 | --- | -------: | -----: | --------: | -----: | ---------: |
-| 1   | 100      | 0      | 1.976     | 3.272  | 22.705     |
-| 2   | 100      | 0      | 1.761     | 2.507  | 3.196      |
-| 3   | 100      | 0      | 1.733     | 2.235  | 3.187      |
+| 1   |      100 |      0 |     1.976 |  3.272 |     22.705 |
+| 2   |      100 |      0 |     1.761 |  2.507 |      3.196 |
+| 3   |      100 |      0 |     1.733 |  2.235 |      3.187 |
 
 Raw samples and timestamp: [benchmark JSON](evidence/outbox-benchmark.json). Run `node extension/benchmark.mjs` to collect a new measurement. Results vary by machine and are not resume claims about production performance.
 

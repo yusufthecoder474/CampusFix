@@ -21,4 +21,3 @@ const child = spawnSync(
   { stdio: "inherit", env: { ...process.env, CAMPUSFIX_NATIVE_TEST: "1" } },
 );
 process.exitCode = child.status ?? 1;
-

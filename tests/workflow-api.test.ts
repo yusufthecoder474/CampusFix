@@ -847,4 +847,3 @@ it("Socket.IO publish failure cannot undo an already committed REST change", asy
     ).rowCount,
   ).toBe(1);
 });
-

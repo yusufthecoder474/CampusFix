@@ -73,4 +73,3 @@ The bundle grows with the new functionality; lazy workspace loading measurably r
 ## Limits
 
 One campus/server/process, synthetic data, no public registration/password reset/uploads/reassignment. Browser notifications remain ephemeral. The optional new outbox delivers a separate simulated provider notification, not durable browser notification history. Reconnect restores state, not missed notification history. No public deployment, TLS runtime verification, remote CI run or team code review is claimed. Native final-milestone verification remains incomplete in a build environment without PostgreSQL/Docker; run the documented Windows gates before claiming a fully verified final release.
-
