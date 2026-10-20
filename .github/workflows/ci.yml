@@ -26,6 +26,10 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run lint
+      - name: Collect formatting diagnostics
+        run: |
+          npx prettier --write tests/workflow-api.test.ts scripts/migrate.ts scripts/test-native.ts docs/evidence/outbox-benchmark.json docs/OUTBOX_TESTING.md README.md
+          git diff -- tests/workflow-api.test.ts scripts/migrate.ts scripts/test-native.ts docs/evidence/outbox-benchmark.json docs/OUTBOX_TESTING.md README.md
       - run: npm run format:check
       - name: Outbox adapter and worker checks
         run: node --test --experimental-test-coverage extension/tests/core.test.mjs
@@ -54,4 +58,5 @@ jobs:
         with:
           name: campusfix-final-evidence
           path: docs/evidence/m5-*.json
+
 
