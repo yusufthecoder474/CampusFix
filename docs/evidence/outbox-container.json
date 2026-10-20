@@ -1,0 +1,8 @@
+{
+  "measuredAt": "2026-10-20T16:20:22.814Z",
+  "fixture": "ff073bbab128",
+  "ready": true,
+  "outboxDelivered": true,
+  "provider": "deskA",
+  "scope": "Native PostgreSQL plus built API, mock and one-shot worker containers; synthetic data"
+}

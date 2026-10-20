@@ -68,7 +68,7 @@ For primary-failure fallback, restart the mock server with `$env:MOCK_PRIMARY_UN
 
 ## Evidence boundaries
 
-The new adapter/worker checks ran locally. New PostgreSQL integration, full frontend regression, Docker execution and cloud deployment remain **pending**. Existing historical results must not be relabeled as tests of this extension. [The test report](../docs/OUTBOX_TESTING.md) distinguishes measured results from acceptance gates.
+The adapter/worker checks ran locally and in [successful hosted CI](https://github.com/yusufthecoder474/CampusFix/actions/runs/39456233174). Seven new native PostgreSQL scenarios, the existing backend/React/native suites, 16 native browser checks and a built-container smoke test passed. The default backend run skipped two native-only races; the native run covered them separately. Public cloud deployment and Windows runtime checks remain unverified. Historical results are not relabeled as extension results. [The test report](../docs/OUTBOX_TESTING.md) distinguishes measured results from acceptance gates.
 
 ## Screens and architecture
 

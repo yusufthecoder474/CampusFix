@@ -37,7 +37,7 @@ The new native test creates a random private schema and removes it in a finally 
 
 `Dockerfile` builds React and backend code, installs runtime-only dependencies and runs as the unprivileged Node user. `compose.delivery.yaml` adds app, worker and mock processes without creating another database or modifying `compose.yaml`.
 
-These files are **provided but unexecuted here**. Use a new local PowerShell window and set `DATABASE_URL` privately to the existing synthetic database using a hostname reachable from containers. On Docker Desktop, `host.docker.internal` can reach the host's mapped PostgreSQL port; `127.0.0.1` from a container refers to that container. Do not change the original database volume credentials.
+The image, API readiness and one-shot worker/provider/receipt flow were verified in [hosted Linux CI](https://github.com/yusufthecoder474/CampusFix/actions/runs/39456233174). This exact Docker Desktop Compose arrangement and Windows host connectivity were not independently executed. Use a new local PowerShell window and set `DATABASE_URL` privately to the existing synthetic database using a hostname reachable from containers. On Docker Desktop, `host.docker.internal` can reach the host's mapped PostgreSQL port; `127.0.0.1` from a container refers to that container. Do not change the original database volume credentials.
 
 ```powershell
 docker compose -p campusfix-delivery -f compose.delivery.yaml config --quiet
@@ -48,6 +48,8 @@ docker compose -p campusfix-delivery -f compose.delivery.yaml down
 ```
 
 Run the migration from the host before starting this stack. Stop the original application process if it already uses port 3100; leave the original database running. This Compose override explicitly uses development mode for loopback HTTP and should not be exposed publicly. The production image expects an HTTPS `APP_ORIGIN`; do not copy local cookie settings to a public service. Shutdown uses the existing backend signal handling; worker shutdown finishes its current attempt and closes its pool.
+
+For the CI-only container acceptance command, use a disposable `_test` database and explicit opt-in: `CAMPUSFIX_CONTAINER_TEST=1 node --import tsx extension/container-smoke.mjs` under Bash. The script creates and removes its own schema and containers. Do not run it against an application database.
 
 The image build copies source but excludes `.env`, dependencies, VCS files and local evidence. Memory/CPU limits are starting configuration values, not validated capacity or a performance claim.
 
