@@ -8,5 +8,6 @@ playwright-report/
 test-results/
 
 !docs/evidence/*.log
-.env.*
-!.env.example
+
+# Generated verification evidence remains local unless deliberately archived.
+docs/evidence/thales-local/

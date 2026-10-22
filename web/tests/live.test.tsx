@@ -4,6 +4,7 @@ import { render } from "./render";
 import { SessionProvider } from "../src/session";
 import { ApiClient } from "../src/api";
 import { useLive } from "../src/live";
+import { QueryClient } from "@tanstack/react-query";
 const fixture = vi.hoisted(() => {
   const handlers = new Map<string, Function>(),
     manager = new Map<string, Function>();
@@ -77,4 +78,31 @@ it("socket hook subscribes once, handles reconnect/stale events and cleans every
   expect(fixture.handlers.size).toBe(0);
   expect(fixture.manager.size).toBe(0);
   expect(fixture.socket.disconnect).toHaveBeenCalled();
+});
+
+it("each connect invalidates authoritative REST caches without replaying notifications", async () => {
+  fixture.factory.mockClear();
+  vi.spyOn(ApiClient.prototype, "me").mockResolvedValue({
+    user: { id: "reconnect", role: "student", displayName: "Demo" },
+    csrfToken: "x",
+  });
+  const invalidate = vi.spyOn(QueryClient.prototype, "invalidateQueries");
+  const view = render(
+    <SessionProvider>
+      <Probe />
+    </SessionProvider>,
+  );
+  await waitFor(() => expect(fixture.factory).toHaveBeenCalledOnce());
+  fixture.handlers.get("connect")!();
+  await waitFor(() =>
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["history"] }),
+  );
+  fixture.handlers.get("disconnect")!();
+  invalidate.mockClear();
+  fixture.handlers.get("connect")!();
+  await waitFor(() => expect(invalidate).toHaveBeenCalledTimes(3));
+  for (const key of ["requests", "request", "history"])
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: [key] });
+  expect(await screen.findByText("Updates 0")).toBeVisible();
+  view.unmount();
 });

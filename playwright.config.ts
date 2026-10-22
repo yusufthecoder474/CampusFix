@@ -10,7 +10,12 @@ export default defineConfig({
   retries: 0,
   reporter: [
     ["list"],
-    ["json", { outputFile: "docs/evidence/m5-browser-results.json" }],
+    [
+      "json",
+      {
+        outputFile: `${process.env.CAMPUSFIX_EVIDENCE_DIR ?? "docs/evidence"}/m5-browser-results.json`,
+      },
+    ],
   ],
   use: {
     ...devices["Desktop Chrome"],

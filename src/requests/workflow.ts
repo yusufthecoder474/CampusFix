@@ -40,90 +40,99 @@ export class WorkflowService {
           ? "technician"
           : "student";
     if (actor.role !== permittedRole) throw new ApiError(403, "FORBIDDEN");
-    return this.db.transaction(async (tx) => {
-      const [row] = await tx
-        .select()
-        .from(requests)
-        .where(eq(requests.id, id))
-        .for("update");
-      if (
-        !row ||
-        (actor.role === "student" && row.reporterId !== actor.id) ||
-        (actor.role === "technician" && row.assigneeId !== actor.id)
-      )
-        throw new ApiError(404, "NOT_FOUND");
-      if (row.version !== input.expectedVersion)
-        throw new ApiError(409, "STALE_VERSION");
-      const from = {
-        triage: "reported",
-        assign: "available",
-        resolve: "in_progress",
-        reopen: "resolved",
-        close: "resolved",
-      }[input.action];
-      if (
-        row.status !== from ||
-        ((input.action === "triage" || input.action === "assign") &&
-          row.assigneeId !== null)
-      )
-        throw new ApiError(409, "INVALID_TRANSITION");
-      let assigneeId = row.assigneeId;
-      if (input.action === "assign") {
-        // Lock target role as well; the composite FK is the independent database safeguard.
-        const [technician] = await tx
-          .select({ id: users.id })
-          .from(users)
-          .where(
-            and(eq(users.id, input.technicianId), eq(users.role, "technician")),
-          )
-          .for("share");
-        if (!technician) throw new ApiError(400, "INVALID_TECHNICIAN");
-        assigneeId = technician.id;
-      }
-      const nextStatus = {
-        triage: "available",
-        assign: "in_progress",
-        resolve: "resolved",
-        reopen: "in_progress",
-        close: "closed",
-      }[input.action];
-      const [updated] = await tx
-        .update(requests)
-        .set({
-          status: nextStatus,
-          assigneeId,
-          version: row.version + 1,
-          updatedAt: new Date(),
-          resolutionNote:
-            input.action === "resolve"
-              ? input.note
-              : input.action === "reopen"
-                ? null
-                : row.resolutionNote,
-        })
-        .where(
-          and(eq(requests.id, id), eq(requests.version, input.expectedVersion)),
+    return this.db.transaction(
+      async (tx) => {
+        const [row] = await tx
+          .select()
+          .from(requests)
+          .where(eq(requests.id, id))
+          .for("update");
+        if (
+          !row ||
+          (actor.role === "student" && row.reporterId !== actor.id) ||
+          (actor.role === "technician" && row.assigneeId !== actor.id)
         )
-        .returning();
-      if (!updated) throw new ApiError(409, "STALE_VERSION");
-      await tx.insert(events).values({
-        requestId: id,
-        actorId: actor.id,
-        action: input.action,
-        previousStatus: row.status,
-        nextStatus,
-        requestVersion: updated.version,
-        assigneeId,
-        note: "note" in input ? input.note : null,
-      });
-      if (actor.role !== "technician") return updated;
-      const {
-        reporterId: _reporter,
-        description: _description,
-        ...safe
-      } = updated;
-      return safe;
-    });
+          throw new ApiError(404, "NOT_FOUND");
+        if (row.version !== input.expectedVersion)
+          throw new ApiError(409, "STALE_VERSION");
+        const from = {
+          triage: "reported",
+          assign: "available",
+          resolve: "in_progress",
+          reopen: "resolved",
+          close: "resolved",
+        }[input.action];
+        if (
+          row.status !== from ||
+          ((input.action === "triage" || input.action === "assign") &&
+            row.assigneeId !== null)
+        )
+          throw new ApiError(409, "INVALID_TRANSITION");
+        let assigneeId = row.assigneeId;
+        if (input.action === "assign") {
+          // Lock target role as well; the composite FK is the independent database safeguard.
+          const [technician] = await tx
+            .select({ id: users.id })
+            .from(users)
+            .where(
+              and(
+                eq(users.id, input.technicianId),
+                eq(users.role, "technician"),
+              ),
+            )
+            .for("share");
+          if (!technician) throw new ApiError(400, "INVALID_TECHNICIAN");
+          assigneeId = technician.id;
+        }
+        const nextStatus = {
+          triage: "available",
+          assign: "in_progress",
+          resolve: "resolved",
+          reopen: "in_progress",
+          close: "closed",
+        }[input.action];
+        const [updated] = await tx
+          .update(requests)
+          .set({
+            status: nextStatus,
+            assigneeId,
+            version: row.version + 1,
+            updatedAt: new Date(),
+            resolutionNote:
+              input.action === "resolve"
+                ? input.note
+                : input.action === "reopen"
+                  ? null
+                  : row.resolutionNote,
+          })
+          .where(
+            and(
+              eq(requests.id, id),
+              eq(requests.version, input.expectedVersion),
+            ),
+          )
+          .returning();
+        if (!updated) throw new ApiError(409, "STALE_VERSION");
+        await tx.insert(events).values({
+          requestId: id,
+          actorId: actor.id,
+          action: input.action,
+          previousStatus: row.status,
+          nextStatus,
+          requestVersion: updated.version,
+          assigneeId,
+          note: "note" in input ? input.note : null,
+        });
+        if (actor.role !== "technician") return updated;
+        const {
+          reporterId: _reporter,
+          description: _description,
+          ...safe
+        } = updated;
+        return safe;
+      },
+      { isolationLevel: "read committed" },
+    );
   }
   async technicians(actor: Principal, page: { page: number; limit: number }) {
     if (actor.role !== "coordinator") throw new ApiError(403, "FORBIDDEN");

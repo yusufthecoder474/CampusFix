@@ -1,4 +1,4 @@
-import { readdir, readFile, writeFile } from "node:fs/promises";
+import { readdir, readFile, writeFile, mkdir } from "node:fs/promises";
 import { gzipSync } from "node:zlib";
 const dir = "dist/web/assets";
 const assets = [];
@@ -22,8 +22,10 @@ const result = {
   initial_bytes: initial.reduce((n, a) => n + a.bytes, 0),
   initial_gzip_bytes: initial.reduce((n, a) => n + a.gzip_bytes, 0),
 };
+const evidence = process.env.CAMPUSFIX_EVIDENCE_DIR ?? "docs/evidence";
+await mkdir(evidence, { recursive: true });
 await writeFile(
-  "docs/evidence/m5-bundle-final.json",
+  `${evidence}/m5-bundle-final.json`,
   JSON.stringify(result, null, 2) + "\n",
 );
 console.log(JSON.stringify(result, null, 2));

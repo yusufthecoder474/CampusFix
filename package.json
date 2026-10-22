@@ -29,7 +29,8 @@
     "test:e2e:realtime": "playwright test --config playwright.realtime.config.ts",
     "test:realtime": "vitest run tests/workflow-api.test.ts -t Socket.IO",
     "test:frontend:serial": "vitest run --config vitest.web.config.ts --maxWorkers=1 --no-file-parallelism",
-    "measure:bundle": "node scripts/measure-bundle.mjs"
+    "measure:bundle": "node scripts/measure-bundle.mjs",
+    "verify:disposable": "node scripts/verify-disposable.mjs"
   },
   "keywords": [],
   "author": "",

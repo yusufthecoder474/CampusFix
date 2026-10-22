@@ -48,7 +48,7 @@ it("failed login gives focused readable error", async () => {
   expect(await screen.findByRole("alert")).toHaveTextContent(
     "Email or password is incorrect",
   );
-  expect(screen.getByRole("alert")).toHaveFocus();
+  await waitFor(() => expect(screen.getByRole("alert")).toHaveFocus());
 });
 it("shows a loading state then an empty result", async () => {
   const api = new ApiClient();

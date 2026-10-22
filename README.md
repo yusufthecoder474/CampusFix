@@ -1,6 +1,6 @@
-# CampusFix — Final VE3 React JS portfolio
+# CampusFix — campus maintenance workflows
 
-CampusFix gives students a clear place to report maintenance issues and follow their progress. Coordinators triage reports and assign technicians; assigned technicians resolve work; reporting students can reopen or confirm closure. Synthetic data only. This independent portfolio project demonstrates practical React engineering for VE3's React JS Intern role.
+CampusFix gives students a clear place to report maintenance issues and follow their progress. Coordinators triage reports and assign technicians; assigned technicians resolve work; reporting students can reopen or confirm closure. Synthetic data only. This independent portfolio project demonstrates TypeScript backend engineering, PostgreSQL transaction correctness and authenticated real-time networking for graduate engineering interviews. The existing React interface is preserved.
 
 ![Desktop CampusFix dashboard](docs/screenshots/dashboard-1440.png)
 
@@ -34,7 +34,30 @@ npm start
 
 Use existing accounts/passwords. Keep the database container running from its original Compose project. If extracting to a new folder, copy the existing .env privately without overwriting another file; do not run setup or start a new Compose project. The environment example is placeholders for fresh setup only, not replacement credentials.
 
-## Testing
+## Reproducible disposable verification
+
+Use Node 24 and Docker with Compose v2. These commands create only a unique,
+temporary PostgreSQL test container; they do not load `.env` or use development
+volumes.
+
+```bash
+node scripts/verify-disposable.mjs --prerequisites
+npm ci
+npx playwright install --with-deps chromium
+npm run verify:disposable -- --skip-install --skip-browser-install
+```
+
+Windows PowerShell: use `npx playwright install chromium` instead. WSL2 uses the
+Linux commands with Docker Desktop integration enabled. See
+[verification commands and cleanup](docs/THALES_VERIFY.md).
+
+[Fresh test report](docs/THALES_REPORT.md) ·
+[request and transaction diagrams](docs/THALES_FLOWS.md) ·
+[HTTP, Socket.IO and reconnect](docs/THALES_NETWORKING.md) ·
+[interview answers](docs/THALES_INTERVIEW.md) ·
+[verified resume bullets](THALES_RESUME_BULLETS.md)
+
+## Existing individual test commands
 
 ```powershell
 npm run test:realtime
@@ -48,7 +71,7 @@ npm run measure:bundle
 npm audit
 ```
 
-[Verification](docs/VERIFICATION.md) states exactly which checks ran here. Default database tests use embedded PGlite, not native PostgreSQL. Native tests require the separate *_test database and never reset application records. Browser regression/workflow/realtime suites use isolated servers/schemas to preserve production rate limits. See [Testing](docs/TESTING.md).
+[Historical verification](docs/VERIFICATION.md) records the original milestone. Use [the Thales report](docs/THALES_REPORT.md) for fresh results. Default database tests use embedded PGlite, not native PostgreSQL. Native tests require the separate *_test database and never reset application records. Browser regression/workflow/realtime suites use isolated servers/schemas to preserve production rate limits. See [Testing](docs/TESTING.md).
 
 ## Live demonstration
 
@@ -68,4 +91,4 @@ The bundle grows with the new functionality; lazy workspace loading measurably r
 
 ## Limits
 
-One campus/server/process, synthetic data, no public registration/password reset/uploads/reassignment. Notifications are ephemeral with no outbox/durable delivery. Reconnect restores state, not missed notification history. No public deployment, TLS runtime verification, remote CI run or team code review is claimed. Native final-milestone verification remains incomplete in a build environment without PostgreSQL/Docker; run the documented Windows gates before claiming a fully verified final release.
+One campus/server/process, synthetic data, no public registration/password reset/uploads/reassignment. Notifications are ephemeral with no outbox/durable delivery. Reconnect restores state, not missed notification history. No public deployment, TLS runtime verification, production load results or team code review is claimed. Actual CI results and local environment limitations are recorded separately in the Thales report. Windows execution remains unverified in this environment. The package declares ISC; the input archive did not include a standalone LICENSE file, and this change preserves that declaration.

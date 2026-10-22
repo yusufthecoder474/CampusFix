@@ -5,18 +5,7 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:18
-        env:
-          POSTGRES_USER: campusfix
-          POSTGRES_PASSWORD: ci-synthetic-password
-          POSTGRES_DB: campusfix_test
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U campusfix -d campusfix_test"
-          --health-interval 5s --health-timeout 5s --health-retries 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,27 +13,16 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm run check
-      - run: npm run lint
-      - run: npm run format:check
-      - run: npm test
-      - run: npm run test:frontend
-      - name: Native PostgreSQL integration suite
-        run: node --import tsx scripts/test-native.ts
-        env:
-          TEST_DATABASE_URL: postgresql://campusfix:ci-synthetic-password@127.0.0.1:5432/campusfix_test
-      - run: npm run build
-      - run: npm run measure:bundle
       - run: npx playwright install --with-deps chromium
-      - name: Native PostgreSQL browser suite
-        run: node --import tsx scripts/e2e-native.ts
-        env:
-          TEST_DATABASE_URL: postgresql://campusfix:ci-synthetic-password@127.0.0.1:5432/campusfix_test
+      - name: Disposable PostgreSQL and complete verification
+        run: npm run verify:disposable -- --skip-install --skip-browser-install
       - run: npm audit --omit=dev --audit-level=high
-
-      - name: Preserve verification evidence
+      - name: Preserve fresh logs and native race evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: campusfix-final-evidence
-          path: docs/evidence/m5-*.json
+          name: campusfix-thales-evidence
+          path: |
+            docs/evidence/thales-local/**
+            test-results/**
+          retention-days: 14

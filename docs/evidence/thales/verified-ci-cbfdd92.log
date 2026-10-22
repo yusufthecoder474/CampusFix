@@ -1,0 +1,1019 @@
+﻿2026-10-22T17:35:48.3145425Z Current runner version: '2.338.0'
+2026-10-22T17:35:48.3183329Z ##[group]Runner Image Provisioner
+2026-10-22T17:35:48.3185154Z Hosted Compute Agent
+2026-10-22T17:35:48.3186228Z Version: 20261012.601
+2026-10-22T17:35:48.3187599Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-22T17:35:48.3189013Z Build Date: 2026-10-12T17:48:21Z
+2026-10-22T17:35:48.3190852Z Worker ID: {878fdce3-13b9-4186-b49d-ced4e8e9a2a1}
+2026-10-22T17:35:48.3192194Z Region: eastus
+2026-10-22T17:35:48.3193282Z Cloud: Azure
+2026-10-22T17:35:48.3194549Z ##[endgroup]
+2026-10-22T17:35:48.3197362Z ##[group]Operating System
+2026-10-22T17:35:48.3198702Z Ubuntu
+2026-10-22T17:35:48.3199675Z 24.04.5
+2026-10-22T17:35:48.3200599Z LTS
+2026-10-22T17:35:48.3201787Z ##[endgroup]
+2026-10-22T17:35:48.3202985Z ##[group]Runner Image
+2026-10-22T17:35:48.3204538Z Image: ubuntu-24.04
+2026-10-22T17:35:48.3205589Z Version: 20261012.334.1
+2026-10-22T17:35:48.3207806Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-22T17:35:48.3210543Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-22T17:35:48.3212576Z ##[endgroup]
+2026-10-22T17:35:48.3214806Z ##[group]GITHUB_TOKEN Permissions
+2026-10-22T17:35:48.3217916Z Contents: read
+2026-10-22T17:35:48.3218965Z Metadata: read
+2026-10-22T17:35:48.3220160Z ##[endgroup]
+2026-10-22T17:35:48.3223305Z Secret source: Actions
+2026-10-22T17:35:48.3225286Z Cache mode: write
+2026-10-22T17:35:48.3226483Z Prepare workflow directory
+2026-10-22T17:35:48.3722438Z Prepare all required actions
+2026-10-22T17:35:48.3797979Z Getting action download info
+2026-10-22T17:35:48.5333057Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-22T17:35:48.6385876Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-22T17:35:48.7231682Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-22T17:35:48.9402556Z Complete job name: check
+2026-10-22T17:35:49.0293891Z ##[group]Run actions/checkout@v4
+2026-10-22T17:35:49.0294855Z with:
+2026-10-22T17:35:49.0295327Z   repository: yusufthecoder474/CampusFix
+2026-10-22T17:35:49.0298991Z   token: ***
+2026-10-22T17:35:49.0299411Z   ssh-strict: true
+2026-10-22T17:35:49.0299832Z   ssh-user: git
+2026-10-22T17:35:49.0300261Z   persist-credentials: true
+2026-10-22T17:35:49.0300727Z   clean: true
+2026-10-22T17:35:49.0301156Z   sparse-checkout-cone-mode: true
+2026-10-22T17:35:49.0301664Z   fetch-depth: 1
+2026-10-22T17:35:49.0302071Z   fetch-tags: false
+2026-10-22T17:35:49.0302495Z   show-progress: true
+2026-10-22T17:35:49.0302919Z   lfs: false
+2026-10-22T17:35:49.0303325Z   submodules: false
+2026-10-22T17:35:49.0303938Z   set-safe-directory: true
+2026-10-22T17:35:49.0304436Z   allow-unsafe-pr-checkout: false
+2026-10-22T17:35:49.0305243Z ##[endgroup]
+2026-10-22T17:35:49.1326091Z Syncing repository: yusufthecoder474/CampusFix
+2026-10-22T17:35:49.1328748Z ##[group]Getting Git version info
+2026-10-22T17:35:49.1329944Z Working directory is '/home/runner/work/CampusFix/CampusFix'
+2026-10-22T17:35:49.1331560Z [command]/usr/bin/git version
+2026-10-22T17:35:49.1382637Z git version 2.55.0
+2026-10-22T17:35:49.1406006Z ##[endgroup]
+2026-10-22T17:35:49.1420083Z Temporarily overriding HOME='/home/runner/work/_temp/dfe9e9b0-672b-45e1-97c1-51ba5e376990' before making global git config changes
+2026-10-22T17:35:49.1422507Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-22T17:35:49.1426937Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/CampusFix/CampusFix
+2026-10-22T17:35:49.1484684Z Deleting the contents of '/home/runner/work/CampusFix/CampusFix'
+2026-10-22T17:35:49.1490296Z ##[group]Initializing the repository
+2026-10-22T17:35:49.1495851Z [command]/usr/bin/git init /home/runner/work/CampusFix/CampusFix
+2026-10-22T17:35:49.1614300Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-22T17:35:49.1616266Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-22T17:35:49.1617322Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-22T17:35:49.1618158Z hint: call:
+2026-10-22T17:35:49.1618878Z hint:
+2026-10-22T17:35:49.1619437Z hint: 	git config --global init.defaultBranch <name>
+2026-10-22T17:35:49.1620092Z hint:
+2026-10-22T17:35:49.1620701Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-22T17:35:49.1621693Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-22T17:35:49.1622488Z hint:
+2026-10-22T17:35:49.1622921Z hint: 	git branch -m <name>
+2026-10-22T17:35:49.1623548Z hint:
+2026-10-22T17:35:49.1625490Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-22T17:35:49.1627695Z Initialized empty Git repository in /home/runner/work/CampusFix/CampusFix/.git/
+2026-10-22T17:35:49.1640347Z [command]/usr/bin/git remote add origin https://github.com/yusufthecoder474/CampusFix
+2026-10-22T17:35:49.1691777Z ##[endgroup]
+2026-10-22T17:35:49.1692643Z ##[group]Disabling automatic garbage collection
+2026-10-22T17:35:49.1695721Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-22T17:35:49.1730045Z ##[endgroup]
+2026-10-22T17:35:49.1731522Z ##[group]Setting up auth
+2026-10-22T17:35:49.1736802Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T17:35:49.1771301Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-22T17:35:49.2151101Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T17:35:49.2192914Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-22T17:35:49.2454883Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-22T17:35:49.2492354Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-22T17:35:49.2727031Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-22T17:35:49.2773085Z ##[endgroup]
+2026-10-22T17:35:49.2774801Z ##[group]Fetching the repository
+2026-10-22T17:35:49.2785645Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +cbfdd92e5d662f211a7a4d2d44673b152d3eefaf:refs/remotes/origin/codex/thales-transactions-networking
+2026-10-22T17:35:49.5292775Z From https://github.com/yusufthecoder474/CampusFix
+2026-10-22T17:35:49.5294819Z  * [new ref]         cbfdd92e5d662f211a7a4d2d44673b152d3eefaf -> origin/codex/thales-transactions-networking
+2026-10-22T17:35:49.5298951Z ##[endgroup]
+2026-10-22T17:35:49.5299913Z ##[group]Determining the checkout info
+2026-10-22T17:35:49.5301786Z ##[endgroup]
+2026-10-22T17:35:49.5308723Z [command]/usr/bin/git sparse-checkout disable
+2026-10-22T17:35:49.5361550Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-22T17:35:49.5394936Z ##[group]Checking out the ref
+2026-10-22T17:35:49.5399969Z [command]/usr/bin/git checkout --progress --force -B codex/thales-transactions-networking refs/remotes/origin/codex/thales-transactions-networking
+2026-10-22T17:35:49.5546771Z Switched to a new branch 'codex/thales-transactions-networking'
+2026-10-22T17:35:49.5552873Z branch 'codex/thales-transactions-networking' set up to track 'origin/codex/thales-transactions-networking'.
+2026-10-22T17:35:49.5559350Z ##[endgroup]
+2026-10-22T17:35:49.5601940Z [command]/usr/bin/git log -1 --format=%H
+2026-10-22T17:35:49.5629053Z cbfdd92e5d662f211a7a4d2d44673b152d3eefaf
+2026-10-22T17:35:49.5915614Z ##[group]Run actions/setup-node@v4
+2026-10-22T17:35:49.5916395Z with:
+2026-10-22T17:35:49.5916790Z   node-version: 24
+2026-10-22T17:35:49.5917211Z   cache: npm
+2026-10-22T17:35:49.5917618Z   always-auth: false
+2026-10-22T17:35:49.5918058Z   check-latest: false
+2026-10-22T17:35:49.5921616Z   token: ***
+2026-10-22T17:35:49.5922032Z ##[endgroup]
+2026-10-22T17:35:49.7363577Z Found in cache @ /opt/hostedtoolcache/node/24.21.0/x64
+2026-10-22T17:35:49.7368700Z (node:2341) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-22T17:35:49.7370291Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-22T17:35:49.7371931Z ##[group]Environment details
+2026-10-22T17:35:50.1137139Z node: v24.21.0
+2026-10-22T17:35:50.1137649Z npm: 11.19.0
+2026-10-22T17:35:50.1137960Z yarn: 1.22.22
+2026-10-22T17:35:50.1139175Z ##[endgroup]
+2026-10-22T17:35:50.1195234Z [command]/opt/hostedtoolcache/node/24.21.0/x64/bin/npm config get cache
+2026-10-22T17:35:50.2321307Z /home/runner/.npm
+2026-10-22T17:35:50.3128617Z npm cache is not found
+2026-10-22T17:35:50.3268664Z ##[group]Run npm ci
+2026-10-22T17:35:50.3269062Z [36;1mnpm ci[0m
+2026-10-22T17:35:50.3531569Z shell: /usr/bin/bash -e {0}
+2026-10-22T17:35:50.3531952Z ##[endgroup]
+2026-10-22T17:35:57.6591812Z 
+2026-10-22T17:35:57.6602204Z added 426 packages, and audited 427 packages in 7s
+2026-10-22T17:35:57.6602839Z 
+2026-10-22T17:35:57.6603214Z 89 packages are looking for funding
+2026-10-22T17:35:57.6604180Z   run `npm fund` for details
+2026-10-22T17:35:57.6610557Z 
+2026-10-22T17:35:57.6611340Z found 0 vulnerabilities
+2026-10-22T17:35:57.6621596Z npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+2026-10-22T17:35:57.6622854Z npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+2026-10-22T17:35:57.6623840Z npm warn install-scripts
+2026-10-22T17:35:57.6625004Z npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+2026-10-22T17:35:57.7270107Z ##[group]Run npx playwright install --with-deps chromium
+2026-10-22T17:35:57.7270611Z [36;1mnpx playwright install --with-deps chromium[0m
+2026-10-22T17:35:57.7338059Z shell: /usr/bin/bash -e {0}
+2026-10-22T17:35:57.7338361Z ##[endgroup]
+2026-10-22T17:35:58.6214997Z Installing dependencies...
+2026-10-22T17:35:58.6303561Z Switching to root user to install dependencies...
+2026-10-22T17:35:58.7355531Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-22T17:35:58.7691666Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-10-22T17:35:58.7880148Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-22T17:35:58.7894400Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-10-22T17:35:58.7942663Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-10-22T17:35:58.7966225Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-10-22T17:35:58.8535775Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [631 kB]
+2026-10-22T17:35:58.8676088Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.4 kB]
+2026-10-22T17:35:58.8688206Z Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [568 kB]
+2026-10-22T17:35:58.9678583Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1400 kB]
+2026-10-22T17:35:58.9775856Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [310 kB]
+2026-10-22T17:35:58.9781064Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1706 kB]
+2026-10-22T17:35:58.9861876Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+2026-10-22T17:35:58.9886175Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1805 kB]
+2026-10-22T17:35:58.9995248Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [411 kB]
+2026-10-22T17:35:59.0925544Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1146 kB]
+2026-10-22T17:35:59.0975243Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [231 kB]
+2026-10-22T17:35:59.0988337Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1222 kB]
+2026-10-22T17:35:59.1048095Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [246 kB]
+2026-10-22T17:35:59.1489860Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1713 kB]
+2026-10-22T17:35:59.1585708Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [392 kB]
+2026-10-22T17:36:02.1380487Z Fetched 12.5 MB in 1s (9631 kB/s)
+2026-10-22T17:36:03.0793347Z Reading package lists...
+2026-10-22T17:36:03.1029558Z Reading package lists...
+2026-10-22T17:36:03.2925370Z Building dependency tree...
+2026-10-22T17:36:03.2932986Z Reading state information...
+2026-10-22T17:36:03.4397922Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+2026-10-22T17:36:03.4398931Z libasound2t64 set to manually installed.
+2026-10-22T17:36:03.4399824Z libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-22T17:36:03.4400718Z libatk-bridge2.0-0t64 set to manually installed.
+2026-10-22T17:36:03.4401554Z libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-22T17:36:03.4402313Z libatk1.0-0t64 set to manually installed.
+2026-10-22T17:36:03.4403114Z libatspi2.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-22T17:36:03.4404079Z libatspi2.0-0t64 set to manually installed.
+2026-10-22T17:36:03.4404826Z libcairo2 is already the newest version (1.18.0-3build1).
+2026-10-22T17:36:03.4405521Z libcairo2 set to manually installed.
+2026-10-22T17:36:03.4406323Z libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+2026-10-22T17:36:03.4407781Z libcups2t64 set to manually installed.
+2026-10-22T17:36:03.4408637Z libdbus-1-3 is already the newest version (1.14.10-4ubuntu4.1).
+2026-10-22T17:36:03.4409403Z libdbus-1-3 set to manually installed.
+2026-10-22T17:36:03.4410142Z libdrm2 is already the newest version (2.4.125-1ubuntu0.1~24.04.2).
+2026-10-22T17:36:03.4410850Z libdrm2 set to manually installed.
+2026-10-22T17:36:03.4411604Z libgbm1 is already the newest version (25.2.8-0ubuntu0.24.04.4).
+2026-10-22T17:36:03.4412031Z libgbm1 set to manually installed.
+2026-10-22T17:36:03.4412446Z libnspr4 is already the newest version (2:4.35-1.1build1).
+2026-10-22T17:36:03.4412832Z libnspr4 set to manually installed.
+2026-10-22T17:36:03.4413258Z libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+2026-10-22T17:36:03.4414192Z libpango-1.0-0 set to manually installed.
+2026-10-22T17:36:03.4414780Z libx11-6 is already the newest version (2:1.8.7-1ubuntu0.1).
+2026-10-22T17:36:03.4415193Z libx11-6 set to manually installed.
+2026-10-22T17:36:03.4415611Z libxcb1 is already the newest version (1.15-1ubuntu2).
+2026-10-22T17:36:03.4415990Z libxcb1 set to manually installed.
+2026-10-22T17:36:03.4416700Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+2026-10-22T17:36:03.4417147Z libxcomposite1 set to manually installed.
+2026-10-22T17:36:03.4417572Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+2026-10-22T17:36:03.4417975Z libxdamage1 set to manually installed.
+2026-10-22T17:36:03.4418367Z libxext6 is already the newest version (2:1.3.4-1build2).
+2026-10-22T17:36:03.4419070Z libxext6 set to manually installed.
+2026-10-22T17:36:03.4419780Z libxfixes3 is already the newest version (1:6.0.0-2build1).
+2026-10-22T17:36:03.4420546Z libxfixes3 set to manually installed.
+2026-10-22T17:36:03.4421289Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+2026-10-22T17:36:03.4421892Z libxkbcommon0 set to manually installed.
+2026-10-22T17:36:03.4422314Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+2026-10-22T17:36:03.4422723Z libxrandr2 set to manually installed.
+2026-10-22T17:36:03.4423407Z fonts-noto-color-emoji is already the newest version (2.047-0ubuntu0.24.04.1).
+2026-10-22T17:36:03.4424768Z libfontconfig1 is already the newest version (2.15.0-1.1ubuntu2).
+2026-10-22T17:36:03.4425593Z libfontconfig1 set to manually installed.
+2026-10-22T17:36:03.4426305Z libfreetype6 is already the newest version (2.13.2+dfsg-1ubuntu0.2).
+2026-10-22T17:36:03.4426757Z libfreetype6 set to manually installed.
+2026-10-22T17:36:03.4427187Z fonts-liberation is already the newest version (1:2.1.5-3).
+2026-10-22T17:36:03.4427611Z fonts-liberation set to manually installed.
+2026-10-22T17:36:03.4428020Z The following additional packages will be installed:
+2026-10-22T17:36:03.4428886Z   gir1.2-glib-2.0 libglib2.0-bin libglib2.0-data libnss3-tools
+2026-10-22T17:36:03.4429665Z   xfonts-encodings xfonts-utils xserver-common
+2026-10-22T17:36:03.4430286Z Suggested packages:
+2026-10-22T17:36:03.4430702Z   low-memory-monitor
+2026-10-22T17:36:03.4431185Z Recommended packages:
+2026-10-22T17:36:03.4431812Z   fonts-ipafont-mincho fonts-tlwg-loma xfonts-base
+2026-10-22T17:36:03.4636542Z The following NEW packages will be installed:
+2026-10-22T17:36:03.4637536Z   fonts-freefont-ttf fonts-ipafont-gothic fonts-tlwg-loma-otf fonts-unifont
+2026-10-22T17:36:03.4643004Z   fonts-wqy-zenhei xfonts-cyrillic xfonts-encodings xfonts-scalable
+2026-10-22T17:36:03.4643960Z   xfonts-utils
+2026-10-22T17:36:03.4647601Z The following packages will be upgraded:
+2026-10-22T17:36:03.4648838Z   gir1.2-glib-2.0 libglib2.0-0t64 libglib2.0-bin libglib2.0-data libnss3
+2026-10-22T17:36:03.4653022Z   libnss3-tools xserver-common xvfb
+2026-10-22T17:36:03.4818563Z 8 upgraded, 9 newly installed, 0 to remove and 89 not upgraded.
+2026-10-22T17:36:03.4819047Z Need to get 25.9 MB of archives.
+2026-10-22T17:36:03.4819505Z After this operation, 79.5 MB of additional disk space will be used.
+2026-10-22T17:36:03.4820012Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-22T17:36:03.5115657Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-ipafont-gothic all 00303-21ubuntu1 [3513 kB]
+2026-10-22T17:36:03.5475607Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libglib2.0-data all 2.80.0-6ubuntu3.10 [50.2 kB]
+2026-10-22T17:36:03.5654874Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libglib2.0-bin amd64 2.80.0-6ubuntu3.10 [97.9 kB]
+2026-10-22T17:36:03.5800883Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 gir1.2-glib-2.0 amd64 2.80.0-6ubuntu3.10 [183 kB]
+2026-10-22T17:36:03.5950542Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libglib2.0-0t64 amd64 2.80.0-6ubuntu3.10 [1548 kB]
+2026-10-22T17:36:03.6180039Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 fonts-freefont-ttf all 20211204+svn4273-2 [5641 kB]
+2026-10-22T17:36:03.6630800Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-tlwg-loma-otf all 1:0.7.3-1 [107 kB]
+2026-10-22T17:36:03.6776312Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-unifont all 1:15.1.01-1build1 [2993 kB]
+2026-10-22T17:36:03.7083946Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-wqy-zenhei all 0.9.45-8 [7472 kB]
+2026-10-22T17:36:03.7646899Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libnss3 amd64 2:3.98-1ubuntu0.3 [1445 kB]
+2026-10-22T17:36:03.8039305Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libnss3-tools amd64 2:3.98-1ubuntu0.3 [615 kB]
+2026-10-22T17:36:03.8976351Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-encodings all 1:1.0.5-0ubuntu2 [578 kB]
+2026-10-22T17:36:03.9210159Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-utils amd64 1:7.7+6build3 [94.4 kB]
+2026-10-22T17:36:03.9360325Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 xfonts-cyrillic all 1:1.0.5+nmu1 [384 kB]
+2026-10-22T17:36:03.9548790Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-scalable all 1:1.0.3-1.3 [304 kB]
+2026-10-22T17:36:03.9728941Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 xserver-common all 2:21.1.12-1ubuntu1.9 [35.0 kB]
+2026-10-22T17:36:03.9874052Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 xvfb amd64 2:21.1.12-1ubuntu1.9 [877 kB]
+2026-10-22T17:36:04.2453113Z Fetched 25.9 MB in 1s (49.2 MB/s)
+2026-10-22T17:36:04.2678562Z Selecting previously unselected package fonts-ipafont-gothic.
+2026-10-22T17:36:04.2958840Z (Reading database ... 
+2026-10-22T17:36:04.2959589Z (Reading database ... 5%
+2026-10-22T17:36:04.2960101Z (Reading database ... 10%
+2026-10-22T17:36:04.2960497Z (Reading database ... 15%
+2026-10-22T17:36:04.2960875Z (Reading database ... 20%
+2026-10-22T17:36:04.2961244Z (Reading database ... 25%
+2026-10-22T17:36:04.2961615Z (Reading database ... 30%
+2026-10-22T17:36:04.2961977Z (Reading database ... 35%
+2026-10-22T17:36:04.2962335Z (Reading database ... 40%
+2026-10-22T17:36:04.2962688Z (Reading database ... 45%
+2026-10-22T17:36:04.2963096Z (Reading database ... 50%
+2026-10-22T17:36:04.2995004Z (Reading database ... 55%
+2026-10-22T17:36:04.4183893Z (Reading database ... 60%
+2026-10-22T17:36:04.6124143Z (Reading database ... 65%
+2026-10-22T17:36:04.8128373Z (Reading database ... 70%
+2026-10-22T17:36:05.0168711Z (Reading database ... 75%
+2026-10-22T17:36:05.1123330Z (Reading database ... 80%
+2026-10-22T17:36:05.3153412Z (Reading database ... 85%
+2026-10-22T17:36:05.4362105Z (Reading database ... 90%
+2026-10-22T17:36:05.5440001Z (Reading database ... 95%
+2026-10-22T17:36:05.5440681Z (Reading database ... 100%
+2026-10-22T17:36:05.5441689Z (Reading database ... 203540 files and directories currently installed.)
+2026-10-22T17:36:05.5481086Z Preparing to unpack .../00-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
+2026-10-22T17:36:05.5575794Z Unpacking fonts-ipafont-gothic (00303-21ubuntu1) ...
+2026-10-22T17:36:05.7944447Z Preparing to unpack .../01-libglib2.0-data_2.80.0-6ubuntu3.10_all.deb ...
+2026-10-22T17:36:05.7962232Z Unpacking libglib2.0-data (2.80.0-6ubuntu3.10) over (2.80.0-6ubuntu3.9) ...
+2026-10-22T17:36:05.8287329Z Preparing to unpack .../02-libglib2.0-bin_2.80.0-6ubuntu3.10_amd64.deb ...
+2026-10-22T17:36:05.8304549Z Unpacking libglib2.0-bin (2.80.0-6ubuntu3.10) over (2.80.0-6ubuntu3.9) ...
+2026-10-22T17:36:05.8774132Z Preparing to unpack .../03-gir1.2-glib-2.0_2.80.0-6ubuntu3.10_amd64.deb ...
+2026-10-22T17:36:05.8790917Z Unpacking gir1.2-glib-2.0:amd64 (2.80.0-6ubuntu3.10) over (2.80.0-6ubuntu3.9) ...
+2026-10-22T17:36:05.9174330Z Preparing to unpack .../04-libglib2.0-0t64_2.80.0-6ubuntu3.10_amd64.deb ...
+2026-10-22T17:36:05.9234713Z Unpacking libglib2.0-0t64:amd64 (2.80.0-6ubuntu3.10) over (2.80.0-6ubuntu3.9) ...
+2026-10-22T17:36:05.9648296Z Selecting previously unselected package fonts-freefont-ttf.
+2026-10-22T17:36:05.9775371Z Preparing to unpack .../05-fonts-freefont-ttf_20211204+svn4273-2_all.deb ...
+2026-10-22T17:36:05.9783309Z Unpacking fonts-freefont-ttf (20211204+svn4273-2) ...
+2026-10-22T17:36:06.0579788Z Selecting previously unselected package fonts-tlwg-loma-otf.
+2026-10-22T17:36:06.0703531Z Preparing to unpack .../06-fonts-tlwg-loma-otf_1%3a0.7.3-1_all.deb ...
+2026-10-22T17:36:06.0710760Z Unpacking fonts-tlwg-loma-otf (1:0.7.3-1) ...
+2026-10-22T17:36:06.0911182Z Selecting previously unselected package fonts-unifont.
+2026-10-22T17:36:06.1035077Z Preparing to unpack .../07-fonts-unifont_1%3a15.1.01-1build1_all.deb ...
+2026-10-22T17:36:06.1041949Z Unpacking fonts-unifont (1:15.1.01-1build1) ...
+2026-10-22T17:36:06.2101921Z Selecting previously unselected package fonts-wqy-zenhei.
+2026-10-22T17:36:06.2228356Z Preparing to unpack .../08-fonts-wqy-zenhei_0.9.45-8_all.deb ...
+2026-10-22T17:36:06.2327343Z Unpacking fonts-wqy-zenhei (0.9.45-8) ...
+2026-10-22T17:36:06.7055143Z Preparing to unpack .../09-libnss3_2%3a3.98-1ubuntu0.3_amd64.deb ...
+2026-10-22T17:36:06.7083176Z Unpacking libnss3:amd64 (2:3.98-1ubuntu0.3) over (2:3.98-1ubuntu0.2) ...
+2026-10-22T17:36:06.7570921Z Preparing to unpack .../10-libnss3-tools_2%3a3.98-1ubuntu0.3_amd64.deb ...
+2026-10-22T17:36:06.7588457Z Unpacking libnss3-tools (2:3.98-1ubuntu0.3) over (2:3.98-1ubuntu0.2) ...
+2026-10-22T17:36:06.7967189Z Selecting previously unselected package xfonts-encodings.
+2026-10-22T17:36:06.8094347Z Preparing to unpack .../11-xfonts-encodings_1%3a1.0.5-0ubuntu2_all.deb ...
+2026-10-22T17:36:06.8099327Z Unpacking xfonts-encodings (1:1.0.5-0ubuntu2) ...
+2026-10-22T17:36:06.8384476Z Selecting previously unselected package xfonts-utils.
+2026-10-22T17:36:06.8509804Z Preparing to unpack .../12-xfonts-utils_1%3a7.7+6build3_amd64.deb ...
+2026-10-22T17:36:06.8517769Z Unpacking xfonts-utils (1:7.7+6build3) ...
+2026-10-22T17:36:06.8820920Z Selecting previously unselected package xfonts-cyrillic.
+2026-10-22T17:36:06.8945871Z Preparing to unpack .../13-xfonts-cyrillic_1%3a1.0.5+nmu1_all.deb ...
+2026-10-22T17:36:06.8953555Z Unpacking xfonts-cyrillic (1:1.0.5+nmu1) ...
+2026-10-22T17:36:06.9267451Z Selecting previously unselected package xfonts-scalable.
+2026-10-22T17:36:06.9391623Z Preparing to unpack .../14-xfonts-scalable_1%3a1.0.3-1.3_all.deb ...
+2026-10-22T17:36:06.9398744Z Unpacking xfonts-scalable (1:1.0.3-1.3) ...
+2026-10-22T17:36:06.9738527Z Preparing to unpack .../15-xserver-common_2%3a21.1.12-1ubuntu1.9_all.deb ...
+2026-10-22T17:36:06.9757164Z Unpacking xserver-common (2:21.1.12-1ubuntu1.9) over (2:21.1.12-1ubuntu1.8) ...
+2026-10-22T17:36:07.0086669Z Preparing to unpack .../16-xvfb_2%3a21.1.12-1ubuntu1.9_amd64.deb ...
+2026-10-22T17:36:07.0105389Z Unpacking xvfb (2:21.1.12-1ubuntu1.9) over (2:21.1.12-1ubuntu1.8) ...
+2026-10-22T17:36:07.0642515Z Setting up fonts-wqy-zenhei (0.9.45-8) ...
+2026-10-22T17:36:07.0769461Z Setting up fonts-freefont-ttf (20211204+svn4273-2) ...
+2026-10-22T17:36:07.0785854Z Setting up libnss3:amd64 (2:3.98-1ubuntu0.3) ...
+2026-10-22T17:36:07.0802872Z Setting up libglib2.0-0t64:amd64 (2.80.0-6ubuntu3.10) ...
+2026-10-22T17:36:07.0952892Z Setting up libglib2.0-data (2.80.0-6ubuntu3.10) ...
+2026-10-22T17:36:07.0971815Z Setting up fonts-tlwg-loma-otf (1:0.7.3-1) ...
+2026-10-22T17:36:07.0989481Z Setting up xfonts-encodings (1:1.0.5-0ubuntu2) ...
+2026-10-22T17:36:07.1007497Z Setting up gir1.2-glib-2.0:amd64 (2.80.0-6ubuntu3.10) ...
+2026-10-22T17:36:07.1025178Z Setting up fonts-ipafont-gothic (00303-21ubuntu1) ...
+2026-10-22T17:36:07.1091015Z update-alternatives: using /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf to provide /usr/share/fonts/truetype/fonts-japanese-gothic.ttf (fonts-japanese-gothic.ttf) in auto mode
+2026-10-22T17:36:07.1106174Z Setting up xserver-common (2:21.1.12-1ubuntu1.9) ...
+2026-10-22T17:36:07.1127818Z Setting up libnss3-tools (2:3.98-1ubuntu0.3) ...
+2026-10-22T17:36:07.1147133Z Setting up fonts-unifont (1:15.1.01-1build1) ...
+2026-10-22T17:36:07.1164724Z Setting up xvfb (2:21.1.12-1ubuntu1.9) ...
+2026-10-22T17:36:07.1182456Z Setting up libglib2.0-bin (2.80.0-6ubuntu3.10) ...
+2026-10-22T17:36:07.1201391Z Setting up xfonts-utils (1:7.7+6build3) ...
+2026-10-22T17:36:07.1239436Z Setting up xfonts-cyrillic (1:1.0.5+nmu1) ...
+2026-10-22T17:36:07.1526673Z Setting up xfonts-scalable (1:1.0.3-1.3) ...
+2026-10-22T17:36:07.1793575Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+2026-10-22T17:36:07.2099534Z Processing triggers for man-db (2.12.0-4build2) ...
+2026-10-22T17:36:07.2118820Z Not building database; man-db/auto-update is not 'true'.
+2026-10-22T17:36:07.2129152Z Processing triggers for fontconfig (2.15.0-1.1ubuntu2) ...
+2026-10-22T17:36:07.8274929Z 
+2026-10-22T17:36:07.8275725Z Running kernel seems to be up-to-date.
+2026-10-22T17:36:07.8276132Z 
+2026-10-22T17:36:07.8276328Z Restarting services...
+2026-10-22T17:36:07.8722734Z  systemctl restart packagekit.service php8.3-fpm.service polkit.service udisks2.service
+2026-10-22T17:36:07.9984750Z 
+2026-10-22T17:36:07.9985733Z Service restarts being deferred:
+2026-10-22T17:36:07.9986585Z  systemctl restart ModemManager.service
+2026-10-22T17:36:07.9987368Z  systemctl restart networkd-dispatcher.service
+2026-10-22T17:36:07.9987932Z 
+2026-10-22T17:36:07.9988241Z No containers need to be restarted.
+2026-10-22T17:36:07.9988926Z 
+2026-10-22T17:36:07.9989282Z No user sessions are running outdated binaries.
+2026-10-22T17:36:07.9989653Z 
+2026-10-22T17:36:07.9990188Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-22T17:36:08.9058112Z Downloading Chrome for Testing 156.0.8078.4 (playwright chromium v1248) from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip
+2026-10-22T17:36:09.3017106Z |                                                                                |   0% of 191.1 MiB
+2026-10-22T17:36:09.4738502Z |■■■■■■■■                                                                        |  10% of 191.1 MiB
+2026-10-22T17:36:09.5701669Z |■■■■■■■■■■■■■■■■                                                                |  20% of 191.1 MiB
+2026-10-22T17:36:09.6732837Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 191.1 MiB
+2026-10-22T17:36:09.7536547Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 191.1 MiB
+2026-10-22T17:36:09.8378945Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 191.1 MiB
+2026-10-22T17:36:09.9260022Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 191.1 MiB
+2026-10-22T17:36:10.0187135Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 191.1 MiB
+2026-10-22T17:36:10.1202127Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 191.1 MiB
+2026-10-22T17:36:10.2515627Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 191.1 MiB
+2026-10-22T17:36:10.3402639Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 191.1 MiB
+2026-10-22T17:36:13.6492281Z Chrome for Testing 156.0.8078.4 (playwright chromium v1248) downloaded to /home/runner/.cache/ms-playwright/chromium-1248
+2026-10-22T17:36:13.6497099Z Downloading FFmpeg (playwright ffmpeg v1013) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1013/ffmpeg-linux.zip
+2026-10-22T17:36:14.0344326Z |                                                                                |   0% of 2.2 MiB
+2026-10-22T17:36:14.0481823Z |■■■■■■■■                                                                        |  10% of 2.2 MiB
+2026-10-22T17:36:14.0572168Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.2 MiB
+2026-10-22T17:36:14.0624470Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.2 MiB
+2026-10-22T17:36:14.0678697Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.2 MiB
+2026-10-22T17:36:14.0717484Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.2 MiB
+2026-10-22T17:36:14.0747398Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.2 MiB
+2026-10-22T17:36:14.0766617Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.2 MiB
+2026-10-22T17:36:14.0797404Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.2 MiB
+2026-10-22T17:36:14.0821805Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.2 MiB
+2026-10-22T17:36:14.0842296Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.2 MiB
+2026-10-22T17:36:14.1487705Z FFmpeg (playwright ffmpeg v1013) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1013
+2026-10-22T17:36:14.1490884Z Downloading Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-headless-shell-linux64.zip
+2026-10-22T17:36:14.5295299Z |                                                                                |   0% of 120 MiB
+2026-10-22T17:36:14.6995939Z |■■■■■■■■                                                                        |  10% of 120 MiB
+2026-10-22T17:36:14.7840504Z |■■■■■■■■■■■■■■■■                                                                |  20% of 120 MiB
+2026-10-22T17:36:14.8456995Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 120 MiB
+2026-10-22T17:36:14.9193407Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 120 MiB
+2026-10-22T17:36:14.9620641Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 120 MiB
+2026-10-22T17:36:15.0040212Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 120 MiB
+2026-10-22T17:36:15.0618751Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 120 MiB
+2026-10-22T17:36:15.1041327Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 120 MiB
+2026-10-22T17:36:15.1465912Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 120 MiB
+2026-10-22T17:36:15.2032282Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+2026-10-22T17:36:17.5922726Z Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+2026-10-22T17:36:17.6251912Z ##[group]Run npm run verify:disposable -- --skip-install --skip-browser-install
+2026-10-22T17:36:17.6252523Z [36;1mnpm run verify:disposable -- --skip-install --skip-browser-install[0m
+2026-10-22T17:36:17.6316367Z shell: /usr/bin/bash -e {0}
+2026-10-22T17:36:17.6316625Z ##[endgroup]
+2026-10-22T17:36:17.7365823Z 
+2026-10-22T17:36:17.7366492Z > campusfix@0.5.0 verify:disposable
+2026-10-22T17:36:17.7367298Z > node scripts/verify-disposable.mjs --skip-install --skip-browser-install
+2026-10-22T17:36:17.7367792Z 
+2026-10-22T17:36:17.7721412Z npm-version
+2026-10-22T17:36:17.8589042Z 11.19.0
+2026-10-22T17:36:17.8589480Z 
+2026-10-22T17:36:17.8589931Z docker-version
+2026-10-22T17:36:17.9481684Z 28.0.4
+2026-10-22T17:36:17.9481980Z 
+2026-10-22T17:36:17.9482141Z compose-version
+2026-10-22T17:36:18.1588146Z Docker Compose version v2.38.2
+2026-10-22T17:36:18.1588517Z 
+2026-10-22T17:36:18.1588863Z database-start
+2026-10-22T17:36:29.6530677Z  db Pulling 
+2026-10-22T17:36:29.6531096Z  f2be67225471 Pulling fs layer 
+2026-10-22T17:36:29.6531420Z  36f05ca1a259 Pulling fs layer 
+2026-10-22T17:36:29.6531706Z  92accee5624e Pulling fs layer 
+2026-10-22T17:36:29.6531987Z  5bf0df4dfeec Pulling fs layer 
+2026-10-22T17:36:29.6532269Z  fc259989795e Pulling fs layer 
+2026-10-22T17:36:29.6532550Z  33e59af3458c Pulling fs layer 
+2026-10-22T17:36:29.6532839Z  bea9e19f5a74 Pulling fs layer 
+2026-10-22T17:36:29.6533132Z  19f779d0bd48 Pulling fs layer 
+2026-10-22T17:36:29.6533418Z  cf9efa127f85 Pulling fs layer 
+2026-10-22T17:36:29.6533979Z  af1084bcb355 Pulling fs layer 
+2026-10-22T17:36:29.6534268Z  40ebd398ec37 Pulling fs layer 
+2026-10-22T17:36:29.6534582Z  00490e632b75 Pulling fs layer 
+2026-10-22T17:36:29.6534883Z  8ed0c854313a Pulling fs layer 
+2026-10-22T17:36:29.6535227Z  5bf0df4dfeec Waiting 
+2026-10-22T17:36:29.6535515Z  fc259989795e Waiting 
+2026-10-22T17:36:29.6535750Z  33e59af3458c Waiting 
+2026-10-22T17:36:29.6556395Z  bea9e19f5a74 Waiting 
+2026-10-22T17:36:29.6556784Z  19f779d0bd48 Waiting 
+2026-10-22T17:36:29.6557171Z  cf9efa127f85 Waiting 
+2026-10-22T17:36:29.6557442Z  af1084bcb355 Waiting 
+2026-10-22T17:36:29.6557674Z  8ed0c854313a Waiting 
+2026-10-22T17:36:29.6557905Z  40ebd398ec37 Waiting 
+2026-10-22T17:36:29.6558123Z  00490e632b75 Waiting 
+2026-10-22T17:36:29.6558529Z  36f05ca1a259 Downloading [==================================================>]  1.166kB/1.166kB
+2026-10-22T17:36:29.6558964Z  36f05ca1a259 Verifying Checksum 
+2026-10-22T17:36:29.6559247Z  36f05ca1a259 Download complete 
+2026-10-22T17:36:29.6559718Z  92accee5624e Downloading [>                                                  ]  64.94kB/6.443MB
+2026-10-22T17:36:29.6560281Z  f2be67225471 Downloading [>                                                  ]  310.7kB/29.84MB
+2026-10-22T17:36:29.6560832Z  5bf0df4dfeec Downloading [>                                                  ]  15.79kB/1.257MB
+2026-10-22T17:36:29.6561251Z  92accee5624e Verifying Checksum 
+2026-10-22T17:36:29.6561535Z  92accee5624e Download complete 
+2026-10-22T17:36:29.6561867Z  5bf0df4dfeec Verifying Checksum 
+2026-10-22T17:36:29.6562145Z  5bf0df4dfeec Download complete 
+2026-10-22T17:36:29.6562551Z  fc259989795e Downloading [>                                                  ]  97.71kB/8.204MB
+2026-10-22T17:36:29.6563093Z  33e59af3458c Downloading [>                                                  ]  15.79kB/1.312MB
+2026-10-22T17:36:29.6563498Z  33e59af3458c Verifying Checksum 
+2026-10-22T17:36:29.6564065Z  33e59af3458c Download complete 
+2026-10-22T17:36:29.6564481Z  f2be67225471 Downloading [===========================================>       ]  25.84MB/29.84MB
+2026-10-22T17:36:29.6564900Z  fc259989795e Verifying Checksum 
+2026-10-22T17:36:29.6565198Z  fc259989795e Download complete 
+2026-10-22T17:36:29.6565603Z  bea9e19f5a74 Downloading [==================================================>]     116B/116B
+2026-10-22T17:36:29.6566017Z  bea9e19f5a74 Verifying Checksum 
+2026-10-22T17:36:29.6566291Z  bea9e19f5a74 Download complete 
+2026-10-22T17:36:29.6566911Z  f2be67225471 Verifying Checksum 
+2026-10-22T17:36:29.6567216Z  f2be67225471 Download complete 
+2026-10-22T17:36:29.6567634Z  19f779d0bd48 Downloading [==================================================>]  3.142kB/3.142kB
+2026-10-22T17:36:29.6568050Z  19f779d0bd48 Verifying Checksum 
+2026-10-22T17:36:29.6568516Z  19f779d0bd48 Download complete 
+2026-10-22T17:36:29.6569002Z  af1084bcb355 Downloading [=========>                                         ]  3.501kB/19.43kB
+2026-10-22T17:36:29.6569426Z  af1084bcb355 Download complete 
+2026-10-22T17:36:29.6570015Z  cf9efa127f85 Downloading [>                                                  ]  526.3kB/115.4MB
+2026-10-22T17:36:29.6570845Z  f2be67225471 Extracting [>                                                  ]  327.7kB/29.84MB
+2026-10-22T17:36:29.6571522Z  00490e632b75 Downloading [============================>                      ]  3.502kB/6.111kB
+2026-10-22T17:36:29.6572180Z  00490e632b75 Downloading [==================================================>]  6.111kB/6.111kB
+2026-10-22T17:36:29.6572642Z  00490e632b75 Verifying Checksum 
+2026-10-22T17:36:29.6572925Z  00490e632b75 Download complete 
+2026-10-22T17:36:29.6573486Z  40ebd398ec37 Downloading [==================================================>]     128B/128B
+2026-10-22T17:36:29.6574081Z  40ebd398ec37 Verifying Checksum 
+2026-10-22T17:36:29.6574490Z  40ebd398ec37 Download complete 
+2026-10-22T17:36:29.6574972Z  8ed0c854313a Downloading [==================================================>]     185B/185B
+2026-10-22T17:36:29.6575379Z  8ed0c854313a Verifying Checksum 
+2026-10-22T17:36:29.6575788Z  8ed0c854313a Download complete 
+2026-10-22T17:36:29.6576477Z  f2be67225471 Extracting [==========>                                        ]  6.554MB/29.84MB
+2026-10-22T17:36:29.6577477Z  cf9efa127f85 Downloading [=>                                                 ]  4.209MB/115.4MB
+2026-10-22T17:36:29.6578239Z  f2be67225471 Extracting [=================>                                 ]  10.16MB/29.84MB
+2026-10-22T17:36:29.6579064Z  cf9efa127f85 Downloading [=====>                                             ]  11.62MB/115.4MB
+2026-10-22T17:36:29.6579625Z  cf9efa127f85 Downloading [================>                                  ]  37.82MB/115.4MB
+2026-10-22T17:36:29.6580439Z  f2be67225471 Extracting [=====================>                             ]  12.78MB/29.84MB
+2026-10-22T17:36:29.6580993Z  f2be67225471 Extracting [================================>                  ]  19.33MB/29.84MB
+2026-10-22T17:36:29.6581860Z  cf9efa127f85 Downloading [===========================>                       ]  62.91MB/115.4MB
+2026-10-22T17:36:29.6582502Z  cf9efa127f85 Downloading [======================================>            ]  88.58MB/115.4MB
+2026-10-22T17:36:29.6583136Z  f2be67225471 Extracting [==========================================>        ]  25.56MB/29.84MB
+2026-10-22T17:36:29.6583550Z  cf9efa127f85 Verifying Checksum 
+2026-10-22T17:36:29.6584287Z  cf9efa127f85 Download complete 
+2026-10-22T17:36:29.6584771Z  f2be67225471 Extracting [===========================================>       ]  26.21MB/29.84MB
+2026-10-22T17:36:29.6585515Z  f2be67225471 Extracting [================================================>  ]  28.84MB/29.84MB
+2026-10-22T17:36:29.6586046Z  f2be67225471 Extracting [================================================>  ]  29.16MB/29.84MB
+2026-10-22T17:36:29.6586741Z  f2be67225471 Extracting [==================================================>]  29.84MB/29.84MB
+2026-10-22T17:36:29.6587134Z  f2be67225471 Pull complete 
+2026-10-22T17:36:29.6587798Z  36f05ca1a259 Extracting [==================================================>]  1.166kB/1.166kB
+2026-10-22T17:36:29.6588341Z  36f05ca1a259 Extracting [==================================================>]  1.166kB/1.166kB
+2026-10-22T17:36:29.6588881Z  36f05ca1a259 Pull complete 
+2026-10-22T17:36:29.6589283Z  92accee5624e Extracting [>                                                  ]  65.54kB/6.443MB
+2026-10-22T17:36:29.6590199Z  92accee5624e Extracting [==================================================>]  6.443MB/6.443MB
+2026-10-22T17:36:29.6590648Z  92accee5624e Pull complete 
+2026-10-22T17:36:29.6591224Z  5bf0df4dfeec Extracting [=>                                                 ]  32.77kB/1.257MB
+2026-10-22T17:36:29.6591862Z  5bf0df4dfeec Extracting [==================================================>]  1.257MB/1.257MB
+2026-10-22T17:36:29.6592334Z  5bf0df4dfeec Pull complete 
+2026-10-22T17:36:29.6592867Z  fc259989795e Extracting [>                                                  ]   98.3kB/8.204MB
+2026-10-22T17:36:29.6593395Z  fc259989795e Extracting [=======================>                           ]  3.932MB/8.204MB
+2026-10-22T17:36:29.6595170Z  fc259989795e Extracting [====================================>              ]  5.997MB/8.204MB
+2026-10-22T17:36:29.6595748Z  fc259989795e Extracting [==================================================>]  8.204MB/8.204MB
+2026-10-22T17:36:29.6596312Z  fc259989795e Pull complete 
+2026-10-22T17:36:29.6596775Z  33e59af3458c Extracting [=>                                                 ]  32.77kB/1.312MB
+2026-10-22T17:36:29.6597443Z  33e59af3458c Extracting [==================================================>]  1.312MB/1.312MB
+2026-10-22T17:36:29.6597863Z  33e59af3458c Pull complete 
+2026-10-22T17:36:29.6598271Z  bea9e19f5a74 Extracting [==================================================>]     116B/116B
+2026-10-22T17:36:29.6598975Z  bea9e19f5a74 Extracting [==================================================>]     116B/116B
+2026-10-22T17:36:29.6599382Z  bea9e19f5a74 Pull complete 
+2026-10-22T17:36:29.6599935Z  19f779d0bd48 Extracting [==================================================>]  3.142kB/3.142kB
+2026-10-22T17:36:29.6600493Z  19f779d0bd48 Extracting [==================================================>]  3.142kB/3.142kB
+2026-10-22T17:36:29.6601021Z  19f779d0bd48 Pull complete 
+2026-10-22T17:36:29.6601431Z  cf9efa127f85 Extracting [>                                                  ]  557.1kB/115.4MB
+2026-10-22T17:36:29.6602229Z  cf9efa127f85 Extracting [===>                                               ]  7.799MB/115.4MB
+2026-10-22T17:36:29.6602816Z  cf9efa127f85 Extracting [====>                                              ]  10.58MB/115.4MB
+2026-10-22T17:36:29.6603440Z  cf9efa127f85 Extracting [======>                                            ]  15.04MB/115.4MB
+2026-10-22T17:36:29.6604392Z  cf9efa127f85 Extracting [========>                                          ]  18.94MB/115.4MB
+2026-10-22T17:36:29.6605271Z  cf9efa127f85 Extracting [==========>                                        ]  23.95MB/115.4MB
+2026-10-22T17:36:29.6605942Z  cf9efa127f85 Extracting [=============>                                     ]  31.75MB/115.4MB
+2026-10-22T17:36:29.6606700Z  cf9efa127f85 Extracting [=================>                                 ]  40.67MB/115.4MB
+2026-10-22T17:36:29.6607253Z  cf9efa127f85 Extracting [=====================>                             ]  49.58MB/115.4MB
+2026-10-22T17:36:29.6607967Z  cf9efa127f85 Extracting [========================>                          ]  56.26MB/115.4MB
+2026-10-22T17:36:29.6608500Z  cf9efa127f85 Extracting [===========================>                       ]  62.39MB/115.4MB
+2026-10-22T17:36:29.6609389Z  cf9efa127f85 Extracting [===============================>                   ]  71.86MB/115.4MB
+2026-10-22T17:36:29.6610039Z  cf9efa127f85 Extracting [==================================>                ]  80.77MB/115.4MB
+2026-10-22T17:36:29.6611027Z  cf9efa127f85 Extracting [======================================>            ]  89.13MB/115.4MB
+2026-10-22T17:36:29.6611722Z  cf9efa127f85 Extracting [=========================================>         ]  96.93MB/115.4MB
+2026-10-22T17:36:29.6612330Z  cf9efa127f85 Extracting [===========================================>       ]  100.3MB/115.4MB
+2026-10-22T17:36:29.6613044Z  cf9efa127f85 Extracting [============================================>      ]  102.5MB/115.4MB
+2026-10-22T17:36:29.6614319Z  cf9efa127f85 Extracting [==============================================>    ]  106.4MB/115.4MB
+2026-10-22T17:36:29.6614960Z  cf9efa127f85 Extracting [===============================================>   ]  109.2MB/115.4MB
+2026-10-22T17:36:29.6615722Z  cf9efa127f85 Extracting [================================================>  ]  111.4MB/115.4MB
+2026-10-22T17:36:29.6616256Z  cf9efa127f85 Extracting [================================================>  ]  113.1MB/115.4MB
+2026-10-22T17:36:29.6616964Z  cf9efa127f85 Extracting [=================================================> ]  113.6MB/115.4MB
+2026-10-22T17:36:29.6617499Z  cf9efa127f85 Extracting [=================================================> ]  114.2MB/115.4MB
+2026-10-22T17:36:29.6618390Z  cf9efa127f85 Extracting [==================================================>]  115.4MB/115.4MB
+2026-10-22T17:36:29.6618979Z  cf9efa127f85 Pull complete 
+2026-10-22T17:36:29.6619768Z  af1084bcb355 Extracting [==================================================>]  19.43kB/19.43kB
+2026-10-22T17:36:29.6620685Z  af1084bcb355 Extracting [==================================================>]  19.43kB/19.43kB
+2026-10-22T17:36:29.6621089Z  af1084bcb355 Pull complete 
+2026-10-22T17:36:29.6621708Z  40ebd398ec37 Extracting [==================================================>]     128B/128B
+2026-10-22T17:36:29.6622263Z  40ebd398ec37 Extracting [==================================================>]     128B/128B
+2026-10-22T17:36:29.6622808Z  40ebd398ec37 Pull complete 
+2026-10-22T17:36:29.6623220Z  00490e632b75 Extracting [==================================================>]  6.111kB/6.111kB
+2026-10-22T17:36:29.6624083Z  00490e632b75 Extracting [==================================================>]  6.111kB/6.111kB
+2026-10-22T17:36:29.6624531Z  00490e632b75 Pull complete 
+2026-10-22T17:36:29.6624926Z  8ed0c854313a Extracting [==================================================>]     185B/185B
+2026-10-22T17:36:29.6625635Z  8ed0c854313a Extracting [==================================================>]     185B/185B
+2026-10-22T17:36:29.6626025Z  8ed0c854313a Pull complete 
+2026-10-22T17:36:29.6626308Z  db Pulled 
+2026-10-22T17:36:29.6626731Z  Network campusfix-check-mvjtomll-087b174a_default  Creating
+2026-10-22T17:36:29.6627200Z  Network campusfix-check-mvjtomll-087b174a_default  Created
+2026-10-22T17:36:29.6627820Z  Container campusfix-check-mvjtomll-087b174a-db-1  Creating
+2026-10-22T17:36:29.6628279Z  Container campusfix-check-mvjtomll-087b174a-db-1  Created
+2026-10-22T17:36:29.6628855Z  Container campusfix-check-mvjtomll-087b174a-db-1  Starting
+2026-10-22T17:36:29.6629309Z  Container campusfix-check-mvjtomll-087b174a-db-1  Started
+2026-10-22T17:36:29.6629738Z  Container campusfix-check-mvjtomll-087b174a-db-1  Waiting
+2026-10-22T17:36:29.6630340Z  Container campusfix-check-mvjtomll-087b174a-db-1  Healthy
+2026-10-22T17:36:29.6630599Z 
+2026-10-22T17:36:29.6630693Z database-port
+2026-10-22T17:36:29.7160553Z 127.0.0.1:32768
+2026-10-22T17:36:29.7160786Z 
+2026-10-22T17:36:29.7161235Z typecheck
+2026-10-22T17:36:30.7388485Z 
+2026-10-22T17:36:30.7389107Z > campusfix@0.5.0 check
+2026-10-22T17:36:30.7389800Z > npm run check:backend && tsc -p web/tsconfig.json
+2026-10-22T17:36:30.7390234Z 
+2026-10-22T17:36:30.7390245Z 
+2026-10-22T17:36:30.7390505Z > campusfix@0.5.0 check:backend
+2026-10-22T17:36:30.7390934Z > tsc --noEmit
+2026-10-22T17:36:30.7391142Z 
+2026-10-22T17:36:30.7391150Z 
+2026-10-22T17:36:30.7391297Z lint
+2026-10-22T17:36:32.6320943Z 
+2026-10-22T17:36:32.6321465Z > campusfix@0.5.0 lint
+2026-10-22T17:36:32.6322030Z > eslint src scripts tests web/src web/tests e2e *.config.ts
+2026-10-22T17:36:32.6322373Z 
+2026-10-22T17:36:32.6322379Z 
+2026-10-22T17:36:32.6322496Z format-check
+2026-10-22T17:36:34.5196237Z 
+2026-10-22T17:36:34.5196762Z > campusfix@0.5.0 format:check
+2026-10-22T17:36:34.5197698Z > prettier --check src tests scripts docs web e2e *.md *.config.ts eslint.config.js
+2026-10-22T17:36:34.5198318Z 
+2026-10-22T17:36:34.5198511Z Checking formatting...
+2026-10-22T17:36:34.5199063Z All matched files use Prettier code style!
+2026-10-22T17:36:34.5199401Z 
+2026-10-22T17:36:34.5199924Z backend
+2026-10-22T17:36:45.9714461Z 
+2026-10-22T17:36:45.9714989Z 
+2026-10-22T17:36:45.9716385Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T17:36:45.9718462Z [22m[39m{"event":"http_request","requestId":"9cc9cf3f-aa18-416c-a8cf-594da627f478","method":"POST","status":200,"durationMs":6}
+2026-10-22T17:36:45.9719360Z 
+2026-10-22T17:36:45.9720479Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T17:36:45.9722505Z [22m[39m{"event":"http_request","requestId":"0e282aca-15b1-44d7-9e98-3c7402090af3","method":"POST","status":500,"durationMs":7}
+2026-10-22T17:36:45.9724042Z 
+2026-10-22T17:36:45.9725107Z [90mstderr[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T17:36:45.9726575Z [22m[39m{"event":"request_error","requestId":"0e282aca-15b1-44d7-9e98-3c7402090af3"}
+2026-10-22T17:36:45.9727179Z 
+2026-10-22T17:36:45.9728122Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T17:36:45.9730032Z [22m[39m{"event":"http_request","requestId":"d8d7941f-6b32-4364-aa34-bfe68eb95eb5","method":"GET","status":200,"durationMs":3}
+2026-10-22T17:36:45.9730941Z 
+2026-10-22T17:36:45.9731919Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T17:36:45.9733991Z [22m[39m{"event":"http_request","requestId":"30b9929f-5716-452b-b8e7-5b78d02fe311","method":"POST","status":200,"durationMs":7}
+2026-10-22T17:36:45.9734814Z 
+2026-10-22T17:36:45.9735902Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mdatabase rejects non-technician assignees and duplicate audit versions
+2026-10-22T17:36:45.9737882Z [22m[39m{"event":"http_request","requestId":"023ea82e-0e55-421f-be50-564c5d2ab272","method":"POST","status":201,"durationMs":5}
+2026-10-22T17:36:45.9738835Z 
+2026-10-22T17:36:45.9739930Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mdatabase rejects non-technician assignees and duplicate audit versions
+2026-10-22T17:36:45.9741952Z [22m[39m{"event":"http_request","requestId":"f59dfd39-725f-477d-b5ef-879bb4bd6c10","method":"POST","status":200,"durationMs":5}
+2026-10-22T17:36:45.9742810Z 
+2026-10-22T17:36:45.9744465Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mversioned history rejects a missing previous status
+2026-10-22T17:36:45.9746671Z [22m[39m{"event":"http_request","requestId":"4c7d654b-2fea-4231-912f-09d132a63414","method":"POST","status":201,"durationMs":11}
+2026-10-22T17:36:45.9747571Z 
+2026-10-22T17:36:45.9748806Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits compact committed creation to coordinator but not unrelated users
+2026-10-22T17:36:45.9750842Z [22m[39m{"event":"http_request","requestId":"5962b851-9448-496b-9bcf-2653dfe70c80","method":"POST","status":201,"durationMs":23}
+2026-10-22T17:36:45.9751680Z 
+2026-10-22T17:36:45.9752746Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO notifies assigned technician and reporter after assignment
+2026-10-22T17:36:45.9755000Z [22m[39m{"event":"http_request","requestId":"7d70a0ed-62a3-4c6d-86e0-621fc7c3c273","method":"POST","status":201,"durationMs":12}
+2026-10-22T17:36:45.9755848Z 
+2026-10-22T17:36:45.9756926Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO notifies assigned technician and reporter after assignment
+2026-10-22T17:36:45.9758861Z [22m[39m{"event":"http_request","requestId":"0a5363ef-bded-4869-b0fb-42e6197ad3b1","method":"POST","status":200,"durationMs":13}
+2026-10-22T17:36:45.9759715Z 
+2026-10-22T17:36:45.9760825Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO notifies assigned technician and reporter after assignment
+2026-10-22T17:36:45.9763125Z [22m[39m{"event":"http_request","requestId":"f140e45e-cbca-45ba-88b6-d267195a9c80","method":"POST","status":200,"durationMs":23}
+2026-10-22T17:36:45.9764275Z 
+2026-10-22T17:36:45.9765259Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T17:36:45.9767123Z [22m[39m{"event":"http_request","requestId":"c27770b9-b611-46d7-babf-76f5ea3eb81d","method":"POST","status":201,"durationMs":16}
+2026-10-22T17:36:45.9767988Z 
+2026-10-22T17:36:45.9768945Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T17:36:45.9770818Z [22m[39m{"event":"http_request","requestId":"514c4ce6-deb8-41f3-a664-a0366ef86ffb","method":"POST","status":200,"durationMs":11}
+2026-10-22T17:36:45.9771895Z 
+2026-10-22T17:36:45.9772850Z [90mstderr[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T17:36:45.9774608Z [22m[39m{"event":"request_error","requestId":"08c86a76-ef40-40c7-a629-b6be1c5348b6"}
+2026-10-22T17:36:45.9775172Z 
+2026-10-22T17:36:45.9776117Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T17:36:45.9777991Z [22m[39m{"event":"http_request","requestId":"08c86a76-ef40-40c7-a629-b6be1c5348b6","method":"POST","status":500,"durationMs":14}
+2026-10-22T17:36:45.9778846Z 
+2026-10-22T17:36:45.9780507Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2msets HttpOnly SameSite cookies and rotates the current session
+2026-10-22T17:36:45.9782394Z [22m[39m{"event":"http_request","requestId":"37bd9eef-334b-4f5c-a0bf-0d0c86a96b3b","method":"POST","status":200,"durationMs":899}
+2026-10-22T17:36:45.9783345Z 
+2026-10-22T17:36:45.9785321Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2msets HttpOnly SameSite cookies and rotates the current session
+2026-10-22T17:36:45.9787781Z [22m[39m{"event":"http_request","requestId":"dd8fc2a0-33af-45df-b1e3-6f857327b4f8","method":"GET","status":401,"durationMs":3}
+2026-10-22T17:36:45.9788669Z 
+2026-10-22T17:36:45.9790068Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogin rate limit returns JSON errors
+2026-10-22T17:36:45.9792258Z [22m[39m{"event":"http_request","requestId":"001cf041-09d6-47e5-b83b-082066cf2727","method":"POST","status":400,"durationMs":3}
+2026-10-22T17:36:45.9793118Z 
+2026-10-22T17:36:45.9794800Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogin rate limit returns JSON errors
+2026-10-22T17:36:45.9796983Z [22m[39m{"event":"http_request","requestId":"d40a8046-1bfc-4726-9b5e-23de1ca030ef","method":"POST","status":400,"durationMs":1}
+2026-10-22T17:36:45.9797875Z 
+2026-10-22T17:36:45.9799278Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogin rate limit returns JSON errors
+2026-10-22T17:36:45.9801398Z [22m[39m{"event":"http_request","requestId":"c8444b3f-3120-4ad9-87d4-bd89b8c5cedb","method":"POST","status":400,"durationMs":1}
+2026-10-22T17:36:45.9802244Z 
+2026-10-22T17:36:45.9803558Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogin rate limit returns JSON errors
+2026-10-22T17:36:45.9805962Z [22m[39m{"event":"http_request","requestId":"1a7db124-67fb-45e9-b86a-7798cf0ca986","method":"POST","status":429,"durationMs":1}
+2026-10-22T17:36:45.9806801Z 
+2026-10-22T17:36:45.9811157Z  [32m✓[39m tests/integration.test.ts [2m([22m[2m32 tests[22m[2m)[22m[33m 7105[2mms[22m[39m
+2026-10-22T17:36:45.9812416Z    [32m✓[39m authentication and PostgreSQL-backed requests [2m(32)[22m
+2026-10-22T17:36:45.9813911Z      [33m[2m✓[22m[39m wrong and unknown credentials share the same response[33m 1002[2mms[22m[39m
+2026-10-22T17:36:45.9815609Z      [33m[2m✓[22m[39m sets HttpOnly SameSite cookies and rotates the current session[33m 916[2mms[22m[39m
+2026-10-22T17:36:45.9817400Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO rechecks a revoked session before delivering private events
+2026-10-22T17:36:45.9819347Z [22m[39m{"event":"http_request","requestId":"e5b0f582-8db3-4999-a2b0-54084a5aa2d4","method":"POST","status":200,"durationMs":2008}
+2026-10-22T17:36:45.9820212Z 
+2026-10-22T17:36:45.9821275Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO rechecks a revoked session before delivering private events
+2026-10-22T17:36:45.9823179Z [22m[39m{"event":"http_request","requestId":"fd8c2e29-6653-4f36-a364-1c17598b4d43","method":"POST","status":204,"durationMs":2}
+2026-10-22T17:36:45.9824491Z 
+2026-10-22T17:36:45.9825632Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO rechecks a revoked session before delivering private events
+2026-10-22T17:36:45.9827686Z [22m[39m{"event":"http_request","requestId":"b5e4defb-7de8-4cd6-b1e5-21712cb061e1","method":"POST","status":201,"durationMs":5}
+2026-10-22T17:36:45.9828534Z 
+2026-10-22T17:36:45.9829562Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO reconnection has one server connection and one update
+2026-10-22T17:36:45.9831470Z [22m[39m{"event":"http_request","requestId":"4fa4d388-de06-4641-a59e-e0ec1b70562b","method":"POST","status":201,"durationMs":6}
+2026-10-22T17:36:45.9832296Z 
+2026-10-22T17:36:45.9833389Z [90mstderr[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO publish failure cannot undo an already committed REST change
+2026-10-22T17:36:45.9834890Z [22m[39m{"event":"realtime_publish_failed"}
+2026-10-22T17:36:45.9835249Z 
+2026-10-22T17:36:45.9836323Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO publish failure cannot undo an already committed REST change
+2026-10-22T17:36:45.9838289Z [22m[39m{"event":"http_request","requestId":"137846ef-d35a-431e-9543-2cdaa74eaeb3","method":"POST","status":201,"durationMs":6}
+2026-10-22T17:36:45.9839145Z 
+2026-10-22T17:36:45.9840804Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO disconnects a session whose role changed before delivery
+2026-10-22T17:36:45.9842727Z [22m[39m{"event":"http_request","requestId":"45266396-53eb-462a-8c34-752d44dfaf0a","method":"POST","status":200,"durationMs":742}
+2026-10-22T17:36:45.9843579Z 
+2026-10-22T17:36:45.9844914Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO disconnects a session whose role changed before delivery
+2026-10-22T17:36:45.9846953Z [22m[39m{"event":"http_request","requestId":"393aad50-5a5c-4e14-a997-cd2ac76893ee","method":"POST","status":201,"durationMs":5}
+2026-10-22T17:36:45.9847840Z 
+2026-10-22T17:36:45.9848952Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:45.9850927Z [22m[39m{"event":"http_request","requestId":"c7704591-d139-47f2-83a2-0b3598b64450","method":"POST","status":201,"durationMs":5}
+2026-10-22T17:36:45.9851777Z 
+2026-10-22T17:36:45.9852860Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:45.9855301Z [22m[39m{"event":"http_request","requestId":"79118541-be3b-404c-9b1a-1d140b48fd31","method":"GET","status":400,"durationMs":2}
+2026-10-22T17:36:45.9856607Z 
+2026-10-22T17:36:45.9857727Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:45.9859686Z [22m[39m{"event":"http_request","requestId":"27038368-609e-4393-ad68-efa23e365d33","method":"GET","status":400,"durationMs":1}
+2026-10-22T17:36:45.9860548Z 
+2026-10-22T17:36:45.9861753Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:45.9864210Z [22m[39m{"event":"http_request","requestId":"34595fad-5e5b-40be-ad4d-79d04781c693","method":"GET","status":400,"durationMs":1}
+2026-10-22T17:36:45.9865084Z 
+2026-10-22T17:36:45.9866202Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:45.9868146Z [22m[39m{"event":"http_request","requestId":"2c30379e-77dd-48cf-bfa2-ca17edc369fb","method":"GET","status":400,"durationMs":2}
+2026-10-22T17:36:45.9868999Z 
+2026-10-22T17:36:45.9870084Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:45.9872027Z [22m[39m{"event":"http_request","requestId":"bdc22bf8-57a4-4e85-beef-f4c2aa7e7b76","method":"GET","status":400,"durationMs":1}
+2026-10-22T17:36:45.9873065Z 
+2026-10-22T17:36:45.9874925Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:45.9877748Z [22m[39m{"event":"http_request","requestId":"f19ecb91-bb5a-4d7d-83d3-66e3c608df7a","method":"GET","status":200,"durationMs":5}
+2026-10-22T17:36:45.9878613Z 
+2026-10-22T17:36:45.9879702Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:45.9881745Z [22m[39m{"event":"http_request","requestId":"e907da20-4b8e-406a-bf32-c09db15951a2","method":"GET","status":200,"durationMs":11}
+2026-10-22T17:36:45.9882606Z 
+2026-10-22T17:36:45.9883878Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mforbidden workflow actions leave both record and audit unchanged
+2026-10-22T17:36:45.9885866Z [22m[39m{"event":"http_request","requestId":"3c3802f2-b160-48f5-9dad-0e8e368fa461","method":"POST","status":201,"durationMs":7}
+2026-10-22T17:36:45.9886732Z 
+2026-10-22T17:36:45.9887796Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mforbidden workflow actions leave both record and audit unchanged
+2026-10-22T17:36:45.9889774Z [22m[39m{"event":"http_request","requestId":"f343ea2a-7a9d-4424-952b-4673a728b4ee","method":"POST","status":200,"durationMs":6}
+2026-10-22T17:36:45.9891253Z 
+2026-10-22T17:36:45.9892365Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mforbidden workflow actions leave both record and audit unchanged
+2026-10-22T17:36:45.9894576Z [22m[39m{"event":"http_request","requestId":"098f9588-b460-43f8-b9f8-69976a68e6ba","method":"POST","status":200,"durationMs":7}
+2026-10-22T17:36:45.9895426Z 
+2026-10-22T17:36:45.9896460Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mforbidden workflow actions leave both record and audit unchanged
+2026-10-22T17:36:45.9899141Z [22m[39m{"event":"http_request","requestId":"3873dbaa-78b6-4ba7-beaa-84c214164955","method":"POST","status":403,"durationMs":2}
+2026-10-22T17:36:45.9899989Z 
+2026-10-22T17:36:45.9901480Z  [32m✓[39m tests/workflow-api.test.ts [2m([22m[2m33 tests[22m[2m | [22m[33m3 skipped[39m[2m)[22m[33m 9675[2mms[22m[39m
+2026-10-22T17:36:45.9905217Z    [33m[2m✓[22m[39m Socket.IO rechecks a revoked session before delivering private events[33m 2029[2mms[22m[39m
+2026-10-22T17:36:45.9906758Z    [33m[2m✓[22m[39m Socket.IO disconnects a session whose role changed before delivery[33m 762[2mms[22m[39m
+2026-10-22T17:36:45.9907460Z 
+2026-10-22T17:36:45.9907950Z [2m Test Files [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+2026-10-22T17:36:45.9909058Z [2m      Tests [22m [1m[32m90 passed[39m[22m[2m | [22m[33m3 skipped[39m[90m (93)[39m
+2026-10-22T17:36:45.9909913Z [2m   Start at [22m 17:36:34
+2026-10-22T17:36:45.9910731Z [2m   Duration [22m 11.00s[2m (tests 83%, import 14%, transform 2%)[22m
+2026-10-22T17:36:45.9911234Z 
+2026-10-22T17:36:45.9912164Z JSON report written to /home/runner/work/CampusFix/CampusFix/docs/evidence/thales-local/mvjtomll-087b174a/backend.json
+2026-10-22T17:36:45.9913028Z 
+2026-10-22T17:36:45.9913192Z frontend
+2026-10-22T17:36:50.0377351Z 
+2026-10-22T17:36:50.0378027Z > campusfix@0.5.0 test:frontend
+2026-10-22T17:36:50.0379435Z > vitest run --config vitest.web.config.ts --reporter=default --reporter=json --outputFile=/home/runner/work/CampusFix/CampusFix/docs/evidence/thales-local/mvjtomll-087b174a/frontend.json
+2026-10-22T17:36:50.0380183Z 
+2026-10-22T17:36:50.0380190Z 
+2026-10-22T17:36:50.0380839Z [1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90m/home/runner/work/CampusFix/CampusFix[39m
+2026-10-22T17:36:50.0381179Z 
+2026-10-22T17:36:50.0381664Z  [32m✓[39m web/tests/workflow.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[33m 1017[2mms[22m[39m
+2026-10-22T17:36:50.0382412Z  [32m✓[39m web/tests/final.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[33m 991[2mms[22m[39m
+2026-10-22T17:36:50.0384316Z    [33m[2m✓[22m[39m router preserves requested detail during session restoration and renders not-found[33m 381[2mms[22m[39m
+2026-10-22T17:36:50.0385319Z  [32m✓[39m web/tests/ui.test.tsx [2m([22m[2m11 tests[22m[2m)[22m[33m 1626[2mms[22m[39m
+2026-10-22T17:36:50.0386095Z    [33m[2m✓[22m[39m login has accessible fields and submits credentials[33m 509[2mms[22m[39m
+2026-10-22T17:36:50.0386938Z    [33m[2m✓[22m[39m restores cookie session on reload and limits coordinator navigation[33m 356[2mms[22m[39m
+2026-10-22T17:36:50.0388423Z  [32m✓[39m web/tests/api.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-22T17:36:50.0389738Z  [32m✓[39m web/tests/live.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 272[2mms[22m[39m
+2026-10-22T17:36:50.0390387Z 
+2026-10-22T17:36:50.0390968Z [2m Test Files [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+2026-10-22T17:36:50.0392003Z [2m      Tests [22m [1m[32m30 passed[39m[22m[90m (30)[39m
+2026-10-22T17:36:50.0392852Z [2m   Start at [22m 17:36:46
+2026-10-22T17:36:50.0394222Z [2m   Duration [22m 3.60s[2m (tests 43%, environment 43%, setup 6%, import 5%, transform 3%)[22m
+2026-10-22T17:36:50.0394872Z 
+2026-10-22T17:36:50.0395758Z [2mEnvironment [22m [33mjsdom was created 5 times[39m[2m · 3.91s total, 43% of tracked time[22m
+2026-10-22T17:36:50.0398007Z [2m            [22m [2mcreate it once per worker with [22m[33mpool: 'vmThreads'[39m[2m (keeps per-file isolation) or [22m[33misolate: false[39m[2m (shares it across files)[22m
+2026-10-22T17:36:50.0400001Z [2m            [22m [2mlearn more: https://vitest.dev/guide/improving-performance#test-environments[22m
+2026-10-22T17:36:50.0400728Z 
+2026-10-22T17:36:50.0401741Z JSON report written to /home/runner/work/CampusFix/CampusFix/docs/evidence/thales-local/mvjtomll-087b174a/frontend.json
+2026-10-22T17:36:50.0402725Z 
+2026-10-22T17:36:50.0402985Z native-postgresql
+2026-10-22T17:36:59.0309290Z 562b1","method":"GET","status":200,"durationMs":2}
+2026-10-22T17:36:59.0310371Z 
+2026-10-22T17:36:59.0312587Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative controlled two-coordinator race: triage commits once and rejects stale state
+2026-10-22T17:36:59.0315424Z [22m[39m{"event":"http_request","requestId":"c89b209d-8827-497b-8b8f-cf59b998e8b8","method":"GET","status":200,"durationMs":3}
+2026-10-22T17:36:59.0316611Z 
+2026-10-22T17:36:59.0318190Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative controlled two-coordinator race: triage commits once and rejects stale state
+2026-10-22T17:36:59.0319600Z [22m[39m{"event":"http_request","requestId":"38e1c213-73ec-4063-a6f2-1a2f18909c78","method":"POST","status":200,"durationMs":8}
+2026-10-22T17:36:59.0320319Z 
+2026-10-22T17:36:59.0321730Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative controlled two-coordinator race: triage commits once and rejects stale state
+2026-10-22T17:36:59.0324159Z [22m[39m{"event":"http_request","requestId":"fedd7694-6ae9-4785-a1f9-ba07aecc92f9","method":"POST","status":409,"durationMs":9}
+2026-10-22T17:36:59.0325245Z 
+2026-10-22T17:36:59.0326718Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative controlled two-coordinator race: triage commits once and rejects stale state
+2026-10-22T17:36:59.0329191Z [22m[39m{"event":"http_request","requestId":"e472e716-9686-4d13-9316-53e05f9d8862","method":"POST","status":201,"durationMs":3}
+2026-10-22T17:36:59.0330085Z 
+2026-10-22T17:36:59.0331378Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative controlled two-coordinator race: triage commits once and rejects stale state
+2026-10-22T17:36:59.0333468Z [22m[39m{"event":"http_request","requestId":"6e03c11c-51ef-40f7-b50a-a017449faa78","method":"GET","status":200,"durationMs":2}
+2026-10-22T17:36:59.0335023Z 
+2026-10-22T17:36:59.0336284Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative controlled two-coordinator race: triage commits once and rejects stale state
+2026-10-22T17:36:59.0339902Z [22m[39m{"event":"http_request","requestId":"fab7c728-9625-4b5a-9a7c-fc76b533b6a5","method":"GET","status":200,"durationMs":3}
+2026-10-22T17:36:59.0340724Z 
+2026-10-22T17:36:59.0341943Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative controlled two-coordinator race: triage commits once and rejects stale state
+2026-10-22T17:36:59.0344340Z [22m[39m{"event":"http_request","requestId":"2cd03fcb-753a-4f9e-bde3-554e1d06dc9f","method":"POST","status":200,"durationMs":8}
+2026-10-22T17:36:59.0345169Z 
+2026-10-22T17:36:59.0346070Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative controlled two-coordinator race: triage commits once and rejects stale state
+2026-10-22T17:36:59.0347215Z [22m[39m{"event":"http_request","requestId":"ecc4ac74-7b80-440c-a625-5653ad3ea685","method":"POST","status":409,"durationMs":9}
+2026-10-22T17:36:59.0347717Z 
+2026-10-22T17:36:59.0348339Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mworkflow pins READ COMMITTED even when sessions default to REPEATABLE READ
+2026-10-22T17:36:59.0349444Z [22m[39m{"event":"http_request","requestId":"edc56d57-2b55-436c-8f8b-cfc535f966ea","method":"POST","status":201,"durationMs":7}
+2026-10-22T17:36:59.0349901Z 
+2026-10-22T17:36:59.0350507Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mworkflow pins READ COMMITTED even when sessions default to REPEATABLE READ
+2026-10-22T17:36:59.0351565Z [22m[39m{"event":"http_request","requestId":"75f5fb04-e415-4c81-8f63-7f889ddb4e0a","method":"POST","status":200,"durationMs":8}
+2026-10-22T17:36:59.0352268Z 
+2026-10-22T17:36:59.0352886Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mworkflow pins READ COMMITTED even when sessions default to REPEATABLE READ
+2026-10-22T17:36:59.0354510Z [22m[39m{"event":"http_request","requestId":"e0f31246-e6bd-4355-ae17-9e094c3a9939","method":"GET","status":200,"durationMs":13}
+2026-10-22T17:36:59.0355015Z 
+2026-10-22T17:36:59.0355660Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mworkflow pins READ COMMITTED even when sessions default to REPEATABLE READ
+2026-10-22T17:36:59.0356757Z [22m[39m{"event":"http_request","requestId":"80cb568e-ff8f-4629-9010-070f647540bb","method":"GET","status":200,"durationMs":88}
+2026-10-22T17:36:59.0357214Z 
+2026-10-22T17:36:59.0357821Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mworkflow pins READ COMMITTED even when sessions default to REPEATABLE READ
+2026-10-22T17:36:59.0359298Z [22m[39m{"event":"http_request","requestId":"153f6c19-dcdb-473e-bbf0-7e097c0dd3a8","method":"POST","status":200,"durationMs":32}
+2026-10-22T17:36:59.0359776Z 
+2026-10-22T17:36:59.0360397Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mworkflow pins READ COMMITTED even when sessions default to REPEATABLE READ
+2026-10-22T17:36:59.0361466Z [22m[39m{"event":"http_request","requestId":"24a3fd79-5c89-49be-bcc5-95391b16282c","method":"POST","status":409,"durationMs":32}
+2026-10-22T17:36:59.0361928Z 
+2026-10-22T17:36:59.0362428Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mversioned history rejects a missing previous status
+2026-10-22T17:36:59.0364215Z [22m[39m{"event":"http_request","requestId":"12c6709e-0e89-4d4a-9b27-02fa47376255","method":"POST","status":201,"durationMs":4}
+2026-10-22T17:36:59.0364688Z 
+2026-10-22T17:36:59.0365557Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits compact committed creation to coordinator but not unrelated users
+2026-10-22T17:36:59.0366679Z [22m[39m{"event":"http_request","requestId":"3e7cc6c8-01cb-497e-a1e8-70635b3a1baf","method":"POST","status":201,"durationMs":7}
+2026-10-22T17:36:59.0367156Z 
+2026-10-22T17:36:59.0367729Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO notifies assigned technician and reporter after assignment
+2026-10-22T17:36:59.0368765Z [22m[39m{"event":"http_request","requestId":"41de64ec-e4e8-4bda-8d18-cbe511978e5c","method":"POST","status":201,"durationMs":5}
+2026-10-22T17:36:59.0369222Z 
+2026-10-22T17:36:59.0369789Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO notifies assigned technician and reporter after assignment
+2026-10-22T17:36:59.0371029Z [22m[39m{"event":"http_request","requestId":"fd151b17-bc43-4421-b9bf-2fb729ec53c1","method":"POST","status":200,"durationMs":5}
+2026-10-22T17:36:59.0371489Z 
+2026-10-22T17:36:59.0372139Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO notifies assigned technician and reporter after assignment
+2026-10-22T17:36:59.0373166Z [22m[39m{"event":"http_request","requestId":"57224481-74bb-4df3-8cb7-b35f64fe5848","method":"POST","status":200,"durationMs":8}
+2026-10-22T17:36:59.0373890Z 
+2026-10-22T17:36:59.0374504Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T17:36:59.0375527Z [22m[39m{"event":"http_request","requestId":"9bff4467-962e-4dfb-8f7a-3886c054b644","method":"POST","status":201,"durationMs":5}
+2026-10-22T17:36:59.0375993Z 
+2026-10-22T17:36:59.0376503Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T17:36:59.0377514Z [22m[39m{"event":"http_request","requestId":"fb3ba297-f050-4b36-8632-88b2a68a7ce8","method":"POST","status":200,"durationMs":4}
+2026-10-22T17:36:59.0377976Z 
+2026-10-22T17:36:59.0378473Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T17:36:59.0379455Z [22m[39m{"event":"http_request","requestId":"8255139a-5818-464f-9b9b-b5215b52db35","method":"POST","status":500,"durationMs":5}
+2026-10-22T17:36:59.0379907Z 
+2026-10-22T17:36:59.0380398Z [90mstderr[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T17:36:59.0381748Z [22m[39m{"event":"request_error","requestId":"8255139a-5818-464f-9b9b-b5215b52db35"}
+2026-10-22T17:36:59.0382286Z 
+2026-10-22T17:36:59.0383213Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO rechecks a revoked session before delivering private events
+2026-10-22T17:36:59.0384957Z [22m[39m{"event":"http_request","requestId":"cd541245-5cd1-4286-a73c-9b3904f0de74","method":"POST","status":200,"durationMs":1296}
+2026-10-22T17:36:59.0385449Z 
+2026-10-22T17:36:59.0386052Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO rechecks a revoked session before delivering private events
+2026-10-22T17:36:59.0387106Z [22m[39m{"event":"http_request","requestId":"ef1ed852-8929-4096-b755-c67b33358fd8","method":"POST","status":204,"durationMs":2}
+2026-10-22T17:36:59.0387572Z 
+2026-10-22T17:36:59.0388141Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO rechecks a revoked session before delivering private events
+2026-10-22T17:36:59.0389187Z [22m[39m{"event":"http_request","requestId":"395e6002-0de1-462a-a621-96628a8a8ffa","method":"POST","status":201,"durationMs":5}
+2026-10-22T17:36:59.0389643Z 
+2026-10-22T17:36:59.0390192Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO reconnection has one server connection and one update
+2026-10-22T17:36:59.0391223Z [22m[39m{"event":"http_request","requestId":"c2b9801c-a055-4590-bde6-3e90c95f7366","method":"POST","status":201,"durationMs":5}
+2026-10-22T17:36:59.0391679Z 
+2026-10-22T17:36:59.0392432Z [90mstderr[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO publish failure cannot undo an already committed REST change
+2026-10-22T17:36:59.0393116Z [22m[39m{"event":"realtime_publish_failed"}
+2026-10-22T17:36:59.0393323Z 
+2026-10-22T17:36:59.0394180Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO publish failure cannot undo an already committed REST change
+2026-10-22T17:36:59.0395265Z [22m[39m{"event":"http_request","requestId":"df96a043-2a0d-4055-95da-099ff728e956","method":"POST","status":201,"durationMs":4}
+2026-10-22T17:36:59.0395730Z 
+2026-10-22T17:36:59.0396297Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO disconnects a session whose role changed before delivery
+2026-10-22T17:36:59.0397502Z [22m[39m{"event":"http_request","requestId":"8328af31-bdcf-4209-b36e-d49c739c116f","method":"POST","status":200,"durationMs":750}
+2026-10-22T17:36:59.0397978Z 
+2026-10-22T17:36:59.0398539Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO disconnects a session whose role changed before delivery
+2026-10-22T17:36:59.0399572Z [22m[39m{"event":"http_request","requestId":"0c5d6045-1b77-4139-b3e6-f150fef4d3f5","method":"POST","status":201,"durationMs":5}
+2026-10-22T17:36:59.0400028Z 
+2026-10-22T17:36:59.0400596Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:59.0401651Z [22m[39m{"event":"http_request","requestId":"9e4fce5f-3afe-406b-a575-ac4fed48de87","method":"POST","status":201,"durationMs":4}
+2026-10-22T17:36:59.0402122Z 
+2026-10-22T17:36:59.0402696Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:59.0404094Z [22m[39m{"event":"http_request","requestId":"8ceb73ad-09ff-40c0-b975-f830d579cda0","method":"GET","status":400,"durationMs":1}
+2026-10-22T17:36:59.0404577Z 
+2026-10-22T17:36:59.0405168Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:59.0406211Z [22m[39m{"event":"http_request","requestId":"1b51593b-9a6d-498a-9abf-293ea0cc569a","method":"GET","status":400,"durationMs":5}
+2026-10-22T17:36:59.0406671Z 
+2026-10-22T17:36:59.0407249Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:59.0408286Z [22m[39m{"event":"http_request","requestId":"cdd6b5dd-80d5-4947-96c3-100e5317cb9e","method":"GET","status":400,"durationMs":1}
+2026-10-22T17:36:59.0408744Z 
+2026-10-22T17:36:59.0409304Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:59.0410333Z [22m[39m{"event":"http_request","requestId":"a041bc5b-b5d9-439e-8be6-593ede845ba8","method":"GET","status":400,"durationMs":1}
+2026-10-22T17:36:59.0410958Z 
+2026-10-22T17:36:59.0411547Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:59.0412585Z [22m[39m{"event":"http_request","requestId":"9f551d73-73e6-4c9c-8572-42b37735d57e","method":"GET","status":400,"durationMs":1}
+2026-10-22T17:36:59.0413036Z 
+2026-10-22T17:36:59.0413908Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:59.0415023Z [22m[39m{"event":"http_request","requestId":"59a31973-e8cd-44c7-8248-886d3ca4d63d","method":"GET","status":200,"durationMs":4}
+2026-10-22T17:36:59.0415482Z 
+2026-10-22T17:36:59.0416056Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mpagination validates bounds and empty pages retain the scoped total
+2026-10-22T17:36:59.0417098Z [22m[39m{"event":"http_request","requestId":"6b4d33df-6933-4e2e-8dd3-9235733048cb","method":"GET","status":200,"durationMs":4}
+2026-10-22T17:36:59.0417549Z 
+2026-10-22T17:36:59.0418097Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mforbidden workflow actions leave both record and audit unchanged
+2026-10-22T17:36:59.0419290Z [22m[39m{"event":"http_request","requestId":"0e3a184a-886d-40a6-8644-502e61567e7d","method":"POST","status":201,"durationMs":8}
+2026-10-22T17:36:59.0419751Z 
+2026-10-22T17:36:59.0420310Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mforbidden workflow actions leave both record and audit unchanged
+2026-10-22T17:36:59.0421358Z [22m[39m{"event":"http_request","requestId":"c715ae2c-7c59-497b-a4f5-dc5c641046a1","method":"POST","status":200,"durationMs":5}
+2026-10-22T17:36:59.0421834Z 
+2026-10-22T17:36:59.0422388Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mforbidden workflow actions leave both record and audit unchanged
+2026-10-22T17:36:59.0423555Z [22m[39m{"event":"http_request","requestId":"607dfb8d-a7d7-444d-a471-e0c1132fa0af","method":"POST","status":200,"durationMs":6}
+2026-10-22T17:36:59.0424289Z 
+2026-10-22T17:36:59.0424864Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mforbidden workflow actions leave both record and audit unchanged
+2026-10-22T17:36:59.0425914Z [22m[39m{"event":"http_request","requestId":"b66083b7-e263-4539-9575-db99073c462b","method":"POST","status":403,"durationMs":2}
+2026-10-22T17:36:59.0426371Z 
+2026-10-22T17:36:59.0426828Z  [32m✓[39m tests/workflow-api.test.ts [2m([22m[2m33 tests[22m[2m)[22m[33m 7467[2mms[22m[39m
+2026-10-22T17:36:59.0427687Z    [33m[2m✓[22m[39m database rejects non-technician assignees and duplicate audit versions[33m 1172[2mms[22m[39m
+2026-10-22T17:36:59.0428573Z    [33m[2m✓[22m[39m Socket.IO rechecks a revoked session before delivering private events[33m 1312[2mms[22m[39m
+2026-10-22T17:36:59.0429435Z    [33m[2m✓[22m[39m Socket.IO disconnects a session whose role changed before delivery[33m 773[2mms[22m[39m
+2026-10-22T17:36:59.0429837Z 
+2026-10-22T17:36:59.0430116Z [2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+2026-10-22T17:36:59.0430625Z [2m      Tests [22m [1m[32m65 passed[39m[22m[90m (65)[39m
+2026-10-22T17:36:59.0431044Z [2m   Start at [22m 17:36:50
+2026-10-22T17:36:59.0431518Z [2m   Duration [22m 8.50s[2m (tests 87%, import 11%, transform 2%)[22m
+2026-10-22T17:36:59.0431806Z 
+2026-10-22T17:36:59.0432348Z JSON report written to /home/runner/work/CampusFix/CampusFix/docs/evidence/thales-local/mvjtomll-087b174a/m5-native-results.json
+2026-10-22T17:36:59.0432850Z 
+2026-10-22T17:36:59.0432929Z build
+2026-10-22T17:37:00.2400181Z 
+2026-10-22T17:37:00.2400660Z > campusfix@0.5.0 build
+2026-10-22T17:37:00.2401150Z > tsc && npm run build:web
+2026-10-22T17:37:00.2401422Z 
+2026-10-22T17:37:00.2401433Z 
+2026-10-22T17:37:00.2401632Z > campusfix@0.5.0 build:web
+2026-10-22T17:37:00.2401914Z > vite build
+2026-10-22T17:37:00.2402027Z 
+2026-10-22T17:37:00.2402591Z [36mvite v8.3.4 [32mbuilding client environment for production...[36m[39m
+2026-10-22T17:37:00.2402999Z transforming...
+2026-10-22T17:37:00.2403287Z ✓ 109 modules transformed.
+2026-10-22T17:37:00.2403552Z rendering chunks...
+2026-10-22T17:37:00.2404125Z computing gzip size...
+2026-10-22T17:37:00.2404599Z dist/web/index.html                     0.46 kB │ gzip:  0.29 kB
+2026-10-22T17:37:00.2405235Z dist/web/assets/index-DksKtfiS.css      6.99 kB │ gzip:  2.31 kB
+2026-10-22T17:37:00.2405919Z dist/web/assets/Requests-Cv_DCs18.js   14.09 kB │ gzip:  4.24 kB
+2026-10-22T17:37:00.2406464Z dist/web/assets/Layout-C7YjcClF.js     45.62 kB │ gzip: 14.55 kB
+2026-10-22T17:37:00.2407030Z dist/web/assets/index-7-e5oS42.js     305.58 kB │ gzip: 95.96 kB
+2026-10-22T17:37:00.2407287Z 
+2026-10-22T17:37:00.2407458Z [32m✓ built in 178ms[39m
+2026-10-22T17:37:00.2407602Z 
+2026-10-22T17:37:00.2407695Z native-browser
+2026-10-22T17:37:54.7402409Z 
+2026-10-22T17:37:54.7403068Z Running 10 tests using 1 worker
+2026-10-22T17:37:54.7403443Z 
+2026-10-22T17:37:54.7405072Z   ✓   1 [regression] › e2e/workflows.spec.ts:13:1 › student creates, reads, filters, paginates, restores session and logs out (4.0s)
+2026-10-22T17:37:54.7407250Z   ✓   2 [regression] › e2e/workflows.spec.ts:54:1 › coordinator reads campus reports but cannot use student creation (1.1s)
+2026-10-22T17:37:54.7408929Z   ✓   3 [regression] › e2e/workflows.spec.ts:69:1 › technician sees read-only available work and redacted detail (1.9s)
+2026-10-22T17:37:54.7410539Z   ✓   4 [regression] › e2e/workflows.spec.ts:81:1 › lost session returns to sign-in on the next API call (1.2s)
+2026-10-22T17:37:54.7412197Z   ✓   5 [regression] › e2e/workflows.spec.ts:95:1 › list error and empty state are recoverable (1.2s)
+2026-10-22T17:37:54.7413883Z   ✓   6 [regression] › e2e/workflows.spec.ts:111:1 › mobile form is keyboard accessible and does not overflow (1.9s)
+2026-10-22T17:37:54.7415985Z   ✓   7 [workflow] › e2e/workflow-lifecycle.spec.ts:38:3 › maintenance lifecycle › coordinator triages and assigns; stale tab refreshes and other technician loses access (4.3s)
+2026-10-22T17:37:54.7418638Z   ✓   8 [workflow] › e2e/workflow-lifecycle.spec.ts:86:3 › maintenance lifecycle › assigned technician filters assigned work and resolves with an audit note (1.5s)
+2026-10-22T17:37:54.7420959Z   ✓   9 [workflow] › e2e/workflow-lifecycle.spec.ts:105:3 › maintenance lifecycle › student tracks progress and reopens; technician resolves again (329ms)
+2026-10-22T17:37:54.7423182Z   ✓  10 [workflow] › e2e/workflow-lifecycle.spec.ts:122:3 › maintenance lifecycle › student confirms closure and paginates persisted progress history (1.2s)
+2026-10-22T17:37:54.7424981Z 
+2026-10-22T17:37:54.7425139Z   10 passed (28.6s)
+2026-10-22T17:37:54.7425355Z 
+2026-10-22T17:37:54.7425579Z Running 6 tests using 1 worker
+2026-10-22T17:37:54.7425845Z 
+2026-10-22T17:37:54.7426889Z   ✓  1 [realtime] › e2e/realtime.spec.ts:40:1 › four authorized browser contexts synchronize and reconnect without manual refresh (9.9s)
+2026-10-22T17:37:54.7429049Z   ✓  2 [realtime] › e2e/realtime.spec.ts:177:5 › responsive and accessible dashboard › dashboard and forms at 375px have no overflow or axe violations (2.3s)
+2026-10-22T17:37:54.7431249Z   ✓  3 [realtime] › e2e/realtime.spec.ts:177:5 › responsive and accessible dashboard › dashboard and forms at 768px have no overflow or axe violations (2.2s)
+2026-10-22T17:37:54.7433421Z   ✓  4 [realtime] › e2e/realtime.spec.ts:177:5 › responsive and accessible dashboard › dashboard and forms at 1024px have no overflow or axe violations (2.2s)
+2026-10-22T17:37:54.7436335Z   ✓  5 [realtime] › e2e/realtime.spec.ts:177:5 › responsive and accessible dashboard › dashboard and forms at 1440px have no overflow or axe violations (2.2s)
+2026-10-22T17:37:54.7438497Z   ✓  6 [realtime] › e2e/realtime.spec.ts:228:3 › responsive and accessible dashboard › fresh cached list navigation avoids additional list HTTP calls (1.9s)
+2026-10-22T17:37:54.7439518Z 
+2026-10-22T17:37:54.7439666Z   6 passed (24.5s)
+2026-10-22T17:37:54.7439871Z 
+2026-10-22T17:37:54.7440081Z owned-database-cleanup
+2026-10-22T17:37:55.0570893Z  Container campusfix-check-mvjtomll-087b174a-db-1  Stopping
+2026-10-22T17:37:55.0571843Z  Container campusfix-check-mvjtomll-087b174a-db-1  Stopped
+2026-10-22T17:37:55.0573977Z  Container campusfix-check-mvjtomll-087b174a-db-1  Removing
+2026-10-22T17:37:55.0575084Z  Container campusfix-check-mvjtomll-087b174a-db-1  Removed
+2026-10-22T17:37:55.0576270Z  Network campusfix-check-mvjtomll-087b174a_default  Removing
+2026-10-22T17:37:55.0577354Z  Network campusfix-check-mvjtomll-087b174a_default  Removed
+2026-10-22T17:37:55.0578127Z 
+2026-10-22T17:37:55.0579279Z Diagnostic folder: /home/runner/work/CampusFix/CampusFix/docs/evidence/thales-local/mvjtomll-087b174a
+2026-10-22T17:37:55.0723111Z ##[group]Run npm audit --omit=dev --audit-level=high
+2026-10-22T17:37:55.0723539Z [36;1mnpm audit --omit=dev --audit-level=high[0m
+2026-10-22T17:37:55.0787829Z shell: /usr/bin/bash -e {0}
+2026-10-22T17:37:55.0788092Z ##[endgroup]
+2026-10-22T17:37:55.5664681Z found 0 vulnerabilities
+2026-10-22T17:37:55.5829873Z ##[group]Run actions/upload-artifact@v4
+2026-10-22T17:37:55.5830175Z with:
+2026-10-22T17:37:55.5830407Z   name: campusfix-thales-evidence
+2026-10-22T17:37:55.5830719Z   path: docs/evidence/thales-local/**
+test-results/**
+
+2026-10-22T17:37:55.5831028Z   retention-days: 14
+2026-10-22T17:37:55.5831246Z   if-no-files-found: warn
+2026-10-22T17:37:55.5831472Z   compression-level: 6
+2026-10-22T17:37:55.5831679Z   overwrite: false
+2026-10-22T17:37:55.5831891Z   include-hidden-files: false
+2026-10-22T17:37:55.5832126Z ##[endgroup]
+2026-10-22T17:37:55.7494521Z (node:5827) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-22T17:37:55.7495371Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-22T17:37:55.7614958Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-10-22T17:37:55.7617839Z The least common ancestor is /home/runner/work/CampusFix/CampusFix. This will be the root directory of the artifact
+2026-10-22T17:37:55.7619169Z With the provided path, there will be 28 files uploaded
+2026-10-22T17:37:55.7624837Z Artifact name is valid!
+2026-10-22T17:37:55.7625817Z Root directory input is valid!
+2026-10-22T17:37:55.9627557Z Beginning upload of artifact content to blob storage
+2026-10-22T17:37:56.0344889Z (node:5827) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-22T17:37:56.0982277Z Uploaded bytes 509103
+2026-10-22T17:37:56.1151910Z Finished uploading artifact content to blob storage!
+2026-10-22T17:37:56.1153581Z SHA256 digest of uploaded artifact zip is df3487706d90e0ed0d1be96fa571336e106be310dba5347a413e2929c5f5cf4a
+2026-10-22T17:37:56.1155322Z Finalizing artifact upload
+2026-10-22T17:37:56.6009939Z Artifact campusfix-thales-evidence.zip successfully finalized. Artifact ID 12445887848
+2026-10-22T17:37:56.6012104Z Artifact campusfix-thales-evidence has been successfully uploaded! Final size is 509103 bytes. Artifact ID is 12445887848
+2026-10-22T17:37:56.6017667Z Artifact download URL: https://github.com/yusufthecoder474/CampusFix/actions/runs/39824085048/artifacts/12445887848
+2026-10-22T17:37:56.6227340Z Post job cleanup.
+2026-10-22T17:37:56.7450754Z (node:5839) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-22T17:37:56.7451862Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-22T17:37:56.7681214Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/CampusFix/CampusFix --files-from manifest.txt --use-compress-program zstdmt
+2026-10-22T17:37:57.0639908Z Failed to save: Unable to reserve cache with key node-cache-Linux-x64-npm-f157d9c75c92f72b3c3b2a3a374be280241c9201d0e54d966abdb44f7c595cf3, another job may be creating this cache.
+2026-10-22T17:37:57.0831787Z Post job cleanup.
+2026-10-22T17:37:57.1677138Z [command]/usr/bin/git version
+2026-10-22T17:37:57.1720245Z git version 2.55.0
+2026-10-22T17:37:57.1762976Z Temporarily overriding HOME='/home/runner/work/_temp/18138b48-8f98-4519-96a3-9072e90a0995' before making global git config changes
+2026-10-22T17:37:57.1765704Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-22T17:37:57.1769880Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/CampusFix/CampusFix
+2026-10-22T17:37:57.1813138Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T17:37:57.1861772Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-22T17:37:57.2213884Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T17:37:57.2249999Z http.https://github.com/.extraheader
+2026-10-22T17:37:57.2273580Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-22T17:37:57.2336128Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-22T17:37:57.2621394Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-22T17:37:57.2674103Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-22T17:37:57.3088125Z Cleaning up orphan processes
+2026-10-22T17:37:57.3525979Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

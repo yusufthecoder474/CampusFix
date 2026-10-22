@@ -1,0 +1,294 @@
+{
+  "verifiedRevision": "cbfdd92e5d662f211a7a4d2d44673b152d3eefaf",
+  "matchedCodeAndConfigFiles": 72,
+  "files": {
+    ".env.example": {
+      "sha256": "79841a40cadcb69e756276de542a12dc81065af1b13270b04dd979e86a13f6b8",
+      "gitBlob": "0b5ab166cfe43ecafbbf08f75764edf9d6a03678"
+    },
+    ".github/workflows/ci.yml": {
+      "sha256": "c332f6204480b18b38276fb3cd1c5cd403c9df54cffe959cf1ac6701eecc894c",
+      "gitBlob": "d811a354662e0e75669de50456562c650fae968d"
+    },
+    ".gitignore": {
+      "sha256": "58955984accd86bfe085b1483f8e4d11a971c4b3ff50a1352a4f13f770f397fe",
+      "gitBlob": "e9ebd5d805638039eebfe169814d7f33f6d6d7e7"
+    },
+    ".nvmrc": {
+      "sha256": "68ca3fba3b7e864770cb61aeb306d4bd4354b68ab4dd38450860c5d823e42a53",
+      "gitBlob": "a45fd52cc5891570d6299fab38643103c3955474"
+    },
+    ".prettierignore": {
+      "sha256": "94596ad8b30fd818f4793685a2b9d651ee578972a45bd05e01a01526f98793b0",
+      "gitBlob": "7bf280188d2032f9ce82efb5545e04ca7223514b"
+    },
+    "compose.test.yaml": {
+      "sha256": "8a5032e1406891f49cc0e03fd22285aafa9b66aca06e886cc238fa27efab85f6",
+      "gitBlob": "b5d85895f5c87903cfbb891d14b6b485e3fb7645"
+    },
+    "compose.yaml": {
+      "sha256": "8343eedfb6f9e6c5c04c498d74d28c481d44f53a068e2841a248d739ef283d31",
+      "gitBlob": "2307371f0e7baabf29833d69f18cddc3fcb44687"
+    },
+    "db/001_initial.sql": {
+      "sha256": "f6255e5b631fcc14763cde338d70123fb8cb69b3e16f5f42f2768b1c74d72e0e",
+      "gitBlob": "fe68d68952462666e61767c28fa34405f2b20ea4"
+    },
+    "db/002_workflow.sql": {
+      "sha256": "a0db86278642c3c885d5b8b25ab5adb7a2ba733a2848a3005a8e653dfa6ded71",
+      "gitBlob": "01076c9a4acbe272a86113aa3835b44e92ac653d"
+    },
+    "e2e/realtime.spec.ts": {
+      "sha256": "123c50488f794b9730d5d180253ef13a6b91fe8cb54dd26a32f20aebe7dc9d2a",
+      "gitBlob": "19e0d41e9e91253b9dc20436c55bdf5e7996caf3"
+    },
+    "e2e/workflow-lifecycle.spec.ts": {
+      "sha256": "0f723e006812333cba2e28c2459df7dcbd7d78375aa65d61c62ef69ec17c13a9",
+      "gitBlob": "1f1f555b44c9aab8c202053231ce07f903828c90"
+    },
+    "e2e/workflows.spec.ts": {
+      "sha256": "01689d06962489d440c62bda4d5dc6698a6b1bbdb94e1a34de23bc7f3e4380c4",
+      "gitBlob": "02918235177ce052d97255d2b3b73e40e0740fd6"
+    },
+    "eslint.config.js": {
+      "sha256": "e3bda3b3533cb83cde828403e122998eb9513a7e3a751eb768d6205a04fcbb11",
+      "gitBlob": "912dc6f779d3187d9b296e456443df831d3f2a12"
+    },
+    "package-lock.json": {
+      "sha256": "42a7c0eea31643388eee43841c2a19920e92fb42a1f67921708af4824dffaa62",
+      "gitBlob": "dc72b1866446872a9341ea8590991eb9fe01eb6a"
+    },
+    "package.json": {
+      "sha256": "237b45895e6c0e4cbea0de21d846dee2bf98e6252ff2cb0233cdf1391ce9efc4",
+      "gitBlob": "1d8043b70ccd2af0e0e2f27cb82980bde80c347d"
+    },
+    "playwright.config.ts": {
+      "sha256": "84fa367ecedc049f35c759591a59802ac8ab64a8160e70b81e29178f95c9410a",
+      "gitBlob": "77a59e8e490b94aae6e15453102d8a4450c191d2"
+    },
+    "playwright.realtime.config.ts": {
+      "sha256": "6b0567f3c97fce9dccc5d87514db796fdbebefd97483d49b8549d1a5aa7b5302",
+      "gitBlob": "94e3ed4d8ddc258bec851a194dc1969170dd7653"
+    },
+    "scripts/doctor.ts": {
+      "sha256": "e2c39c50e92e97ab8188120cf0a59b10c09b0fa9ee8f132889facf05b781091f",
+      "gitBlob": "3c0ae70001c6367a401e9ddd1a950ecd2b4e30e3"
+    },
+    "scripts/e2e-native.ts": {
+      "sha256": "0b380e64346c10bbfa1953b8882b8e294cf7f46a09fe711b3e2267e659d5d9f7",
+      "gitBlob": "c4af044d8b55b438e729127ffa7a32fc6004075c"
+    },
+    "scripts/e2e-server.ts": {
+      "sha256": "394559ae147f5515a3a61d2799ebcf518380c0cb2edc1e79a1c4569a0c3ccec6",
+      "gitBlob": "ff5d7b647bdcc41b5f289112af3138bb13e8631d"
+    },
+    "scripts/measure-bundle.mjs": {
+      "sha256": "af5c5981f5e46f27af22a0114891b70da288f6f041367ad548a89d38481f50f3",
+      "gitBlob": "fc3d5315d8702a8ff56a3a2f5873e35f8bc3eaf4"
+    },
+    "scripts/migrate.ts": {
+      "sha256": "2b1bc2f00ca5b781b8e3c187b1c04f9339852ca1d6b8ff5c41488f0fa7d93379",
+      "gitBlob": "ae8fe4f806af60d50b09117786465de79d3d31e2"
+    },
+    "scripts/prepare-test-db.ts": {
+      "sha256": "5de6cb235f338b3ff0f052e0893b2869ded65440c32b39dbacbeeb2f0bf73600",
+      "gitBlob": "5e5dba4b88dde5f2ff0852053e71f94659c1e84b"
+    },
+    "scripts/seed.ts": {
+      "sha256": "e922e0c3bb37033c4aba89c4833d45fc5bc15c9e014242a7149e42b34613990a",
+      "gitBlob": "f615c5ea0481937d0446756dcd36716dde60b1e5"
+    },
+    "scripts/setup.ts": {
+      "sha256": "badc78ee52e181e7226d2fbe3812c9b45b2b29edcd18173a20c7e769d7a715e6",
+      "gitBlob": "23a126d3eb7b30a9d66b01d81ef429239571bc05"
+    },
+    "scripts/test-native.ts": {
+      "sha256": "4e0bdbdd16c35b21ad841f3fc693dcd2f1a32218ebd426ce2508f5ab0cc71364",
+      "gitBlob": "6dba32654c1906c61dc5d00f88ed4bf7f8e5d3f4"
+    },
+    "scripts/verify-disposable.mjs": {
+      "sha256": "42f22c1d1a54363197a6773a5a51f1159ea94c60b6b465f77cb859c07f70757d",
+      "gitBlob": "94708dcd1cf6cd2a34bd8717335023fae111421b"
+    },
+    "src/api.ts": {
+      "sha256": "d4edfcf8ac26c70d2c0e18655f8330a0803b414030c4d124f32c0145ac1ef554",
+      "gitBlob": "18ac95820780cb95cf0c58edf8629d7b06e6f903"
+    },
+    "src/app.ts": {
+      "sha256": "71751ef117e2339c61a559998bc8ef60dd77e7427cba4d85aa17563fa63509f0",
+      "gitBlob": "edd0a6f8154432c175386a434c59bf3c16573de0"
+    },
+    "src/auth/password.ts": {
+      "sha256": "9db4c4be7b623eb4a8cd464b493cd1018ab5e072f205c2614e95b3904b8b61ba",
+      "gitBlob": "b707a12e7ef2cf5901527dccf88879e75d94a32d"
+    },
+    "src/auth/service.ts": {
+      "sha256": "f2ef07f5d66824539028746ca433d9c95c4c75c4176884bf6e24e91aa37cc077",
+      "gitBlob": "6adb1511ca4a678c4aa73287f0151a927765b9c7"
+    },
+    "src/config.ts": {
+      "sha256": "4d29c63d2764fd1a38037c79a33bb3aebe8b6a89cc0e0bae28c09dfe579e0496",
+      "gitBlob": "5b7a6e303019f0b8fe7fe9c7983114def9e9ce74"
+    },
+    "src/db/client.ts": {
+      "sha256": "8933d0433e55e3eab63e823bc3073fa094631d855ab505bdcbfffe8cfa99f416",
+      "gitBlob": "efd9c8f1f7e218aa425118e0ad2a1a59d4359418"
+    },
+    "src/db/schema.ts": {
+      "sha256": "c809c1f10ef69228351cd731a7574cf366813eccaa148d4f5b5eb60f71782da1",
+      "gitBlob": "4a14ba596a15224652840fb73ae6f046e7c877f6"
+    },
+    "src/domain/workflow.ts": {
+      "sha256": "6c8e02509c975ca8c1100d0ad8473fff4ea42b11816a6c9299deddbdc3afa0f1",
+      "gitBlob": "142207886a1e58cdfd9fc3ca023da9629f072eed"
+    },
+    "src/errors.ts": {
+      "sha256": "c2ddc1faa1acc656f729275505e0c6020706ee2e07603a2068b9b728407c1d31",
+      "gitBlob": "35f9761c2df9949d2dd67e2aacb0697d5e7dbfb4"
+    },
+    "src/realtime.ts": {
+      "sha256": "c64d3e5da89187a69916f24fc4a66b3761a3f59ae3cdc98ee8b07d9c22389537",
+      "gitBlob": "5ace637a8d781da9d13426a818eb538d53e53c63"
+    },
+    "src/requests/service.ts": {
+      "sha256": "85af69480f29c807015909c85923bd943b3458fdca6e735ebfd863f4367b65ef",
+      "gitBlob": "f1939b46fc510f3b867745d55b6a6d22826bc0cd"
+    },
+    "src/requests/workflow.ts": {
+      "sha256": "0847fd3bfc8ea93326578c23728759c091e006a9b889f7e302cc988db918d806",
+      "gitBlob": "649d9432dd1d6bb61969cee247f7aa4402879e35"
+    },
+    "src/server.ts": {
+      "sha256": "993261e725c2c6fbb2d3e9f583bcec7b519a5a2a1b2571c71c39550a916adb28",
+      "gitBlob": "609e3a8ef5104f1b3d4cc309b1a2240c7579d7fb"
+    },
+    "tests/app.test.ts": {
+      "sha256": "df92c1368a11b3aee9f8f82df80ac6f6a8d56afcf56c50f2605f3e8aa7930d31",
+      "gitBlob": "4a370a83a9fb803b976a6133ec4c43778b73c336"
+    },
+    "tests/config.test.ts": {
+      "sha256": "7591626cb87e42059eab1be4ce09c1da8aa5cc7c1dba53730a8413c576be746f",
+      "gitBlob": "9502b684ccc182bb0ad197eadc8730f3951c60ab"
+    },
+    "tests/integration.test.ts": {
+      "sha256": "12806497e276884ae9a83c65e0fddccd689fb7bc1e0d85dc63cf56cec27cec84",
+      "gitBlob": "418e0654c18e8af0b3d5ed97f3cafbcdca702e77"
+    },
+    "tests/workflow-api.test.ts": {
+      "sha256": "7ebbeabf4efe16dbc752b2d0bc2d04dde1b4ce04ead4e4afe8f135ad646ca1d7",
+      "gitBlob": "e2c3a56c23db556e26e5ed029abf1274a1357a06"
+    },
+    "tests/workflow.test.ts": {
+      "sha256": "adaf3958a4367b18e3d572522095b08c67624645ad54eb82cdf94f11d0a0b77f",
+      "gitBlob": "49214e35b0293f9d4b4080d36fece69c0ed166fa"
+    },
+    "tsconfig.json": {
+      "sha256": "6de92b100587bf9167b0fa9de49e33f2106055dbaf17af679a8e4a875883e5de",
+      "gitBlob": "d089abc2b4af2ddd6430722e048941cb6b71ec2d"
+    },
+    "vite.config.ts": {
+      "sha256": "ea302ec9de8a536ddf0d8aa99016d9cf421a66b3956dc679e897642fc1c6552b",
+      "gitBlob": "6303f8b87c8d2ba563823d3dd14a423c1d0bd854"
+    },
+    "vitest.config.ts": {
+      "sha256": "7675cae1a1c373510d29f55b887f631d70d47210ae710ca44902a0c6cc300248",
+      "gitBlob": "60b59f03b7c96f79b7deba5ad7793d935978a23c"
+    },
+    "vitest.web.config.ts": {
+      "sha256": "8e1231b0724c95a7ee31bdc30c8562449b7ac958be69ed042d310bcc843ca14c",
+      "gitBlob": "9529e17e82ec18a908707007cf00371af1953e03"
+    },
+    "web/index.html": {
+      "sha256": "7f3c2c97fe3f6f1014d1a8c717d522cbf0cedd37c94553116aa3562c452f9fa3",
+      "gitBlob": "3ef51fd368990e5310aab64b4be2b301e6f7f0c1"
+    },
+    "web/src/App.tsx": {
+      "sha256": "eccebedb7b7b590d1da94db5cd00a6653611aa18dbfa74088f2744d94a3f8788",
+      "gitBlob": "17b3a216c54ecd0bf268db5c02db1c3d5956796b"
+    },
+    "web/src/Layout.tsx": {
+      "sha256": "51bf10392047c42283fe0a7564789279239f4444b2c813379515c2010a3ff573",
+      "gitBlob": "9a9937468857272541fc3f2e78482184db49e05e"
+    },
+    "web/src/Login.tsx": {
+      "sha256": "589b3baf1c9a822785e9976f7be3d2de2ff85b7a69de59e40ccf8de720073bc6",
+      "gitBlob": "eb969751affa77fa89a347bbbed954a6e1086252"
+    },
+    "web/src/RequestFilters.tsx": {
+      "sha256": "f586a5a2cea8798eda62efd55c7a3c26653b480bf5f369945a8b17367896a69c",
+      "gitBlob": "ea05820386f9b5815adde7f941081f4801fdafd7"
+    },
+    "web/src/Requests.tsx": {
+      "sha256": "ac917762a70b15d2d4d774d120654ece1387d31d8157499ec2672f7e6d0bc6b1",
+      "gitBlob": "b259fe2b744784b5e0b6d47dbfd4f1cee6b0b686"
+    },
+    "web/src/Workflow.tsx": {
+      "sha256": "f9e43c276ceb4dd6b059a987107306dfbc68ae60e0a676fe5efeecadea8a2b7e",
+      "gitBlob": "fc8a06d97122ce1be2533ee9abfdff0fa1a9dfb3"
+    },
+    "web/src/api.ts": {
+      "sha256": "8cbbc0956f80745b73249ad9ee9b6b53e355b6a29706489e7bb94d7d02816316",
+      "gitBlob": "409ce2033489df5ddae58e019df92bbea4cd8c18"
+    },
+    "web/src/components.tsx": {
+      "sha256": "09bcb5ede30dc5d833c68a5ab310c33f2c311a931b0966e7d00e907afd7769f0",
+      "gitBlob": "71a9d759d252a43ff4a529e3ec7339229cd7c377"
+    },
+    "web/src/live.tsx": {
+      "sha256": "f5464cf890145d67b43abc72026468acf3a9656d25ae2c96f3329ab983ee63d2",
+      "gitBlob": "4eff06fd58872fc04adc5e36366e601483a32e78"
+    },
+    "web/src/main.tsx": {
+      "sha256": "853c30b1221cc02d3acf08a0890cbe6b3ad6c14163d73eadbdee201a85cfbbef",
+      "gitBlob": "efb7b21c877d0a8c67658a578162a89caca11c68"
+    },
+    "web/src/queries.ts": {
+      "sha256": "bf56a407d4a0cf4dd3387bb130b1caf8225359b120a8b0eedfab4889c607eed3",
+      "gitBlob": "d7f09186da423803384b7fe833a7be664125c7df"
+    },
+    "web/src/session.tsx": {
+      "sha256": "4b2b037481297bc4278785dd603b90c5c72ffd379e2b6169f49fe70e9e890f72",
+      "gitBlob": "d1f48f8b07d8f9d5c00a889ee13916f5dad19bc0"
+    },
+    "web/src/styles.css": {
+      "sha256": "a999497d2a00f0ada21fdff6110a15afdd36972da0d011cd0d0a15d6f49cf446",
+      "gitBlob": "1a3da9e9702dc4f5af9807422b979e70f0d223b6"
+    },
+    "web/src/ui.tsx": {
+      "sha256": "0573ba144cb680b523604b502192c536875d8d9fba31dd28ef91f8afa93aca4e",
+      "gitBlob": "0662dd604fba24fc3cc6adf3b9c424087b718f88"
+    },
+    "web/tests/api.test.ts": {
+      "sha256": "655c2a8dc4e9c42cfbafb599b8832f775ad1038c9cdef96b67e04562610e7dab",
+      "gitBlob": "040ebb6005fba6feab9953896e2e4ef76a7602d9"
+    },
+    "web/tests/final.test.tsx": {
+      "sha256": "cf9a449fdc08b090e89f7016449bbfae0e81de966ea67afea0515b57a60d5b59",
+      "gitBlob": "de0c9e9c71d1864dda030ae2904520eb01913b9b"
+    },
+    "web/tests/live.test.tsx": {
+      "sha256": "6905c8f12372b5de7e549db8f4f58e5f2bab42b1d06863331877c526a523bcb5",
+      "gitBlob": "33382c084b3916f6acded1fdc8713eb999012b86"
+    },
+    "web/tests/render.tsx": {
+      "sha256": "16ee675b90a87766cdda08d2b457f7997816529c904cc8d0ec19c5c73e06ac1a",
+      "gitBlob": "52a1cbcb2b7001dd36b3d197b5d70df88deadbb3"
+    },
+    "web/tests/setup.ts": {
+      "sha256": "f255e88cc278d0bd81fc706c12fc0666d58f544d7914e71088354dc4e97b7c03",
+      "gitBlob": "691b24301a40f1440c3ac02bafcf9f8432d1d9a1"
+    },
+    "web/tests/ui.test.tsx": {
+      "sha256": "56b7ee385afe57d96fb444447ab047a1bb91f410aeef2d0f2f44b689457c6b36",
+      "gitBlob": "008e4215329cfe8d75610540457f8a9bf94ec548"
+    },
+    "web/tests/workflow.test.tsx": {
+      "sha256": "17072210bac883278c9bd0cfca2927eb37e57d8ea5af665709de51a973c1b566",
+      "gitBlob": "b3fd9cf02923ec3689b65647ba01c3536751dd3e"
+    },
+    "web/tsconfig.json": {
+      "sha256": "edf1a96c2b6113033326e4b0ae7e8c8e4bc6f461835a6e7bc547317df438bb15",
+      "gitBlob": "809603cd67ceb22d71934a6c68d87cb739600f53"
+    }
+  }
+}
