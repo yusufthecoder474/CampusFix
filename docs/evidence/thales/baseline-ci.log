@@ -1,0 +1,1538 @@
+﻿2026-10-22T13:40:29.7157097Z Current runner version: '2.338.0'
+2026-10-22T13:40:29.7185829Z ##[group]Runner Image Provisioner
+2026-10-22T13:40:29.7186912Z Hosted Compute Agent
+2026-10-22T13:40:29.7187558Z Version: 20261021.618
+2026-10-22T13:40:29.7188732Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-22T13:40:29.7189526Z Build Date: 2026-10-21T00:45:21Z
+2026-10-22T13:40:29.7190310Z Worker ID: {cb01c392-8417-4151-8ca9-7f9f934f316a}
+2026-10-22T13:40:29.7191172Z Region: eastus2
+2026-10-22T13:40:29.7191776Z Cloud: Azure
+2026-10-22T13:40:29.7192418Z ##[endgroup]
+2026-10-22T13:40:29.7195059Z ##[group]Operating System
+2026-10-22T13:40:29.7195811Z Ubuntu
+2026-10-22T13:40:29.7196499Z 24.04.5
+2026-10-22T13:40:29.7197115Z LTS
+2026-10-22T13:40:29.7197780Z ##[endgroup]
+2026-10-22T13:40:29.7198404Z ##[group]Runner Image
+2026-10-22T13:40:29.7199075Z Image: ubuntu-24.04
+2026-10-22T13:40:29.7199743Z Version: 20261021.345.10
+2026-10-22T13:40:29.7201174Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261021.345/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-22T13:40:29.7202823Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261021.345
+2026-10-22T13:40:29.7204255Z ##[endgroup]
+2026-10-22T13:40:29.7206009Z ##[group]GITHUB_TOKEN Permissions
+2026-10-22T13:40:29.7208936Z Contents: read
+2026-10-22T13:40:29.7209695Z Metadata: read
+2026-10-22T13:40:29.7210306Z ##[endgroup]
+2026-10-22T13:40:29.7212562Z Secret source: Actions
+2026-10-22T13:40:29.7214062Z Cache mode: write
+2026-10-22T13:40:29.7215230Z Prepare workflow directory
+2026-10-22T13:40:29.7662267Z Prepare all required actions
+2026-10-22T13:40:29.7713130Z Getting action download info
+2026-10-22T13:40:30.0091173Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-22T13:40:30.4396413Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-22T13:40:30.5651376Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-22T13:40:30.9037653Z Complete job name: check
+2026-10-22T13:40:30.9736672Z ##[group]Checking docker version
+2026-10-22T13:40:30.9750758Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-10-22T13:40:31.9854141Z '1.48'
+2026-10-22T13:40:31.9877891Z Docker daemon API version: '1.48'
+2026-10-22T13:40:31.9879576Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-10-22T13:40:32.0119683Z '1.48'
+2026-10-22T13:40:32.0141907Z Docker client API version: '1.48'
+2026-10-22T13:40:32.0149399Z ##[endgroup]
+2026-10-22T13:40:32.0152502Z ##[group]Clean up resources from previous jobs
+2026-10-22T13:40:32.0159840Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=13b3e8"
+2026-10-22T13:40:32.0456404Z ##[command]/usr/bin/docker network prune --force --filter "label=13b3e8"
+2026-10-22T13:40:32.0647341Z ##[endgroup]
+2026-10-22T13:40:32.0648537Z ##[group]Create local container network
+2026-10-22T13:40:32.0661877Z ##[command]/usr/bin/docker network create --label 13b3e8 github_network_447bd30740f94d08acb7f871a78762fb
+2026-10-22T13:40:32.1265272Z 1a8f99dc71259c11c722ef9241fe8dced07cd08f0af5babe05b9bdb8df38c557
+2026-10-22T13:40:32.1290129Z ##[endgroup]
+2026-10-22T13:40:32.1322148Z ##[group]Starting postgres service container
+2026-10-22T13:40:32.1347726Z ##[command]/usr/bin/docker pull postgres:18
+2026-10-22T13:40:32.4660046Z 18: Pulling from library/postgres
+2026-10-22T13:40:32.5692747Z f2be67225471: Pulling fs layer
+2026-10-22T13:40:32.5695587Z 36f05ca1a259: Pulling fs layer
+2026-10-22T13:40:32.5698327Z 92accee5624e: Pulling fs layer
+2026-10-22T13:40:32.5700501Z 5bf0df4dfeec: Pulling fs layer
+2026-10-22T13:40:32.5702634Z fc259989795e: Pulling fs layer
+2026-10-22T13:40:32.5705046Z 33e59af3458c: Pulling fs layer
+2026-10-22T13:40:32.5707007Z bea9e19f5a74: Pulling fs layer
+2026-10-22T13:40:32.5708946Z 19f779d0bd48: Pulling fs layer
+2026-10-22T13:40:32.5710361Z cf9efa127f85: Pulling fs layer
+2026-10-22T13:40:32.5711690Z af1084bcb355: Pulling fs layer
+2026-10-22T13:40:32.5713928Z 40ebd398ec37: Pulling fs layer
+2026-10-22T13:40:32.5715870Z 00490e632b75: Pulling fs layer
+2026-10-22T13:40:32.5717347Z 8ed0c854313a: Pulling fs layer
+2026-10-22T13:40:32.5718493Z 5bf0df4dfeec: Waiting
+2026-10-22T13:40:32.5719496Z fc259989795e: Waiting
+2026-10-22T13:40:32.5720468Z 33e59af3458c: Waiting
+2026-10-22T13:40:32.5721426Z bea9e19f5a74: Waiting
+2026-10-22T13:40:32.5722364Z cf9efa127f85: Waiting
+2026-10-22T13:40:32.5723304Z af1084bcb355: Waiting
+2026-10-22T13:40:32.5724644Z 40ebd398ec37: Waiting
+2026-10-22T13:40:32.5725581Z 19f779d0bd48: Waiting
+2026-10-22T13:40:32.5726511Z 00490e632b75: Waiting
+2026-10-22T13:40:32.5727435Z 8ed0c854313a: Waiting
+2026-10-22T13:40:32.6724552Z 36f05ca1a259: Verifying Checksum
+2026-10-22T13:40:32.6726920Z 36f05ca1a259: Download complete
+2026-10-22T13:40:32.7151154Z 92accee5624e: Verifying Checksum
+2026-10-22T13:40:32.7156661Z 92accee5624e: Download complete
+2026-10-22T13:40:32.7568373Z 5bf0df4dfeec: Verifying Checksum
+2026-10-22T13:40:32.7570886Z 5bf0df4dfeec: Download complete
+2026-10-22T13:40:32.7884220Z f2be67225471: Download complete
+2026-10-22T13:40:32.8246769Z fc259989795e: Verifying Checksum
+2026-10-22T13:40:32.8248355Z fc259989795e: Download complete
+2026-10-22T13:40:32.8385628Z bea9e19f5a74: Verifying Checksum
+2026-10-22T13:40:32.8399588Z bea9e19f5a74: Download complete
+2026-10-22T13:40:32.8427382Z 33e59af3458c: Verifying Checksum
+2026-10-22T13:40:32.8428438Z 33e59af3458c: Download complete
+2026-10-22T13:40:32.8785249Z 19f779d0bd48: Verifying Checksum
+2026-10-22T13:40:32.8785900Z 19f779d0bd48: Download complete
+2026-10-22T13:40:32.8969674Z af1084bcb355: Download complete
+2026-10-22T13:40:32.9311953Z 40ebd398ec37: Download complete
+2026-10-22T13:40:32.9473294Z 00490e632b75: Verifying Checksum
+2026-10-22T13:40:32.9475978Z 00490e632b75: Download complete
+2026-10-22T13:40:32.9811894Z 8ed0c854313a: Verifying Checksum
+2026-10-22T13:40:32.9816518Z 8ed0c854313a: Download complete
+2026-10-22T13:40:33.3389059Z cf9efa127f85: Verifying Checksum
+2026-10-22T13:40:33.3389703Z cf9efa127f85: Download complete
+2026-10-22T13:40:33.8916091Z f2be67225471: Pull complete
+2026-10-22T13:40:34.2114872Z 36f05ca1a259: Pull complete
+2026-10-22T13:40:34.3806208Z 92accee5624e: Pull complete
+2026-10-22T13:40:34.4146456Z 5bf0df4dfeec: Pull complete
+2026-10-22T13:40:34.7177681Z fc259989795e: Pull complete
+2026-10-22T13:40:34.7764687Z 33e59af3458c: Pull complete
+2026-10-22T13:40:34.7841464Z bea9e19f5a74: Pull complete
+2026-10-22T13:40:34.7932975Z 19f779d0bd48: Pull complete
+2026-10-22T13:40:37.9604751Z cf9efa127f85: Pull complete
+2026-10-22T13:40:37.9734156Z af1084bcb355: Pull complete
+2026-10-22T13:40:37.9816300Z 40ebd398ec37: Pull complete
+2026-10-22T13:40:37.9909333Z 00490e632b75: Pull complete
+2026-10-22T13:40:38.0008017Z 8ed0c854313a: Pull complete
+2026-10-22T13:40:38.0054048Z Digest: sha256:edb0c08dc33befd0262ab3b5cf1c4f3f8cfd8b09e88c05b45adee29d6761ddb6
+2026-10-22T13:40:38.0067482Z Status: Downloaded newer image for postgres:18
+2026-10-22T13:40:38.0078601Z docker.io/library/postgres:18
+2026-10-22T13:40:38.0149802Z ##[command]/usr/bin/docker create --name 64c30e8910d642d3ac4410b53c2a931a_postgres18_56db8b --label 13b3e8 --network github_network_447bd30740f94d08acb7f871a78762fb --network-alias postgres -p 5432:5432 --health-cmd "pg_isready -U campusfix -d campusfix_test" --health-interval 5s --health-timeout 5s --health-retries 10 -e "POSTGRES_USER=campusfix" -e "POSTGRES_PASSWORD=ci-synthetic-password" -e "POSTGRES_DB=campusfix_test" -e GITHUB_ACTIONS=true -e CI=true postgres:18
+2026-10-22T13:40:38.0521795Z b768fbc0fd6839e6cc38d3e4eae685d27644c1e0a4c1fefcb6e5534cb643e255
+2026-10-22T13:40:38.0553297Z ##[command]/usr/bin/docker start b768fbc0fd6839e6cc38d3e4eae685d27644c1e0a4c1fefcb6e5534cb643e255
+2026-10-22T13:40:38.7585040Z b768fbc0fd6839e6cc38d3e4eae685d27644c1e0a4c1fefcb6e5534cb643e255
+2026-10-22T13:40:38.7609095Z ##[command]/usr/bin/docker ps --all --filter id=b768fbc0fd6839e6cc38d3e4eae685d27644c1e0a4c1fefcb6e5534cb643e255 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-10-22T13:40:38.7793200Z b768fbc0fd6839e6cc38d3e4eae685d27644c1e0a4c1fefcb6e5534cb643e255 Up Less than a second (health: starting)
+2026-10-22T13:40:38.7828519Z ##[command]/usr/bin/docker port b768fbc0fd6839e6cc38d3e4eae685d27644c1e0a4c1fefcb6e5534cb643e255
+2026-10-22T13:40:38.8008901Z 5432/tcp -> 0.0.0.0:5432
+2026-10-22T13:40:38.8009392Z 5432/tcp -> [::]:5432
+2026-10-22T13:40:38.8073238Z ##[endgroup]
+2026-10-22T13:40:38.8082629Z ##[group]Waiting for all services to be ready
+2026-10-22T13:40:38.8096847Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" b768fbc0fd6839e6cc38d3e4eae685d27644c1e0a4c1fefcb6e5534cb643e255
+2026-10-22T13:40:38.8273143Z starting
+2026-10-22T13:40:38.8304706Z postgres service is starting, waiting 2 seconds before checking again.
+2026-10-22T13:40:40.8312534Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" b768fbc0fd6839e6cc38d3e4eae685d27644c1e0a4c1fefcb6e5534cb643e255
+2026-10-22T13:40:40.8479818Z starting
+2026-10-22T13:40:40.8583695Z postgres service is starting, waiting 3 seconds before checking again.
+2026-10-22T13:40:44.5580841Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" b768fbc0fd6839e6cc38d3e4eae685d27644c1e0a4c1fefcb6e5534cb643e255
+2026-10-22T13:40:44.5750737Z healthy
+2026-10-22T13:40:44.5774359Z postgres service is healthy.
+2026-10-22T13:40:44.5775000Z ##[endgroup]
+2026-10-22T13:40:44.6081122Z ##[group]Run actions/checkout@v4
+2026-10-22T13:40:44.6081641Z with:
+2026-10-22T13:40:44.6081891Z   repository: yusufthecoder474/CampusFix
+2026-10-22T13:40:44.6084734Z   token: ***
+2026-10-22T13:40:44.6084967Z   ssh-strict: true
+2026-10-22T13:40:44.6085195Z   ssh-user: git
+2026-10-22T13:40:44.6085426Z   persist-credentials: true
+2026-10-22T13:40:44.6085672Z   clean: true
+2026-10-22T13:40:44.6085888Z   sparse-checkout-cone-mode: true
+2026-10-22T13:40:44.6086150Z   fetch-depth: 1
+2026-10-22T13:40:44.6086381Z   fetch-tags: false
+2026-10-22T13:40:44.6086598Z   show-progress: true
+2026-10-22T13:40:44.6086826Z   lfs: false
+2026-10-22T13:40:44.6087022Z   submodules: false
+2026-10-22T13:40:44.6087241Z   set-safe-directory: true
+2026-10-22T13:40:44.6087494Z   allow-unsafe-pr-checkout: false
+2026-10-22T13:40:44.6087931Z ##[endgroup]
+2026-10-22T13:40:44.7200913Z Syncing repository: yusufthecoder474/CampusFix
+2026-10-22T13:40:44.7202622Z ##[group]Getting Git version info
+2026-10-22T13:40:44.7203119Z Working directory is '/home/runner/work/CampusFix/CampusFix'
+2026-10-22T13:40:44.7204113Z [command]/usr/bin/git version
+2026-10-22T13:40:44.8351157Z git version 2.55.0
+2026-10-22T13:40:44.8373045Z ##[endgroup]
+2026-10-22T13:40:44.8390287Z Temporarily overriding HOME='/home/runner/work/_temp/a6a3d565-acff-4deb-8ab0-97dce46216de' before making global git config changes
+2026-10-22T13:40:44.8391164Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-22T13:40:44.8397630Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/CampusFix/CampusFix
+2026-10-22T13:40:44.8700960Z Deleting the contents of '/home/runner/work/CampusFix/CampusFix'
+2026-10-22T13:40:44.8706018Z ##[group]Initializing the repository
+2026-10-22T13:40:44.8742984Z [command]/usr/bin/git init /home/runner/work/CampusFix/CampusFix
+2026-10-22T13:40:44.9270880Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-22T13:40:44.9271748Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-22T13:40:44.9272561Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-22T13:40:44.9273151Z hint: call:
+2026-10-22T13:40:44.9273703Z hint:
+2026-10-22T13:40:44.9274184Z hint: 	git config --global init.defaultBranch <name>
+2026-10-22T13:40:44.9274649Z hint:
+2026-10-22T13:40:44.9275434Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-22T13:40:44.9276314Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-22T13:40:44.9277384Z hint:
+2026-10-22T13:40:44.9277732Z hint: 	git branch -m <name>
+2026-10-22T13:40:44.9278076Z hint:
+2026-10-22T13:40:44.9278579Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-22T13:40:44.9279398Z Initialized empty Git repository in /home/runner/work/CampusFix/CampusFix/.git/
+2026-10-22T13:40:44.9286353Z [command]/usr/bin/git remote add origin https://github.com/yusufthecoder474/CampusFix
+2026-10-22T13:40:44.9534723Z ##[endgroup]
+2026-10-22T13:40:44.9535396Z ##[group]Disabling automatic garbage collection
+2026-10-22T13:40:44.9540383Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-22T13:40:44.9593885Z ##[endgroup]
+2026-10-22T13:40:44.9594331Z ##[group]Setting up auth
+2026-10-22T13:40:44.9601975Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T13:40:44.9654520Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-22T13:40:45.1467123Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T13:40:45.1520699Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-22T13:40:45.1820253Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-22T13:40:45.1877323Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-22T13:40:45.2181840Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-22T13:40:45.2249374Z ##[endgroup]
+2026-10-22T13:40:45.2250388Z ##[group]Fetching the repository
+2026-10-22T13:40:45.2261491Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +3ae9849991e55173f2978412ca7d5b26c49c479c:refs/remotes/origin/codex/thales-transactions-networking
+2026-10-22T13:40:45.5655415Z From https://github.com/yusufthecoder474/CampusFix
+2026-10-22T13:40:45.5656271Z  * [new ref]         3ae9849991e55173f2978412ca7d5b26c49c479c -> origin/codex/thales-transactions-networking
+2026-10-22T13:40:45.5662518Z ##[endgroup]
+2026-10-22T13:40:45.5662953Z ##[group]Determining the checkout info
+2026-10-22T13:40:45.5664523Z ##[endgroup]
+2026-10-22T13:40:45.5671245Z [command]/usr/bin/git sparse-checkout disable
+2026-10-22T13:40:45.5861530Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-22T13:40:45.5917813Z ##[group]Checking out the ref
+2026-10-22T13:40:45.5919160Z [command]/usr/bin/git checkout --progress --force -B codex/thales-transactions-networking refs/remotes/origin/codex/thales-transactions-networking
+2026-10-22T13:40:45.6079549Z Switched to a new branch 'codex/thales-transactions-networking'
+2026-10-22T13:40:45.6082644Z branch 'codex/thales-transactions-networking' set up to track 'origin/codex/thales-transactions-networking'.
+2026-10-22T13:40:45.6094052Z ##[endgroup]
+2026-10-22T13:40:45.6156417Z [command]/usr/bin/git log -1 --format=%H
+2026-10-22T13:40:45.6197454Z 3ae9849991e55173f2978412ca7d5b26c49c479c
+2026-10-22T13:40:45.6473889Z ##[group]Run actions/setup-node@v4
+2026-10-22T13:40:45.6474205Z with:
+2026-10-22T13:40:45.6474419Z   node-version: 24
+2026-10-22T13:40:45.6474644Z   cache: npm
+2026-10-22T13:40:45.6474859Z   always-auth: false
+2026-10-22T13:40:45.6475101Z   check-latest: false
+2026-10-22T13:40:45.6477571Z   token: ***
+2026-10-22T13:40:45.6477798Z ##[endgroup]
+2026-10-22T13:40:45.8261474Z Found in cache @ /opt/hostedtoolcache/node/24.22.1/x64
+2026-10-22T13:40:45.8268466Z (node:2751) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-22T13:40:45.8269624Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-22T13:40:45.8271618Z ##[group]Environment details
+2026-10-22T13:40:48.1430051Z node: v24.22.1
+2026-10-22T13:40:48.1430523Z npm: 11.19.1
+2026-10-22T13:40:48.1430850Z yarn: 1.22.22
+2026-10-22T13:40:48.1431729Z ##[endgroup]
+2026-10-22T13:40:48.1477582Z [command]/opt/hostedtoolcache/node/24.22.1/x64/bin/npm config get cache
+2026-10-22T13:40:48.6043886Z /home/runner/.npm
+2026-10-22T13:40:48.7157996Z npm cache is not found
+2026-10-22T13:40:48.7331559Z ##[group]Run npm ci
+2026-10-22T13:40:48.7331907Z [36;1mnpm ci[0m
+2026-10-22T13:40:48.7422763Z shell: /usr/bin/bash -e {0}
+2026-10-22T13:40:48.7423071Z ##[endgroup]
+2026-10-22T13:40:59.3639428Z 
+2026-10-22T13:40:59.3648220Z added 426 packages, and audited 427 packages in 11s
+2026-10-22T13:40:59.3648683Z 
+2026-10-22T13:40:59.3648987Z 89 packages are looking for funding
+2026-10-22T13:40:59.3649520Z   run `npm fund` for details
+2026-10-22T13:40:59.3656331Z 
+2026-10-22T13:40:59.3656732Z found 0 vulnerabilities
+2026-10-22T13:40:59.3667290Z npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+2026-10-22T13:40:59.3668340Z npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+2026-10-22T13:40:59.3669007Z npm warn install-scripts
+2026-10-22T13:40:59.3669959Z npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+2026-10-22T13:40:59.4470870Z ##[group]Run npm run check
+2026-10-22T13:40:59.4471193Z [36;1mnpm run check[0m
+2026-10-22T13:40:59.4532199Z shell: /usr/bin/bash -e {0}
+2026-10-22T13:40:59.4532483Z ##[endgroup]
+2026-10-22T13:40:59.5876779Z 
+2026-10-22T13:40:59.5877621Z > campusfix@0.5.0 check
+2026-10-22T13:40:59.5878309Z > npm run check:backend && tsc -p web/tsconfig.json
+2026-10-22T13:40:59.5878711Z 
+2026-10-22T13:40:59.7038058Z 
+2026-10-22T13:40:59.7039020Z > campusfix@0.5.0 check:backend
+2026-10-22T13:40:59.7039417Z > tsc --noEmit
+2026-10-22T13:40:59.7039571Z 
+2026-10-22T13:41:00.8107551Z ##[group]Run npm run lint
+2026-10-22T13:41:00.8107884Z [36;1mnpm run lint[0m
+2026-10-22T13:41:00.8175448Z shell: /usr/bin/bash -e {0}
+2026-10-22T13:41:00.8175890Z ##[endgroup]
+2026-10-22T13:41:00.9275249Z 
+2026-10-22T13:41:00.9276040Z > campusfix@0.5.0 lint
+2026-10-22T13:41:00.9276688Z > eslint src scripts tests web/src web/tests e2e *.config.ts
+2026-10-22T13:41:00.9277039Z 
+2026-10-22T13:41:02.8268167Z ##[group]Run npm run format:check
+2026-10-22T13:41:02.8268494Z [36;1mnpm run format:check[0m
+2026-10-22T13:41:02.8326304Z shell: /usr/bin/bash -e {0}
+2026-10-22T13:41:02.8326586Z ##[endgroup]
+2026-10-22T13:41:02.9373244Z 
+2026-10-22T13:41:02.9374699Z > campusfix@0.5.0 format:check
+2026-10-22T13:41:02.9375714Z > prettier --check src tests scripts docs web e2e *.md *.config.ts eslint.config.js
+2026-10-22T13:41:02.9376338Z 
+2026-10-22T13:41:03.0303334Z Checking formatting...
+2026-10-22T13:41:04.6921137Z All matched files use Prettier code style!
+2026-10-22T13:41:04.7511495Z ##[group]Run npm test
+2026-10-22T13:41:04.7511775Z [36;1mnpm test[0m
+2026-10-22T13:41:04.7577372Z shell: /usr/bin/bash -e {0}
+2026-10-22T13:41:04.7577663Z ##[endgroup]
+2026-10-22T13:41:04.8726237Z 
+2026-10-22T13:41:04.8726822Z > campusfix@0.5.0 test
+2026-10-22T13:41:04.8727283Z > vitest run
+2026-10-22T13:41:04.8727495Z 
+2026-10-22T13:41:05.2540788Z 
+2026-10-22T13:41:05.2548563Z [1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90m/home/runner/work/CampusFix/CampusFix[39m
+2026-10-22T13:41:05.2549304Z 
+2026-10-22T13:41:05.5326045Z  [32m✓[39m tests/workflow.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+2026-10-22T13:41:06.7561998Z [90mstdout[2m | tests/app.test.ts[2m > [22m[2mliveness succeeds independently of database availability
+2026-10-22T13:41:06.7605911Z [22m[39m{"event":"http_request","requestId":"461bc4be-25fb-479a-823b-598451cccec6","method":"GET","status":200,"durationMs":5}
+2026-10-22T13:41:06.7633886Z 
+2026-10-22T13:41:06.7815904Z [90mstdout[2m | tests/app.test.ts[2m > [22m[2mreadiness checks its database dependency
+2026-10-22T13:41:06.7855501Z [22m[39m{"event":"http_request","requestId":"db3f24d1-51fd-4f18-9c54-b64a6a3ca40a","method":"GET","status":200,"durationMs":1}
+2026-10-22T13:41:06.7878479Z 
+2026-10-22T13:41:06.7905397Z [90mstdout[2m | tests/app.test.ts[2m > [22m[2mdatabase failures are 503 without leaking internals
+2026-10-22T13:41:06.7949547Z [22m[39m{"event":"http_request","requestId":"9fe92d93-16bf-43cd-9fb5-34696caac1a4","method":"GET","status":503,"durationMs":1}
+2026-10-22T13:41:06.8024142Z 
+2026-10-22T13:41:06.8068866Z [90mstdout[2m | tests/app.test.ts[2m > [22m[2munknown routes produce consistent JSON errors
+2026-10-22T13:41:06.8085186Z [22m[39m{"event":"http_request","requestId":"4cbe967a-85b4-43c2-93b2-0f6f7509d779","method":"GET","status":404,"durationMs":1}
+2026-10-22T13:41:06.8113851Z 
+2026-10-22T13:41:06.8368526Z [90mstderr[2m | tests/app.test.ts[2m > [22m[2mmalformed JSON is rejected without a stack trace
+2026-10-22T13:41:06.8369768Z [22m[39m{"event":"request_error","requestId":"a9028a37-d8cb-4264-8105-6fff4bee7ca5"}
+2026-10-22T13:41:06.8370288Z 
+2026-10-22T13:41:06.8387267Z [90mstdout[2m | tests/app.test.ts[2m > [22m[2mmalformed JSON is rejected without a stack trace
+2026-10-22T13:41:06.8505859Z [22m[39m{"event":"http_request","requestId":"a9028a37-d8cb-4264-8105-6fff4bee7ca5","method":"POST","status":400,"durationMs":28}
+2026-10-22T13:41:06.8574030Z 
+2026-10-22T13:41:06.8626869Z  [32m✓[39m tests/app.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 129[2mms[22m[39m
+2026-10-22T13:41:07.1248224Z  [32m✓[39m tests/config.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+2026-10-22T13:41:09.9265462Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:09.9275129Z [22m[39mApplied 001_initial.sql
+2026-10-22T13:41:09.9294457Z 
+2026-10-22T13:41:09.9636047Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:09.9665051Z [22m[39mApplied 002_workflow.sql
+2026-10-22T13:41:09.9674167Z 
+2026-10-22T13:41:10.0055722Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:10.0075294Z [22m[39mApplied 001_initial.sql
+2026-10-22T13:41:10.0080750Z 
+2026-10-22T13:41:10.1915496Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:10.1925515Z [22m[39mApplied 001_initial.sql
+2026-10-22T13:41:10.1926267Z 
+2026-10-22T13:41:10.2777234Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:10.2795486Z [22m[39mAdopted verified Milestone 1 schema; existing rows preserved
+2026-10-22T13:41:10.2796280Z 
+2026-10-22T13:41:10.2914056Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:10.2915321Z [22m[39mApplied 002_workflow.sql
+2026-10-22T13:41:10.2915644Z 
+2026-10-22T13:41:11.1015920Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:11.1045681Z [22m[39m{"event":"http_request","requestId":"8fdda409-45b3-4359-91a6-ffbec4baa7a0","method":"POST","status":200,"durationMs":574}
+2026-10-22T13:41:11.1054595Z 
+2026-10-22T13:41:11.3638115Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:11.3639813Z [22m[39m{"event":"http_request","requestId":"86ace03d-fe1b-4089-8bce-9d5d2b9d6b67","method":"POST","status":200,"durationMs":592}
+2026-10-22T13:41:11.3640662Z 
+2026-10-22T13:41:11.5201349Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:11.5202826Z [22m[39m{"event":"http_request","requestId":"d4c6e68d-f2ce-4045-b369-0bb03fa6f4ea","method":"POST","status":200,"durationMs":414}
+2026-10-22T13:41:11.5203819Z 
+2026-10-22T13:41:11.7915571Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:11.7917227Z [22m[39m{"event":"http_request","requestId":"be7e7e3b-8383-4510-9a3c-aced13eaa3c1","method":"POST","status":200,"durationMs":422}
+2026-10-22T13:41:11.7917955Z 
+2026-10-22T13:41:11.9323933Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:11.9325401Z [22m[39m{"event":"http_request","requestId":"193e00af-7040-4232-b0c9-b823bbd13034","method":"POST","status":200,"durationMs":410}
+2026-10-22T13:41:11.9326143Z 
+2026-10-22T13:41:12.1943122Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:12.1945291Z [22m[39m{"event":"http_request","requestId":"55af3ec4-153c-4ef8-a03b-6f09dec17e63","method":"POST","status":200,"durationMs":401}
+2026-10-22T13:41:12.1946042Z 
+2026-10-22T13:41:12.3395888Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:12.3405397Z [22m[39m{"event":"http_request","requestId":"f27d434d-bca2-40da-a4be-1b28337d2545","method":"POST","status":200,"durationMs":404}
+2026-10-22T13:41:12.3405916Z 
+2026-10-22T13:41:12.5933205Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:12.5934903Z [22m[39m{"event":"http_request","requestId":"7ee5adda-ba4c-42ec-b76a-e79443cf3b69","method":"POST","status":200,"durationMs":397}
+2026-10-22T13:41:12.5935793Z 
+2026-10-22T13:41:12.5978001Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:12.5979505Z [22m[39mIntegration engine: PGlite WASM via pg wire protocol (NOT native PostgreSQL)
+2026-10-22T13:41:12.5980325Z 
+2026-10-22T13:41:12.7391987Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:12.7393822Z [22m[39m{"event":"http_request","requestId":"188ccf23-bbb4-4d39-bfcb-27d6841f8942","method":"POST","status":200,"durationMs":398}
+2026-10-22T13:41:12.7395461Z 
+2026-10-22T13:41:13.0005331Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mreturns current user without credentials
+2026-10-22T13:41:13.0007314Z [22m[39m{"event":"http_request","requestId":"b7e20de6-fe3d-4d01-8a5d-657b1a357f23","method":"GET","status":200,"durationMs":3}
+2026-10-22T13:41:13.0008040Z 
+2026-10-22T13:41:13.0039698Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects unauthenticated request reads
+2026-10-22T13:41:13.0041644Z [22m[39m{"event":"http_request","requestId":"f5c18712-1af3-4adb-966f-c609198cefbc","method":"GET","status":401,"durationMs":1}
+2026-10-22T13:41:13.0042397Z 
+2026-10-22T13:41:13.0082693Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects fabricated sessions
+2026-10-22T13:41:13.0085234Z [22m[39m{"event":"http_request","requestId":"37984b62-da28-4559-8744-ba6c1db80619","method":"GET","status":401,"durationMs":2}
+2026-10-22T13:41:13.0086229Z 
+2026-10-22T13:41:13.0178246Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mcreates request and history atomically
+2026-10-22T13:41:13.0180629Z [22m[39m{"event":"http_request","requestId":"a7fd05d6-c1a1-450e-9907-056bac5eeac8","method":"POST","status":201,"durationMs":7}
+2026-10-22T13:41:13.0181732Z 
+2026-10-22T13:41:13.0251798Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mallows reporter retrieval
+2026-10-22T13:41:13.0255016Z [22m[39m{"event":"http_request","requestId":"598b79a3-d6ae-494b-a656-c68fab542ba1","method":"GET","status":200,"durationMs":4}
+2026-10-22T13:41:13.0255804Z 
+2026-10-22T13:41:13.0315008Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mconceals other students records
+2026-10-22T13:41:13.0316933Z [22m[39m{"event":"http_request","requestId":"12a88742-cb2e-4e83-aa64-1e192ad3636c","method":"GET","status":404,"durationMs":4}
+2026-10-22T13:41:13.0317667Z 
+2026-10-22T13:41:13.0376667Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mcoordinator can retrieve any request
+2026-10-22T13:41:13.0379231Z [22m[39m{"event":"http_request","requestId":"81af2d15-e83a-497f-9ea3-ea305d5b6f3f","method":"GET","status":200,"durationMs":4}
+2026-10-22T13:41:13.0380498Z 
+2026-10-22T13:41:13.0431044Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mtechnician cannot read unassigned private reported requests
+2026-10-22T13:41:13.0434122Z [22m[39m{"event":"http_request","requestId":"b471505b-0bf1-485e-b294-fb950386a492","method":"GET","status":404,"durationMs":3}
+2026-10-22T13:41:13.0435822Z 
+2026-10-22T13:41:13.0485786Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mtechnician available work omits reporter ID and description
+2026-10-22T13:41:13.0488238Z [22m[39m{"event":"http_request","requestId":"ab0b1e05-979a-4ca6-b21e-bbc153e8fd41","method":"GET","status":200,"durationMs":3}
+2026-10-22T13:41:13.0489214Z 
+2026-10-22T13:41:13.0541536Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2menforces creation role on server
+2026-10-22T13:41:13.0544118Z [22m[39m{"event":"http_request","requestId":"30fefce6-3c06-4a32-bdda-690e63999ad2","method":"POST","status":403,"durationMs":3}
+2026-10-22T13:41:13.0545111Z 
+2026-10-22T13:41:13.0589074Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects mass assignment
+2026-10-22T13:41:13.0593221Z [22m[39m{"event":"http_request","requestId":"b9f6d12a-8b62-4c30-94f1-20867d3b56f4","method":"POST","status":400,"durationMs":3}
+2026-10-22T13:41:13.0594893Z 
+2026-10-22T13:41:13.0635380Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects missing CSRF token
+2026-10-22T13:41:13.0637927Z [22m[39m{"event":"http_request","requestId":"b22790f3-a41d-404b-a82b-4765db532706","method":"POST","status":403,"durationMs":2}
+2026-10-22T13:41:13.0639003Z 
+2026-10-22T13:41:13.0661134Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects cross-origin writes
+2026-10-22T13:41:13.0663365Z [22m[39m{"event":"http_request","requestId":"cecde0aa-6eb4-4b4a-9b82-a26d4c158d8f","method":"POST","status":403,"durationMs":1}
+2026-10-22T13:41:13.0664689Z 
+2026-10-22T13:41:13.0681483Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects non-JSON writes
+2026-10-22T13:41:13.0683940Z [22m[39m{"event":"http_request","requestId":"9a5093e5-4bc9-4023-be42-57a2cdc92ede","method":"POST","status":415,"durationMs":0}
+2026-10-22T13:41:13.0685004Z 
+2026-10-22T13:41:13.0729749Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects invalid UUIDs
+2026-10-22T13:41:13.0732282Z [22m[39m{"event":"http_request","requestId":"6fa6c464-3dee-4889-b277-6323aca21fe3","method":"GET","status":400,"durationMs":3}
+2026-10-22T13:41:13.0733321Z 
+2026-10-22T13:41:13.0784176Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mvalidates request boundaries
+2026-10-22T13:41:13.0787063Z [22m[39m{"event":"http_request","requestId":"b0aff5df-a65c-4889-9645-01f5ac2258a4","method":"POST","status":400,"durationMs":3}
+2026-10-22T13:41:13.0788156Z 
+2026-10-22T13:41:13.0910891Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mfilters with bounded stable pagination and scoped totals
+2026-10-22T13:41:13.0914290Z [22m[39m{"event":"http_request","requestId":"43fcb812-a635-4e7f-81e6-a833051ea4c9","method":"GET","status":200,"durationMs":10}
+2026-10-22T13:41:13.0915357Z 
+2026-10-22T13:41:13.0984421Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mfilters with bounded stable pagination and scoped totals
+2026-10-22T13:41:13.0988020Z [22m[39m{"event":"http_request","requestId":"b3b3bf4b-e1a7-4e4a-8ec9-452ffccbc343","method":"GET","status":200,"durationMs":6}
+2026-10-22T13:41:13.0989044Z 
+2026-10-22T13:41:13.1070860Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mfilters with bounded stable pagination and scoped totals
+2026-10-22T13:41:13.1075398Z [22m[39m{"event":"http_request","requestId":"ba57493c-50a7-4bf4-b06d-538b0a2e3814","method":"GET","status":200,"durationMs":6}
+2026-10-22T13:41:13.1076168Z 
+2026-10-22T13:41:13.1133015Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mfilters with bounded stable pagination and scoped totals
+2026-10-22T13:41:13.1135450Z [22m[39m{"event":"http_request","requestId":"5a06ebdc-87c6-4269-aa83-f6a7ab8614be","method":"GET","status":200,"durationMs":5}
+2026-10-22T13:41:13.1136267Z 
+2026-10-22T13:41:13.1170134Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects query limit=51
+2026-10-22T13:41:13.1172084Z [22m[39m{"event":"http_request","requestId":"10266c26-ef06-4626-8fdc-54cb76cabe2a","method":"GET","status":400,"durationMs":2}
+2026-10-22T13:41:13.1172875Z 
+2026-10-22T13:41:13.1205079Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects query page=0
+2026-10-22T13:41:13.1207385Z [22m[39m{"event":"http_request","requestId":"537819ff-b207-4a84-9764-608dca8987b9","method":"GET","status":400,"durationMs":2}
+2026-10-22T13:41:13.1208539Z 
+2026-10-22T13:41:13.1237563Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects query status=invalid
+2026-10-22T13:41:13.1239827Z [22m[39m{"event":"http_request","requestId":"80af8053-38b4-4385-a8be-720c9e8073cb","method":"GET","status":400,"durationMs":2}
+2026-10-22T13:41:13.1240850Z 
+2026-10-22T13:41:13.1269860Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects query role=coordinator
+2026-10-22T13:41:13.1272349Z [22m[39m{"event":"http_request","requestId":"790b2522-41b6-48ca-b775-e801f50f40d9","method":"GET","status":400,"durationMs":2}
+2026-10-22T13:41:13.1273303Z 
+2026-10-22T13:41:13.1359462Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mSQL injection text is treated as a filter value
+2026-10-22T13:41:13.1362767Z [22m[39m{"event":"http_request","requestId":"23336e31-28ea-464c-bb99-06d5b728bb25","method":"GET","status":200,"durationMs":5}
+2026-10-22T13:41:13.1364317Z 
+2026-10-22T13:41:13.1536461Z [90mstderr[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mcreation rolls back when history insert fails
+2026-10-22T13:41:13.1538868Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mcreation rolls back when history insert fails
+2026-10-22T13:41:13.1540689Z [22m[39m{"event":"http_request","requestId":"35985bf7-fd36-48bf-b6da-0c1fce66574b","method":"POST","status":500,"durationMs":8}
+2026-10-22T13:41:13.1541404Z 
+2026-10-22T13:41:13.1566021Z [22m[39m{"event":"request_error","requestId":"35985bf7-fd36-48bf-b6da-0c1fce66574b"}
+2026-10-22T13:41:13.1566648Z 
+2026-10-22T13:41:13.1567063Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:13.1568360Z [22m[39m{"event":"http_request","requestId":"3e2b3ebc-e9b1-4f2f-9e31-37b554c8c2e2","method":"POST","status":200,"durationMs":414}
+2026-10-22T13:41:13.1569091Z 
+2026-10-22T13:41:13.1968063Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mlists only technician names/IDs with bounded pagination for coordinators
+2026-10-22T13:41:13.2001420Z [22m[39m{"event":"http_request","requestId":"f9adb72d-2ab4-41eb-a470-4ec2f220344c","method":"GET","status":200,"durationMs":19}
+2026-10-22T13:41:13.2034116Z 
+2026-10-22T13:41:13.2065849Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mlists only technician names/IDs with bounded pagination for coordinators
+2026-10-22T13:41:13.2067813Z [22m[39m{"event":"http_request","requestId":"d5228c5a-067f-45c6-9e52-bc6d8bf61d8a","method":"GET","status":200,"durationMs":6}
+2026-10-22T13:41:13.2103868Z 
+2026-10-22T13:41:13.2165710Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mlists only technician names/IDs with bounded pagination for coordinators
+2026-10-22T13:41:13.2205591Z [22m[39m{"event":"http_request","requestId":"f6c044ec-93a4-4b67-8148-1cba9f5f692b","method":"GET","status":403,"durationMs":3}
+2026-10-22T13:41:13.2206557Z 
+2026-10-22T13:41:13.2265616Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mlists only technician names/IDs with bounded pagination for coordinators
+2026-10-22T13:41:13.2295476Z [22m[39m{"event":"http_request","requestId":"493183c1-d12e-4f26-8634-91b67b92cdca","method":"GET","status":400,"durationMs":3}
+2026-10-22T13:41:13.2304084Z 
+2026-10-22T13:41:13.2371842Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician triage and exposes no claim API
+2026-10-22T13:41:13.2445430Z [22m[39m{"event":"http_request","requestId":"b0bd0269-f1bb-47c3-babb-5d9d65b81cfd","method":"POST","status":201,"durationMs":11}
+2026-10-22T13:41:13.2473905Z 
+2026-10-22T13:41:13.2525686Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician triage and exposes no claim API
+2026-10-22T13:41:13.2555670Z [22m[39m{"event":"http_request","requestId":"a1851a26-0265-4c30-87c4-6dd4fe920276","method":"POST","status":403,"durationMs":5}
+2026-10-22T13:41:13.2584033Z 
+2026-10-22T13:41:13.2585891Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician triage and exposes no claim API
+2026-10-22T13:41:13.2615440Z [22m[39m{"event":"http_request","requestId":"413ea227-8517-4ffa-b171-aedaa2913a32","method":"POST","status":403,"durationMs":5}
+2026-10-22T13:41:13.2643977Z 
+2026-10-22T13:41:13.2675556Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician triage and exposes no claim API
+2026-10-22T13:41:13.2677552Z [22m[39m{"event":"http_request","requestId":"d96af507-2256-41c7-a966-b49135f81cef","method":"POST","status":400,"durationMs":3}
+2026-10-22T13:41:13.2704007Z 
+2026-10-22T13:41:13.2938511Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician assign and exposes no claim API
+2026-10-22T13:41:13.2965327Z [22m[39m{"event":"http_request","requestId":"0b8de9d8-856d-4849-a86d-210993311436","method":"POST","status":201,"durationMs":18}
+2026-10-22T13:41:13.2993974Z 
+2026-10-22T13:41:13.3066300Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician assign and exposes no claim API
+2026-10-22T13:41:13.3068324Z [22m[39m{"event":"http_request","requestId":"3bb66136-dcf9-401d-a247-197d9781c8c1","method":"POST","status":403,"durationMs":7}
+2026-10-22T13:41:13.3069370Z 
+2026-10-22T13:41:13.3485693Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician assign and exposes no claim API
+2026-10-22T13:41:13.3515983Z [22m[39m{"event":"http_request","requestId":"e16894aa-1927-4a2b-862c-c79eee076af5","method":"POST","status":403,"durationMs":7}
+2026-10-22T13:41:13.3543700Z 
+2026-10-22T13:41:13.3585712Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician assign and exposes no claim API
+2026-10-22T13:41:13.3605359Z [22m[39m{"event":"http_request","requestId":"328a5980-55da-4f67-b9aa-9639aedc2316","method":"POST","status":400,"durationMs":7}
+2026-10-22T13:41:13.3633678Z 
+2026-10-22T13:41:13.3975857Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrequires triage before assignment and a real technician
+2026-10-22T13:41:13.4005528Z [22m[39m{"event":"http_request","requestId":"04ba054f-24f5-4493-91e5-2e4a4b34c5ec","method":"POST","status":201,"durationMs":21}
+2026-10-22T13:41:13.4033710Z 
+2026-10-22T13:41:13.4127138Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrequires triage before assignment and a real technician
+2026-10-22T13:41:13.4196230Z [22m[39m{"event":"http_request","requestId":"4868efd4-b4e8-4657-8639-380c2457d8eb","method":"POST","status":409,"durationMs":13}
+2026-10-22T13:41:13.4223803Z 
+2026-10-22T13:41:13.4415866Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrequires triage before assignment and a real technician
+2026-10-22T13:41:13.4435540Z [22m[39m{"event":"http_request","requestId":"209bc2e5-3375-464e-8c71-da8ea39f57ef","method":"POST","status":200,"durationMs":22}
+2026-10-22T13:41:13.4436526Z 
+2026-10-22T13:41:13.4595732Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrequires triage before assignment and a real technician
+2026-10-22T13:41:13.4625205Z [22m[39m{"event":"http_request","requestId":"08561a59-2435-453f-b03a-fab905cc5726","method":"POST","status":400,"durationMs":17}
+2026-10-22T13:41:13.4634106Z 
+2026-10-22T13:41:13.4778992Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrequires triage before assignment and a real technician
+2026-10-22T13:41:13.4805463Z [22m[39m{"event":"http_request","requestId":"2656c103-1f7c-4862-83bd-7ac04335b557","method":"POST","status":400,"durationMs":14}
+2026-10-22T13:41:13.4816407Z 
+2026-10-22T13:41:13.5079180Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigns once and prevents both duplicate and conflicting assignments
+2026-10-22T13:41:13.5105538Z [22m[39m{"event":"http_request","requestId":"e718ca9f-47b5-45ad-8554-1e0f282754cb","method":"POST","status":201,"durationMs":14}
+2026-10-22T13:41:13.5113959Z 
+2026-10-22T13:41:13.5405907Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigns once and prevents both duplicate and conflicting assignments
+2026-10-22T13:41:13.5438990Z [22m[39m{"event":"http_request","requestId":"ad000c9a-eff5-4280-bfed-417f49426c51","method":"POST","status":200,"durationMs":25}
+2026-10-22T13:41:13.5462399Z 
+2026-10-22T13:41:13.5695797Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigns once and prevents both duplicate and conflicting assignments
+2026-10-22T13:41:13.5735665Z [22m[39m{"event":"http_request","requestId":"7a057592-73c9-478f-a22d-1abc0c2d71b5","method":"POST","status":200,"durationMs":24}
+2026-10-22T13:41:13.5764081Z 
+2026-10-22T13:41:13.5830278Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigns once and prevents both duplicate and conflicting assignments
+2026-10-22T13:41:13.5871004Z [22m[39m{"event":"http_request","requestId":"acd15eb7-7361-4c67-ba59-64373a772fda","method":"POST","status":409,"durationMs":13}
+2026-10-22T13:41:13.5883911Z 
+2026-10-22T13:41:13.6079439Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigns once and prevents both duplicate and conflicting assignments
+2026-10-22T13:41:13.6084937Z [22m[39m{"event":"http_request","requestId":"22f42d9b-3a7f-4cec-8668-ba3a4c53f166","method":"POST","status":409,"durationMs":14}
+2026-10-22T13:41:13.6114035Z 
+2026-10-22T13:41:13.6379266Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:13.6405964Z [22m[39m{"event":"http_request","requestId":"50be116c-8d64-48d5-83ae-e42671ec26db","method":"POST","status":201,"durationMs":16}
+2026-10-22T13:41:13.6433869Z 
+2026-10-22T13:41:13.6669446Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:13.6686103Z [22m[39m{"event":"http_request","requestId":"0fe9d2e1-6993-4f65-9198-7ea05b3bc50d","method":"POST","status":200,"durationMs":24}
+2026-10-22T13:41:13.6703894Z 
+2026-10-22T13:41:13.7210963Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:13.7235881Z [22m[39m{"event":"http_request","requestId":"bd08ba1a-52d2-4d93-8f5f-bc2328f1cb22","method":"POST","status":200,"durationMs":45}
+2026-10-22T13:41:13.7263907Z 
+2026-10-22T13:41:13.7516583Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mwrong and unknown credentials share the same response
+2026-10-22T13:41:13.7525433Z [22m[39m{"event":"http_request","requestId":"4b409630-61c1-48e8-a67a-863ed74ad7ed","method":"POST","status":401,"durationMs":591}
+2026-10-22T13:41:13.7554109Z 
+2026-10-22T13:41:13.7575523Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:13.7605539Z [22m[39m{"event":"http_request","requestId":"94936c7a-6982-4767-a4a7-7df68c9cd61f","method":"GET","status":200,"durationMs":17}
+2026-10-22T13:41:13.7633696Z 
+2026-10-22T13:41:13.7695556Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:13.7697645Z [22m[39m{"event":"http_request","requestId":"8300ae61-ffb1-441f-8022-affa77e44c9d","method":"GET","status":404,"durationMs":11}
+2026-10-22T13:41:13.7723799Z 
+2026-10-22T13:41:13.7935861Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:13.7990177Z [22m[39m{"event":"http_request","requestId":"1167f670-23d3-4367-b27b-594d1a085f7a","method":"GET","status":404,"durationMs":18}
+2026-10-22T13:41:13.7993883Z 
+2026-10-22T13:41:13.8199295Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:13.8215443Z [22m[39m{"event":"http_request","requestId":"f5841f4c-2274-447f-867a-86bade64a752","method":"GET","status":404,"durationMs":18}
+2026-10-22T13:41:13.8235793Z 
+2026-10-22T13:41:13.8358831Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:13.8375566Z [22m[39m{"event":"http_request","requestId":"c70bdda8-49f2-48e9-80c2-da38f191a744","method":"POST","status":404,"durationMs":12}
+2026-10-22T13:41:13.8403891Z 
+2026-10-22T13:41:13.8589145Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:13.8595289Z [22m[39m{"event":"http_request","requestId":"43126293-0607-4a64-8c5c-a61d416c9f75","method":"GET","status":200,"durationMs":15}
+2026-10-22T13:41:13.8616155Z 
+2026-10-22T13:41:13.8885580Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mavailable technicians cannot read private history
+2026-10-22T13:41:13.8915508Z [22m[39m{"event":"http_request","requestId":"8783eaf7-c3e4-4b9a-bb9a-feb3896368d0","method":"POST","status":201,"durationMs":14}
+2026-10-22T13:41:13.8934048Z 
+2026-10-22T13:41:13.9186073Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mavailable technicians cannot read private history
+2026-10-22T13:41:13.9235718Z [22m[39m{"event":"http_request","requestId":"38beb7ce-0123-4cd6-a8a4-1b0685a40d36","method":"POST","status":200,"durationMs":19}
+2026-10-22T13:41:13.9244135Z 
+2026-10-22T13:41:13.9291830Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mavailable technicians cannot read private history
+2026-10-22T13:41:13.9305944Z [22m[39m{"event":"http_request","requestId":"e91da4c6-af5c-412c-a5ad-70c994c8401b","method":"GET","status":200,"durationMs":12}
+2026-10-22T13:41:13.9334025Z 
+2026-10-22T13:41:13.9428887Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mavailable technicians cannot read private history
+2026-10-22T13:41:13.9455504Z [22m[39m{"event":"http_request","requestId":"bf28832b-e0ea-476d-8b8d-a43542314c5b","method":"GET","status":403,"durationMs":9}
+2026-10-22T13:41:13.9464008Z 
+2026-10-22T13:41:13.9687119Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:13.9725692Z [22m[39m{"event":"http_request","requestId":"f89d65ad-c164-4376-906d-6e7d72edaf7a","method":"POST","status":201,"durationMs":14}
+2026-10-22T13:41:13.9726763Z 
+2026-10-22T13:41:13.9781633Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:13.9805458Z [22m[39m{"event":"http_request","requestId":"77d2b921-f192-404b-ac32-db8430493c79","method":"POST","status":200,"durationMs":8}
+2026-10-22T13:41:13.9834050Z 
+2026-10-22T13:41:13.9896057Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:13.9915521Z [22m[39m{"event":"http_request","requestId":"7d0190d0-8869-462c-8785-65887f264505","method":"POST","status":200,"durationMs":9}
+2026-10-22T13:41:13.9943803Z 
+2026-10-22T13:41:14.0005667Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:14.0035432Z [22m[39m{"event":"http_request","requestId":"9ca3b28f-52a9-4299-b952-8d9abcdcc068","method":"POST","status":200,"durationMs":8}
+2026-10-22T13:41:14.0036742Z 
+2026-10-22T13:41:14.0205961Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:14.0235633Z [22m[39m{"event":"http_request","requestId":"742d10f9-1579-415b-8018-245ce839afa3","method":"POST","status":200,"durationMs":15}
+2026-10-22T13:41:14.0236437Z 
+2026-10-22T13:41:14.0315693Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:14.0317836Z [22m[39m{"event":"http_request","requestId":"d1294816-8b3e-4eb8-a6ca-ab923106ca3f","method":"POST","status":409,"durationMs":8}
+2026-10-22T13:41:14.0343758Z 
+2026-10-22T13:41:14.0525940Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:14.0555364Z [22m[39m{"event":"http_request","requestId":"315587a3-6a30-49e9-8c69-44d8cbc91a88","method":"POST","status":200,"durationMs":17}
+2026-10-22T13:41:14.0583980Z 
+2026-10-22T13:41:14.0739191Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:14.0765477Z [22m[39m{"event":"http_request","requestId":"1eed072f-ee35-4ffe-877a-59cf6a0d1656","method":"POST","status":200,"durationMs":18}
+2026-10-22T13:41:14.0793957Z 
+2026-10-22T13:41:14.0879175Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:14.0915176Z [22m[39m{"event":"http_request","requestId":"d8febee3-a685-4a66-92a6-2ebe5b950642","method":"POST","status":409,"durationMs":12}
+2026-10-22T13:41:14.0916634Z 
+2026-10-22T13:41:14.1099316Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:14.1125568Z [22m[39m{"event":"http_request","requestId":"7ab4021d-fd27-45eb-8547-bdbd9dc34a8a","method":"GET","status":200,"durationMs":16}
+2026-10-22T13:41:14.1126616Z 
+2026-10-22T13:41:14.1289647Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:14.1325507Z [22m[39m{"event":"http_request","requestId":"11b712a9-8527-4637-bed4-21feb359ae41","method":"GET","status":200,"durationMs":14}
+2026-10-22T13:41:14.1326524Z 
+2026-10-22T13:41:14.1419080Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:14.1448686Z [22m[39m{"event":"http_request","requestId":"e1450004-9674-498b-845a-67cc3297cbf5","method":"GET","status":400,"durationMs":7}
+2026-10-22T13:41:14.1454078Z 
+2026-10-22T13:41:14.1689001Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.1715379Z [22m[39m{"event":"http_request","requestId":"2716a10a-2e95-4348-a8c1-545ae7a37164","method":"POST","status":201,"durationMs":16}
+2026-10-22T13:41:14.1716204Z 
+2026-10-22T13:41:14.1868885Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.1895384Z [22m[39m{"event":"http_request","requestId":"e5faaccd-af4e-4c41-aa54-ebeed8e36cbd","method":"POST","status":200,"durationMs":16}
+2026-10-22T13:41:14.1923796Z 
+2026-10-22T13:41:14.2128778Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.2175711Z [22m[39m{"event":"http_request","requestId":"a7a9a37f-f5ed-4f2f-96c1-3259a9c4c8ec","method":"POST","status":200,"durationMs":24}
+2026-10-22T13:41:14.2194649Z 
+2026-10-22T13:41:14.2418856Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.2445380Z [22m[39m{"event":"http_request","requestId":"c48f24ef-bdf1-4177-a903-eb445d6717ba","method":"POST","status":200,"durationMs":24}
+2026-10-22T13:41:14.2474267Z 
+2026-10-22T13:41:14.2595835Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.2625311Z [22m[39m{"event":"http_request","requestId":"921dbdf5-1b40-4864-8ff4-0e2235c40fd2","method":"POST","status":404,"durationMs":8}
+2026-10-22T13:41:14.2633651Z 
+2026-10-22T13:41:14.2668387Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.2685363Z [22m[39m{"event":"http_request","requestId":"97de1b7d-2790-473f-912a-812b2ebcbc6e","method":"POST","status":403,"durationMs":7}
+2026-10-22T13:41:14.2724622Z 
+2026-10-22T13:41:14.2826970Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.2845519Z [22m[39m{"event":"http_request","requestId":"47cfec6a-1169-43df-8e68-9196e76cb6e1","method":"POST","status":403,"durationMs":9}
+2026-10-22T13:41:14.2885269Z 
+2026-10-22T13:41:14.3144505Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.3208557Z [22m[39m{"event":"http_request","requestId":"876e07f0-b461-42ba-a4ad-e7a0a27d609b","method":"POST","status":201,"durationMs":20}
+2026-10-22T13:41:14.3233954Z 
+2026-10-22T13:41:14.3356169Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.3400356Z [22m[39m{"event":"http_request","requestId":"835d890a-bd6e-4bbe-9345-222698f92fc9","method":"POST","status":200,"durationMs":14}
+2026-10-22T13:41:14.3546209Z 
+2026-10-22T13:41:14.3636022Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.3666076Z [22m[39m{"event":"http_request","requestId":"05ce1a71-6946-40e5-b7b1-f7d3f3f2da50","method":"POST","status":200,"durationMs":23}
+2026-10-22T13:41:14.3724032Z 
+2026-10-22T13:41:14.3880099Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.3935940Z [22m[39m{"event":"http_request","requestId":"05297e70-ddbb-4227-bf0a-fb243b4f343c","method":"POST","status":200,"durationMs":23}
+2026-10-22T13:41:14.3964058Z 
+2026-10-22T13:41:14.4085814Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.4088150Z [22m[39m{"event":"http_request","requestId":"ee512344-0612-4228-99d7-7ffaa50a3732","method":"POST","status":404,"durationMs":12}
+2026-10-22T13:41:14.4145153Z 
+2026-10-22T13:41:14.4206289Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.4262348Z [22m[39m{"event":"http_request","requestId":"c87dd5ca-3bbe-40a7-9989-5c11064d3f1b","method":"POST","status":403,"durationMs":9}
+2026-10-22T13:41:14.4293794Z 
+2026-10-22T13:41:14.4326017Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:14.4366163Z [22m[39m{"event":"http_request","requestId":"ec96885f-4c9c-4296-b722-1f5f3da13139","method":"POST","status":403,"durationMs":6}
+2026-10-22T13:41:14.4393855Z 
+2026-10-22T13:41:14.4546070Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:14.4548013Z [22m[39m{"event":"http_request","requestId":"daef9a0c-f98b-48e0-bd39-9670b09c8d8c","method":"POST","status":201,"durationMs":16}
+2026-10-22T13:41:14.4629011Z 
+2026-10-22T13:41:14.4656539Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mwrong and unknown credentials share the same response
+2026-10-22T13:41:14.4695238Z [22m[39m{"event":"http_request","requestId":"fb4f4e01-cc22-43cc-a64e-2acaff6e318b","method":"POST","status":401,"durationMs":705}
+2026-10-22T13:41:14.4723921Z 
+2026-10-22T13:41:14.4755693Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:14.4773048Z [22m[39m{"event":"http_request","requestId":"12bfe817-2d15-4b47-b693-834bfb35e60e","method":"POST","status":200,"durationMs":7}
+2026-10-22T13:41:14.4834152Z 
+2026-10-22T13:41:14.4895585Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:14.4942129Z [22m[39m{"event":"http_request","requestId":"d91448c4-ad25-47c2-9747-09f0529fa9d3","method":"POST","status":200,"durationMs":8}
+2026-10-22T13:41:14.5045332Z 
+2026-10-22T13:41:14.5067175Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogout invalidates the server-side session
+2026-10-22T13:41:14.5075584Z [22m[39m{"event":"http_request","requestId":"ff99c356-2f1e-4e21-a42c-ce296edb10c3","method":"POST","status":204,"durationMs":11}
+2026-10-22T13:41:14.5114270Z 
+2026-10-22T13:41:14.5175679Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:14.5177571Z [22m[39m{"event":"http_request","requestId":"0ab27830-6c9b-4cf2-a297-e410aef6f3a6","method":"POST","status":400,"durationMs":3}
+2026-10-22T13:41:14.5224661Z 
+2026-10-22T13:41:14.5255811Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:14.5275313Z [22m[39m{"event":"http_request","requestId":"31097761-3e64-431b-9ca5-628b453996bc","method":"POST","status":400,"durationMs":2}
+2026-10-22T13:41:14.5303677Z 
+2026-10-22T13:41:14.5316356Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:14.5366037Z [22m[39m{"event":"http_request","requestId":"9b7ba1ce-4043-4806-a827-85ec2eb6c68b","method":"POST","status":400,"durationMs":2}
+2026-10-22T13:41:14.5367109Z 
+2026-10-22T13:41:14.5399387Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:14.5425362Z [22m[39m{"event":"http_request","requestId":"11f7d13b-97bf-4a39-bc95-12697238a717","method":"POST","status":400,"durationMs":3}
+2026-10-22T13:41:14.5426202Z 
+2026-10-22T13:41:14.5477286Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogout invalidates the server-side session
+2026-10-22T13:41:14.5485073Z [22m[39m{"event":"http_request","requestId":"2a1aa2f1-ed8a-4f0c-8bc9-8bd5ec65a65f","method":"GET","status":401,"durationMs":9}
+2026-10-22T13:41:14.5504221Z 
+2026-10-22T13:41:14.5535607Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:14.5545191Z [22m[39m{"event":"http_request","requestId":"d0a0d2b6-a384-4a83-a337-29b39726b34e","method":"POST","status":400,"durationMs":2}
+2026-10-22T13:41:14.5573673Z 
+2026-10-22T13:41:14.5595510Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:14.5625373Z [22m[39m{"event":"http_request","requestId":"f7a6603f-9ef9-4d79-ae69-61f14243a539","method":"POST","status":200,"durationMs":7}
+2026-10-22T13:41:14.5633669Z 
+2026-10-22T13:41:14.5665310Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mexpired sessions cannot authenticate
+2026-10-22T13:41:14.5667215Z [90mstderr[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T13:41:14.5684976Z [22m[39m{"event":"request_error","requestId":"6deb9a5e-b064-469f-a9b1-cd7ecb9e4de4"}
+2026-10-22T13:41:14.5686619Z [22m[39m{"event":"http_request","requestId":"e61d6be5-08e1-4eb5-88e6-387030149a2f","method":"GET","status":401,"durationMs":10}
+2026-10-22T13:41:14.5714189Z 
+2026-10-22T13:41:14.5723658Z 
+2026-10-22T13:41:14.5724962Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnew writes retain authentication, exact Origin and CSRF protections
+2026-10-22T13:41:14.5754895Z [22m[39m{"event":"http_request","requestId":"c2fe6b23-caf4-45f1-8ccb-52a8e6e720b3","method":"POST","status":201,"durationMs":12}
+2026-10-22T13:41:14.5783768Z 
+2026-10-22T13:41:14.5795366Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnew writes retain authentication, exact Origin and CSRF protections
+2026-10-22T13:41:14.5835347Z [22m[39m{"event":"http_request","requestId":"20da1d96-b76e-4ca9-9dfa-d776d1aee093","method":"POST","status":401,"durationMs":1}
+2026-10-22T13:41:14.5863974Z 
+2026-10-22T13:41:14.5875053Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnew writes retain authentication, exact Origin and CSRF protections
+2026-10-22T13:41:14.5910488Z [22m[39m{"event":"http_request","requestId":"14d93349-6d45-4562-aea8-cc2dd0dc2fb2","method":"POST","status":403,"durationMs":2}
+2026-10-22T13:41:14.5924002Z 
+2026-10-22T13:41:14.5934772Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnew writes retain authentication, exact Origin and CSRF protections
+2026-10-22T13:41:14.5936872Z [22m[39m{"event":"http_request","requestId":"ff955aa1-b6eb-4acd-ac25-48fddab127ff","method":"POST","status":403,"durationMs":1}
+2026-10-22T13:41:14.5937799Z 
+2026-10-22T13:41:14.5938896Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T13:41:14.5941205Z [22m[39m{"event":"http_request","requestId":"6becb5b6-c19e-400c-a498-ea8000995f19","method":"POST","status":201,"durationMs":8}
+2026-10-22T13:41:14.5942073Z 
+2026-10-22T13:41:14.5943050Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T13:41:14.5945030Z [22m[39m{"event":"http_request","requestId":"9bad1944-ad2d-49ac-a574-c9008625c2d0","method":"POST","status":200,"durationMs":8}
+2026-10-22T13:41:14.5945915Z 
+2026-10-22T13:41:14.5946869Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T13:41:14.5948612Z [22m[39m{"event":"http_request","requestId":"6deb9a5e-b064-469f-a9b1-cd7ecb9e4de4","method":"POST","status":500,"durationMs":9}
+2026-10-22T13:41:14.5949459Z 
+2026-10-22T13:41:14.5950489Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T13:41:14.5952231Z [22m[39m{"event":"http_request","requestId":"1a9c7567-3ac6-4512-bf77-cf210125b001","method":"GET","status":200,"durationMs":4}
+2026-10-22T13:41:14.5953057Z 
+2026-10-22T13:41:14.5954151Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T13:41:14.5985703Z [22m[39m{"event":"http_request","requestId":"7cda126d-b2b0-4b87-972f-5964fe1e0ee2","method":"POST","status":200,"durationMs":10}
+2026-10-22T13:41:14.5996892Z 
+2026-10-22T13:41:14.6024906Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mdatabase rejects non-technician assignees and duplicate audit versions
+2026-10-22T13:41:14.6036811Z [22m[39m{"event":"http_request","requestId":"5955cbac-3a4a-47fc-a8c5-4c31b3a72668","method":"POST","status":201,"durationMs":8}
+2026-10-22T13:41:14.6078306Z 
+2026-10-22T13:41:14.6104974Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mdatabase rejects non-technician assignees and duplicate audit versions
+2026-10-22T13:41:14.6118715Z [22m[39m{"event":"http_request","requestId":"c177cf76-a280-4168-9dc7-7650b30a4ba8","method":"POST","status":200,"durationMs":7}
+2026-10-22T13:41:14.6153831Z 
+2026-10-22T13:41:14.6285546Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mversioned history rejects a missing previous status
+2026-10-22T13:41:14.6315144Z [22m[39m{"event":"http_request","requestId":"72d1125f-c96a-4e35-bb8d-511a3e73174b","method":"POST","status":201,"durationMs":6}
+2026-10-22T13:41:14.6343819Z 
+2026-10-22T13:41:14.7415875Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits compact committed creation to coordinator but not unrelated users
+2026-10-22T13:41:14.7445364Z [22m[39m{"event":"http_request","requestId":"36970247-cc4a-403d-b94c-88257fe1de7f","method":"POST","status":201,"durationMs":13}
+2026-10-22T13:41:14.7467630Z 
+2026-10-22T13:41:14.8755809Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO notifies assigned technician and reporter after assignment
+2026-10-22T13:41:14.8772060Z [22m[39m{"event":"http_request","requestId":"1789ffca-62f7-4b64-9497-dc48fecbfb66","method":"POST","status":201,"durationMs":15}
+2026-10-22T13:41:14.8783958Z 
+2026-10-22T13:41:14.8905416Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO notifies assigned technician and reporter after assignment
+2026-10-22T13:41:14.8965292Z [22m[39m{"event":"http_request","requestId":"c4501202-7fd0-42ad-8056-fd242d17eb1f","method":"POST","status":200,"durationMs":14}
+2026-10-22T13:41:14.8966132Z 
+2026-10-22T13:41:14.9445409Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO notifies assigned technician and reporter after assignment
+2026-10-22T13:41:14.9471534Z [22m[39m{"event":"http_request","requestId":"2061267b-3a3e-4c4d-b420-3d6961dcc6fb","method":"POST","status":200,"durationMs":26}
+2026-10-22T13:41:14.9484148Z 
+2026-10-22T13:41:14.9835286Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T13:41:14.9837538Z [22m[39m{"event":"http_request","requestId":"ba8a4c07-dab0-4c06-bb93-78e64072a05d","method":"POST","status":201,"durationMs":18}
+2026-10-22T13:41:14.9838288Z 
+2026-10-22T13:41:14.9995665Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T13:41:15.0026603Z [22m[39m{"event":"http_request","requestId":"03313229-d2a5-4d14-8800-8ac19bbf8b5f","method":"POST","status":200,"durationMs":17}
+2026-10-22T13:41:15.0054202Z 
+2026-10-22T13:41:15.0383535Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T13:41:15.0405542Z [22m[39m{"event":"http_request","requestId":"408530ae-b901-4a59-899a-3922aa355825","method":"POST","status":500,"durationMs":24}
+2026-10-22T13:41:15.0407677Z [90mstderr[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T13:41:15.0434816Z [22m[39m{"event":"request_error","requestId":"408530ae-b901-4a59-899a-3922aa355825"}
+2026-10-22T13:41:15.0435355Z 
+2026-10-22T13:41:15.0463871Z 
+2026-10-22T13:41:15.4746157Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2msets HttpOnly SameSite cookies and rotates the current session
+2026-10-22T13:41:15.4749466Z [22m[39m{"event":"http_request","requestId":"32db7e35-2bf9-47c8-b6f0-db47711571e9","method":"POST","status":200,"durationMs":959}
+2026-10-22T13:41:15.4797254Z 
+2026-10-22T13:41:15.4835363Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2msets HttpOnly SameSite cookies and rotates the current session
+2026-10-22T13:41:15.4837546Z [22m[39m{"event":"http_request","requestId":"03c00a30-7e45-4115-9eb6-0eba6c79d8ef","method":"GET","status":401,"durationMs":2}
+2026-10-22T13:41:15.4873850Z 
+2026-10-22T13:41:15.4905576Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogin rate limit returns JSON errors
+2026-10-22T13:41:15.4907652Z [22m[39m{"event":"http_request","requestId":"754eab8b-7037-4da2-a6fd-bc832109d469","method":"POST","status":400,"durationMs":1}
+2026-10-22T13:41:15.4908472Z 
+2026-10-22T13:41:15.4909771Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogin rate limit returns JSON errors
+2026-10-22T13:41:15.4935204Z [22m[39m{"event":"http_request","requestId":"3ff9c8d9-2f5b-467c-ae83-22a9449a033f","method":"POST","status":400,"durationMs":1}
+2026-10-22T13:41:15.4963752Z 
+2026-10-22T13:41:15.5015380Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogin rate limit returns JSON errors
+2026-10-22T13:41:15.5055237Z [22m[39m{"event":"http_request","requestId":"f415647c-65af-4859-a113-fd5d6f850cf5","method":"POST","status":400,"durationMs":1}
+2026-10-22T13:41:15.5073786Z 
+2026-10-22T13:41:15.5104927Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogin rate limit returns JSON errors
+2026-10-22T13:41:15.5127157Z [22m[39m{"event":"http_request","requestId":"a33064cc-3f6b-4b4e-817c-de910b5a386b","method":"POST","status":429,"durationMs":0}
+2026-10-22T13:41:15.5214042Z 
+2026-10-22T13:41:15.5245197Z  [32m✓[39m tests/integration.test.ts [2m([22m[2m32 tests[22m[2m)[22m[33m 8956[2mms[22m[39m
+2026-10-22T13:41:15.5274622Z    [32m✓[39m authentication and PostgreSQL-backed requests [2m(32)[22m
+2026-10-22T13:41:15.5304693Z      [33m[2m✓[22m[39m stores salted password hashes and hashed session tokens[33m 393[2mms[22m[39m
+2026-10-22T13:41:15.5324958Z      [33m[2m✓[22m[39m wrong and unknown credentials share the same response[33m 1300[2mms[22m[39m
+2026-10-22T13:41:15.5344738Z      [33m[2m✓[22m[39m sets HttpOnly SameSite cookies and rotates the current session[33m 965[2mms[22m[39m
+2026-10-22T13:41:17.8516666Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO rechecks a revoked session before delivering private events
+2026-10-22T13:41:17.8519786Z [22m[39m{"event":"http_request","requestId":"c4a39f08-40ff-4b22-bd2f-09631d0bbc3a","method":"POST","status":200,"durationMs":2700}
+2026-10-22T13:41:17.8520708Z 
+2026-10-22T13:41:17.8598142Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO rechecks a revoked session before delivering private events
+2026-10-22T13:41:17.8599689Z [22m[39m{"event":"http_request","requestId":"eb11ef66-8ed1-42ed-a427-a99c794d7595","method":"POST","status":204,"durationMs":3}
+2026-10-22T13:41:17.8600200Z 
+2026-10-22T13:41:17.8681432Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO rechecks a revoked session before delivering private events
+2026-10-22T13:41:17.8682889Z [22m[39m{"event":"http_request","requestId":"c3ba877c-0a81-4505-b256-6d4cd00228ae","method":"POST","status":201,"durationMs":7}
+2026-10-22T13:41:17.8683773Z 
+2026-10-22T13:41:17.8867763Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO reconnection has one server connection and one update
+2026-10-22T13:41:17.8870118Z [22m[39m{"event":"http_request","requestId":"efd01bbd-78c8-4654-9346-9eef5498ae54","method":"POST","status":201,"durationMs":6}
+2026-10-22T13:41:17.8871695Z 
+2026-10-22T13:41:17.9016113Z [90mstderr[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO publish failure cannot undo an already committed REST change
+2026-10-22T13:41:17.9018102Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO publish failure cannot undo an already committed REST change
+2026-10-22T13:41:17.9020404Z [22m[39m{"event":"http_request","requestId":"b43f0203-8848-461c-bd0d-7dea3bf320de","method":"POST","status":201,"durationMs":6}
+2026-10-22T13:41:17.9021282Z 
+2026-10-22T13:41:17.9022303Z [22m[39m{"event":"realtime_publish_failed"}
+2026-10-22T13:41:17.9053887Z 
+2026-10-22T13:41:17.9256281Z  [32m✓[39m tests/workflow-api.test.ts [2m([22m[2m27 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m[33m 11337[2mms[22m[39m
+2026-10-22T13:41:17.9287957Z    [33m[2m✓[22m[39m Socket.IO rechecks a revoked session before delivering private events[33m 2727[2mms[22m[39m
+2026-10-22T13:41:17.9301636Z 
+2026-10-22T13:41:17.9324918Z [2m Test Files [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+2026-10-22T13:41:17.9345215Z [2m      Tests [22m [1m[32m84 passed[39m[22m[2m | [22m[33m2 skipped[39m[90m (86)[39m
+2026-10-22T13:41:17.9346073Z [2m   Start at [22m 13:41:05
+2026-10-22T13:41:17.9346912Z [2m   Duration [22m 12.67s[2m (tests 85%, import 13%, transform 2%)[22m
+2026-10-22T13:41:17.9347368Z 
+2026-10-22T13:41:18.0336890Z ##[group]Run npm run test:frontend
+2026-10-22T13:41:18.0337233Z [36;1mnpm run test:frontend[0m
+2026-10-22T13:41:18.0396638Z shell: /usr/bin/bash -e {0}
+2026-10-22T13:41:18.0396923Z ##[endgroup]
+2026-10-22T13:41:18.1441762Z 
+2026-10-22T13:41:18.1442473Z > campusfix@0.5.0 test:frontend
+2026-10-22T13:41:18.1443010Z > vitest run --config vitest.web.config.ts
+2026-10-22T13:41:18.1443236Z 
+2026-10-22T13:41:18.4596348Z 
+2026-10-22T13:41:18.4600573Z [1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90m/home/runner/work/CampusFix/CampusFix[39m
+2026-10-22T13:41:18.4601448Z 
+2026-10-22T13:41:20.7364181Z  [32m✓[39m web/tests/workflow.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[33m 951[2mms[22m[39m
+2026-10-22T13:41:20.8656000Z  [32m✓[39m web/tests/final.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[33m 913[2mms[22m[39m
+2026-10-22T13:41:20.8696144Z    [33m[2m✓[22m[39m router preserves requested detail during session restoration and renders not-found[33m 395[2mms[22m[39m
+2026-10-22T13:41:21.4416291Z  [32m✓[39m web/tests/ui.test.tsx [2m([22m[2m11 tests[22m[2m)[22m[33m 1584[2mms[22m[39m
+2026-10-22T13:41:21.4437855Z    [33m[2m✓[22m[39m login has accessible fields and submits credentials[33m 532[2mms[22m[39m
+2026-10-22T13:41:21.4439769Z    [33m[2m✓[22m[39m restores cookie session on reload and limits coordinator navigation[33m 372[2mms[22m[39m
+2026-10-22T13:41:21.8196693Z  [32m✓[39m web/tests/api.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+2026-10-22T13:41:22.0005732Z  [32m✓[39m web/tests/live.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 212[2mms[22m[39m
+2026-10-22T13:41:22.0032767Z 
+2026-10-22T13:41:22.0037226Z [2m Test Files [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+2026-10-22T13:41:22.0038573Z [2m      Tests [22m [1m[32m29 passed[39m[22m[90m (29)[39m
+2026-10-22T13:41:22.0039639Z [2m   Start at [22m 13:41:18
+2026-10-22T13:41:22.0043069Z [2m   Duration [22m 3.54s[2m (environment 44%, tests 40%, setup 7%, import 4%, transform 4%)[22m
+2026-10-22T13:41:22.0049115Z 
+2026-10-22T13:41:22.0050473Z [2mEnvironment [22m [33mjsdom was created 5 times[39m[2m · 3.98s total, 44% of tracked time[22m
+2026-10-22T13:41:22.0052463Z [2m            [22m [2mcreate it once per worker with [22m[33mpool: 'vmThreads'[39m[2m (keeps per-file isolation) or [22m[33misolate: false[39m[2m (shares it across files)[22m
+2026-10-22T13:41:22.0054380Z [2m            [22m [2mlearn more: https://vitest.dev/guide/improving-performance#test-environments[22m
+2026-10-22T13:41:22.0055331Z 
+2026-10-22T13:41:22.0562962Z ##[group]Run node --import tsx scripts/test-native.ts
+2026-10-22T13:41:22.0563662Z [36;1mnode --import tsx scripts/test-native.ts[0m
+2026-10-22T13:41:22.0621648Z shell: /usr/bin/bash -e {0}
+2026-10-22T13:41:22.0621910Z env:
+2026-10-22T13:41:22.0622891Z   TEST_DATABASE_URL: ***127.0.0.1:5432/campusfix_test
+2026-10-22T13:41:22.0623210Z ##[endgroup]
+2026-10-22T13:41:22.5097372Z 
+2026-10-22T13:41:22.5101113Z [1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90m/home/runner/work/CampusFix/CampusFix[39m
+2026-10-22T13:41:22.5101965Z 
+2026-10-22T13:41:23.6314941Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:23.6315452Z [22m[39mApplied 001_initial.sql
+2026-10-22T13:41:23.6315641Z 
+2026-10-22T13:41:23.6659741Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:23.6660475Z [22m[39mApplied 001_initial.sql
+2026-10-22T13:41:23.6660751Z 
+2026-10-22T13:41:23.7045411Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:23.7046185Z [22m[39mAdopted verified Milestone 1 schema; existing rows preserved
+2026-10-22T13:41:23.7046475Z 
+2026-10-22T13:41:23.7109207Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:23.7109858Z [22m[39mApplied 002_workflow.sql
+2026-10-22T13:41:23.7110129Z 
+2026-10-22T13:41:23.7238636Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:23.7240309Z [22m[39mApplied 002_workflow.sql
+2026-10-22T13:41:23.7240651Z 
+2026-10-22T13:41:23.7715087Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:23.7715817Z [22m[39mApplied 001_initial.sql
+2026-10-22T13:41:23.7716636Z 
+2026-10-22T13:41:24.7835975Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:24.7842682Z [22m[39m{"event":"http_request","requestId":"415edf2d-9d7d-40e8-bab7-6db41e5c2898","method":"POST","status":200,"durationMs":583}
+2026-10-22T13:41:24.7843923Z 
+2026-10-22T13:41:24.9238729Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:24.9240410Z [22m[39m{"event":"http_request","requestId":"bc236317-5bb2-43a1-89d8-85208e9ff4dd","method":"POST","status":200,"durationMs":612}
+2026-10-22T13:41:24.9241272Z 
+2026-10-22T13:41:25.1888721Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:25.1890544Z [22m[39m{"event":"http_request","requestId":"0c496fc9-90b6-4a8c-94d0-cc8b6cbbbcf5","method":"POST","status":200,"durationMs":400}
+2026-10-22T13:41:25.1891270Z 
+2026-10-22T13:41:25.3312965Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:25.3314585Z [22m[39m{"event":"http_request","requestId":"fd62e24c-d4e0-43e3-9c2f-507952ac2db5","method":"POST","status":200,"durationMs":402}
+2026-10-22T13:41:25.3315543Z 
+2026-10-22T13:41:25.5880345Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:25.5899117Z [22m[39m{"event":"http_request","requestId":"aeb2ff32-e568-406f-8561-71b9e12bf1a8","method":"POST","status":200,"durationMs":397}
+2026-10-22T13:41:25.5899681Z 
+2026-10-22T13:41:25.7404334Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:25.7406063Z [22m[39m{"event":"http_request","requestId":"a670f3d8-435a-4313-a241-704b6e4c4836","method":"POST","status":200,"durationMs":407}
+2026-10-22T13:41:25.7408026Z 
+2026-10-22T13:41:25.9832732Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:25.9834314Z [22m[39m{"event":"http_request","requestId":"af99895a-62c0-4415-95c6-be3303c3eac1","method":"POST","status":200,"durationMs":393}
+2026-10-22T13:41:25.9834919Z 
+2026-10-22T13:41:25.9864201Z [90mstdout[2m | tests/integration.test.ts
+2026-10-22T13:41:25.9865326Z [22m[39mIntegration engine: native PostgreSQL
+2026-10-22T13:41:25.9866128Z 
+2026-10-22T13:41:26.1401917Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:26.1403298Z [22m[39m{"event":"http_request","requestId":"f2e03867-45bb-4a95-a58d-0665bf347263","method":"POST","status":200,"durationMs":397}
+2026-10-22T13:41:26.1404108Z 
+2026-10-22T13:41:26.4115975Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mreturns current user without credentials
+2026-10-22T13:41:26.4118782Z [22m[39m{"event":"http_request","requestId":"21f95a96-bdfa-4fad-985c-587629a8cc2e","method":"GET","status":200,"durationMs":3}
+2026-10-22T13:41:26.4119528Z 
+2026-10-22T13:41:26.4143045Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects unauthenticated request reads
+2026-10-22T13:41:26.4145231Z [22m[39m{"event":"http_request","requestId":"3348f669-20bf-4d80-912d-41709c36e341","method":"GET","status":401,"durationMs":1}
+2026-10-22T13:41:26.4146054Z 
+2026-10-22T13:41:26.4181470Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects fabricated sessions
+2026-10-22T13:41:26.4184481Z [22m[39m{"event":"http_request","requestId":"c4a4d78a-0ebf-4ee8-863a-9b601236af6b","method":"GET","status":401,"durationMs":2}
+2026-10-22T13:41:26.4185545Z 
+2026-10-22T13:41:26.4252202Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mcreates request and history atomically
+2026-10-22T13:41:26.4257246Z [22m[39m{"event":"http_request","requestId":"f90db7c1-4910-4ad3-ad8f-ca387b2ab92e","method":"POST","status":201,"durationMs":5}
+2026-10-22T13:41:26.4258363Z 
+2026-10-22T13:41:26.4309749Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mallows reporter retrieval
+2026-10-22T13:41:26.4312533Z [22m[39m{"event":"http_request","requestId":"ed664438-456e-4653-8c88-8c4fc8b13261","method":"GET","status":200,"durationMs":3}
+2026-10-22T13:41:26.4313678Z 
+2026-10-22T13:41:26.4351429Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mconceals other students records
+2026-10-22T13:41:26.4354545Z [22m[39m{"event":"http_request","requestId":"41cdec27-2840-4c40-b4d4-0453809deb9c","method":"GET","status":404,"durationMs":2}
+2026-10-22T13:41:26.4355555Z 
+2026-10-22T13:41:26.4394536Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mcoordinator can retrieve any request
+2026-10-22T13:41:26.4396467Z [22m[39m{"event":"http_request","requestId":"af337322-9ac6-41ca-ba0d-81457f267b8a","method":"GET","status":200,"durationMs":2}
+2026-10-22T13:41:26.4397193Z 
+2026-10-22T13:41:26.4434138Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mtechnician cannot read unassigned private reported requests
+2026-10-22T13:41:26.4436365Z [22m[39m{"event":"http_request","requestId":"5e199bf9-6984-4ac9-9a20-0425945d5d9a","method":"GET","status":404,"durationMs":2}
+2026-10-22T13:41:26.4438707Z 
+2026-10-22T13:41:26.4487508Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mtechnician available work omits reporter ID and description
+2026-10-22T13:41:26.4489821Z [22m[39m{"event":"http_request","requestId":"66328c23-3d91-41fb-b3b9-8fed7b362ec1","method":"GET","status":200,"durationMs":2}
+2026-10-22T13:41:26.4490726Z 
+2026-10-22T13:41:26.4515028Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2menforces creation role on server
+2026-10-22T13:41:26.4517083Z [22m[39m{"event":"http_request","requestId":"7b3afb47-20fd-415f-9d37-1f2ac321f5a7","method":"POST","status":403,"durationMs":2}
+2026-10-22T13:41:26.4519078Z 
+2026-10-22T13:41:26.4547876Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects mass assignment
+2026-10-22T13:41:26.4549885Z [22m[39m{"event":"http_request","requestId":"e676e80f-d16c-4cc1-96dc-442f555bb3f5","method":"POST","status":400,"durationMs":2}
+2026-10-22T13:41:26.4550795Z 
+2026-10-22T13:41:26.4579144Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects missing CSRF token
+2026-10-22T13:41:26.4581416Z [22m[39m{"event":"http_request","requestId":"fd06c618-e1f6-49bd-a1b3-4f9b0f272823","method":"POST","status":403,"durationMs":1}
+2026-10-22T13:41:26.4592132Z 
+2026-10-22T13:41:26.4598041Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects cross-origin writes
+2026-10-22T13:41:26.4600842Z [22m[39m{"event":"http_request","requestId":"bc9f93d8-f879-49f7-8024-47e999f1fe78","method":"POST","status":403,"durationMs":1}
+2026-10-22T13:41:26.4601791Z 
+2026-10-22T13:41:26.4613839Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects non-JSON writes
+2026-10-22T13:41:26.4615857Z [22m[39m{"event":"http_request","requestId":"dfc74cf8-dbde-4d04-8f0e-203f3d116a96","method":"POST","status":415,"durationMs":0}
+2026-10-22T13:41:26.4616764Z 
+2026-10-22T13:41:26.4641795Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects invalid UUIDs
+2026-10-22T13:41:26.4643962Z [22m[39m{"event":"http_request","requestId":"6ec6fe5f-5f68-407f-b1c0-01d481598228","method":"GET","status":400,"durationMs":2}
+2026-10-22T13:41:26.4644867Z 
+2026-10-22T13:41:26.4670141Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mvalidates request boundaries
+2026-10-22T13:41:26.4672914Z [22m[39m{"event":"http_request","requestId":"afd45523-36e5-4c9f-9008-167fd72b6c0e","method":"POST","status":400,"durationMs":2}
+2026-10-22T13:41:26.4674233Z 
+2026-10-22T13:41:26.4730217Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mfilters with bounded stable pagination and scoped totals
+2026-10-22T13:41:26.4733297Z [22m[39m{"event":"http_request","requestId":"4f61ad7a-aaf0-45d3-af1e-6c2e9055d80b","method":"GET","status":200,"durationMs":4}
+2026-10-22T13:41:26.4734509Z 
+2026-10-22T13:41:26.4769570Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mfilters with bounded stable pagination and scoped totals
+2026-10-22T13:41:26.4775490Z [22m[39m{"event":"http_request","requestId":"77f3e48c-552b-47ac-926e-bc16f23d18d2","method":"GET","status":200,"durationMs":3}
+2026-10-22T13:41:26.4776406Z 
+2026-10-22T13:41:26.4816606Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mfilters with bounded stable pagination and scoped totals
+2026-10-22T13:41:26.4818769Z [22m[39m{"event":"http_request","requestId":"bd652562-e16d-445b-ba50-52f5b6aa0134","method":"GET","status":200,"durationMs":3}
+2026-10-22T13:41:26.4819708Z 
+2026-10-22T13:41:26.4854900Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mfilters with bounded stable pagination and scoped totals
+2026-10-22T13:41:26.4857117Z [22m[39m{"event":"http_request","requestId":"cf3de21b-0323-4e19-b48e-6508aee02014","method":"GET","status":200,"durationMs":3}
+2026-10-22T13:41:26.4858012Z 
+2026-10-22T13:41:26.4878889Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects query limit=51
+2026-10-22T13:41:26.4880845Z [22m[39m{"event":"http_request","requestId":"73ae8a55-c735-4054-b87d-bc857327c458","method":"GET","status":400,"durationMs":1}
+2026-10-22T13:41:26.4881703Z 
+2026-10-22T13:41:26.4903720Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects query page=0
+2026-10-22T13:41:26.4905675Z [22m[39m{"event":"http_request","requestId":"6230d405-5d48-4d1f-b404-2dda24b440aa","method":"GET","status":400,"durationMs":1}
+2026-10-22T13:41:26.4906565Z 
+2026-10-22T13:41:26.4925850Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects query status=invalid
+2026-10-22T13:41:26.4928051Z [22m[39m{"event":"http_request","requestId":"08de1ee1-f229-48c4-95c7-b2700866dde2","method":"GET","status":400,"durationMs":1}
+2026-10-22T13:41:26.4929088Z 
+2026-10-22T13:41:26.4948489Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mrejects query role=coordinator
+2026-10-22T13:41:26.4950515Z [22m[39m{"event":"http_request","requestId":"425e1ab5-2676-4029-b8d4-ef5c51c9f28f","method":"GET","status":400,"durationMs":1}
+2026-10-22T13:41:26.4951391Z 
+2026-10-22T13:41:26.4987698Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mSQL injection text is treated as a filter value
+2026-10-22T13:41:26.4989787Z [22m[39m{"event":"http_request","requestId":"c3f72f7d-122f-436f-8d10-7fe01e176503","method":"GET","status":200,"durationMs":3}
+2026-10-22T13:41:26.4990698Z 
+2026-10-22T13:41:26.5271719Z [90mstderr[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mcreation rolls back when history insert fails
+2026-10-22T13:41:26.5274179Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mcreation rolls back when history insert fails
+2026-10-22T13:41:26.5275780Z [22m[39m{"event":"request_error","requestId":"b154ccb8-771d-41d5-a9e4-d9c17845e223"}
+2026-10-22T13:41:26.5276289Z 
+2026-10-22T13:41:26.5277557Z [22m[39m{"event":"http_request","requestId":"b154ccb8-771d-41d5-a9e4-d9c17845e223","method":"POST","status":500,"durationMs":5}
+2026-10-22T13:41:26.5278512Z 
+2026-10-22T13:41:26.5626331Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:26.5627804Z [22m[39m{"event":"http_request","requestId":"29bf1a08-2e55-41e7-b61f-ec7a699f2152","method":"POST","status":200,"durationMs":420}
+2026-10-22T13:41:26.5628544Z 
+2026-10-22T13:41:26.9283865Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mwrong and unknown credentials share the same response
+2026-10-22T13:41:26.9285155Z [22m[39m{"event":"http_request","requestId":"e7893167-10bd-4a68-b26c-7f760c0dac88","method":"POST","status":401,"durationMs":398}
+2026-10-22T13:41:26.9644163Z 
+2026-10-22T13:41:26.9645303Z [90mstdout[2m | tests/workflow-api.test.ts
+2026-10-22T13:41:26.9646320Z [22m[39m{"event":"http_request","requestId":"622ab6ca-bb29-4880-b0a2-3e309c22816b","method":"POST","status":200,"durationMs":397}
+2026-10-22T13:41:26.9646808Z 
+2026-10-22T13:41:26.9850358Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mlists only technician names/IDs with bounded pagination for coordinators
+2026-10-22T13:41:26.9875104Z [22m[39m{"event":"http_request","requestId":"f88cffb2-df31-4128-8aa3-3dcdccf644dd","method":"GET","status":200,"durationMs":9}
+2026-10-22T13:41:26.9903905Z 
+2026-10-22T13:41:26.9965242Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mlists only technician names/IDs with bounded pagination for coordinators
+2026-10-22T13:41:26.9994815Z [22m[39m{"event":"http_request","requestId":"b63e97ad-dcb6-4401-bde2-3a02d483bcf6","method":"GET","status":200,"durationMs":5}
+2026-10-22T13:41:27.0023610Z 
+2026-10-22T13:41:27.0075686Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mlists only technician names/IDs with bounded pagination for coordinators
+2026-10-22T13:41:27.0135058Z [22m[39m{"event":"http_request","requestId":"505daa34-839a-496f-915c-48102ac5d090","method":"GET","status":403,"durationMs":2}
+2026-10-22T13:41:27.0193691Z 
+2026-10-22T13:41:27.0195037Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mlists only technician names/IDs with bounded pagination for coordinators
+2026-10-22T13:41:27.0196806Z [22m[39m{"event":"http_request","requestId":"9d870da1-bf82-4e18-bf49-4bc2f7eaedbf","method":"GET","status":400,"durationMs":3}
+2026-10-22T13:41:27.0197548Z 
+2026-10-22T13:41:27.0315647Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician triage and exposes no claim API
+2026-10-22T13:41:27.0375160Z [22m[39m{"event":"http_request","requestId":"849f6b92-ab90-4d33-9af3-d6c6e9911b2f","method":"POST","status":201,"durationMs":13}
+2026-10-22T13:41:27.0433686Z 
+2026-10-22T13:41:27.0465090Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician triage and exposes no claim API
+2026-10-22T13:41:27.0495045Z [22m[39m{"event":"http_request","requestId":"4f0d4fd2-6b93-4ccd-8a88-02b0e86ca86e","method":"POST","status":403,"durationMs":7}
+2026-10-22T13:41:27.0553710Z 
+2026-10-22T13:41:27.0615224Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician triage and exposes no claim API
+2026-10-22T13:41:27.0675238Z [22m[39m{"event":"http_request","requestId":"de46f312-8e97-4ca3-ad98-413a487f70af","method":"POST","status":403,"durationMs":5}
+2026-10-22T13:41:27.0733690Z 
+2026-10-22T13:41:27.0765086Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician triage and exposes no claim API
+2026-10-22T13:41:27.0795048Z [22m[39m{"event":"http_request","requestId":"5a590a60-e65f-48f3-90ed-837077f0a8fd","method":"POST","status":400,"durationMs":5}
+2026-10-22T13:41:27.0853681Z 
+2026-10-22T13:41:27.0885085Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician assign and exposes no claim API
+2026-10-22T13:41:27.0915065Z [22m[39m{"event":"http_request","requestId":"cf821f42-c6fd-4df6-96e0-78bea6503f2d","method":"POST","status":201,"durationMs":11}
+2026-10-22T13:41:27.0973693Z 
+2026-10-22T13:41:27.1025686Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician assign and exposes no claim API
+2026-10-22T13:41:27.1092246Z [22m[39m{"event":"http_request","requestId":"fec34aeb-3c50-49a5-be04-ba60010a8b6c","method":"POST","status":403,"durationMs":6}
+2026-10-22T13:41:27.1153680Z 
+2026-10-22T13:41:27.1155145Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician assign and exposes no claim API
+2026-10-22T13:41:27.1156833Z [22m[39m{"event":"http_request","requestId":"7e8f4cdf-eedf-4993-ba22-0ca54f7f36c7","method":"POST","status":403,"durationMs":5}
+2026-10-22T13:41:27.1157582Z 
+2026-10-22T13:41:27.1158466Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects student/technician assign and exposes no claim API
+2026-10-22T13:41:27.1215035Z [22m[39m{"event":"http_request","requestId":"e84fb269-f80e-4b78-ac17-11fa03a1c5b1","method":"POST","status":400,"durationMs":5}
+2026-10-22T13:41:27.1271609Z 
+2026-10-22T13:41:27.1391212Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrequires triage before assignment and a real technician
+2026-10-22T13:41:27.1455321Z [22m[39m{"event":"http_request","requestId":"976bdc1f-0947-4cd4-bb13-11270672e257","method":"POST","status":201,"durationMs":18}
+2026-10-22T13:41:27.1513761Z 
+2026-10-22T13:41:27.1575143Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrequires triage before assignment and a real technician
+2026-10-22T13:41:27.1596785Z [22m[39m{"event":"http_request","requestId":"acbc4d48-b8a9-4267-b69d-30cad33e9c52","method":"POST","status":409,"durationMs":10}
+2026-10-22T13:41:27.1633660Z 
+2026-10-22T13:41:27.1755212Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrequires triage before assignment and a real technician
+2026-10-22T13:41:27.1785078Z [22m[39m{"event":"http_request","requestId":"6b46cbbe-297a-4e07-8cc5-83b0553c2ea3","method":"POST","status":200,"durationMs":20}
+2026-10-22T13:41:27.1813767Z 
+2026-10-22T13:41:27.1895406Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrequires triage before assignment and a real technician
+2026-10-22T13:41:27.1965299Z [22m[39m{"event":"http_request","requestId":"65e732f4-e891-4723-a699-628e92e6cce5","method":"POST","status":400,"durationMs":12}
+2026-10-22T13:41:27.1981674Z 
+2026-10-22T13:41:27.2100224Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrequires triage before assignment and a real technician
+2026-10-22T13:41:27.2215532Z [22m[39m{"event":"http_request","requestId":"b29b488d-78a5-4aee-b141-252546602986","method":"POST","status":400,"durationMs":14}
+2026-10-22T13:41:27.2273896Z 
+2026-10-22T13:41:27.2335344Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigns once and prevents both duplicate and conflicting assignments
+2026-10-22T13:41:27.2378640Z [22m[39m{"event":"http_request","requestId":"f104d57f-2b5b-48c9-b11c-d73989c74be2","method":"POST","status":201,"durationMs":8}
+2026-10-22T13:41:27.2433757Z 
+2026-10-22T13:41:27.2495315Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigns once and prevents both duplicate and conflicting assignments
+2026-10-22T13:41:27.2555180Z [22m[39m{"event":"http_request","requestId":"29426550-10e0-4508-906a-8c331659534b","method":"POST","status":200,"durationMs":10}
+2026-10-22T13:41:27.2603932Z 
+2026-10-22T13:41:27.2645339Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigns once and prevents both duplicate and conflicting assignments
+2026-10-22T13:41:27.2675306Z [22m[39m{"event":"http_request","requestId":"18087f57-bbde-4e1e-9e49-d673b6cfaa47","method":"POST","status":200,"durationMs":17}
+2026-10-22T13:41:27.2733716Z 
+2026-10-22T13:41:27.2795271Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigns once and prevents both duplicate and conflicting assignments
+2026-10-22T13:41:27.2855165Z [22m[39m{"event":"http_request","requestId":"f58dc19f-a6e9-4bed-af89-794884f4bc2e","method":"POST","status":409,"durationMs":8}
+2026-10-22T13:41:27.2913929Z 
+2026-10-22T13:41:27.2945239Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigns once and prevents both duplicate and conflicting assignments
+2026-10-22T13:41:27.2975162Z [22m[39m{"event":"http_request","requestId":"f2bae324-7862-4f61-900e-3df405c50ca1","method":"POST","status":409,"durationMs":6}
+2026-10-22T13:41:27.3033723Z 
+2026-10-22T13:41:27.3085773Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:27.3115357Z [22m[39m{"event":"http_request","requestId":"ed94a647-6ae7-4b47-98cd-a11bbaec329e","method":"POST","status":201,"durationMs":11}
+2026-10-22T13:41:27.3143774Z 
+2026-10-22T13:41:27.3265736Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:27.3275094Z [22m[39m{"event":"http_request","requestId":"d38d2d35-2d41-4932-9089-489a3472f1ee","method":"POST","status":200,"durationMs":15}
+2026-10-22T13:41:27.3317432Z 
+2026-10-22T13:41:27.3425492Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:27.3485736Z [22m[39m{"event":"http_request","requestId":"5c75b720-0e62-4972-ba8f-cd42945fa30e","method":"POST","status":200,"durationMs":12}
+2026-10-22T13:41:27.3543754Z 
+2026-10-22T13:41:27.3597478Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:27.3625191Z [22m[39m{"event":"http_request","requestId":"4c1efe97-93cc-446a-9527-defb3decb4bc","method":"GET","status":200,"durationMs":5}
+2026-10-22T13:41:27.3625946Z 
+2026-10-22T13:41:27.3627077Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:27.3655161Z [22m[39m{"event":"http_request","requestId":"d46416ad-5fb8-4b13-bcd4-c2b9850769b5","method":"GET","status":404,"durationMs":3}
+2026-10-22T13:41:27.3655943Z 
+2026-10-22T13:41:27.3715156Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:27.3775084Z [22m[39m{"event":"http_request","requestId":"71da15fb-6b94-4fd9-aa32-e66151c540b1","method":"GET","status":404,"durationMs":7}
+2026-10-22T13:41:27.3833718Z 
+2026-10-22T13:41:27.3895809Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:27.3955330Z [22m[39m{"event":"http_request","requestId":"e3c025f7-34e8-424d-ab76-6c2c721d6d7b","method":"GET","status":404,"durationMs":6}
+2026-10-22T13:41:27.3983692Z 
+2026-10-22T13:41:27.4005885Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:27.4065562Z [22m[39m{"event":"http_request","requestId":"55429858-0843-47bd-81d5-e145a5a8697d","method":"POST","status":404,"durationMs":11}
+2026-10-22T13:41:27.4094922Z 
+2026-10-22T13:41:27.4155530Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2massigned work and history are inaccessible to another technician or student
+2026-10-22T13:41:27.4185262Z [22m[39m{"event":"http_request","requestId":"b2327679-aa28-4338-a2c1-eb6da2100496","method":"GET","status":200,"durationMs":11}
+2026-10-22T13:41:27.4243889Z 
+2026-10-22T13:41:27.4425590Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mavailable technicians cannot read private history
+2026-10-22T13:41:27.4465465Z [22m[39m{"event":"http_request","requestId":"a144196a-5a4c-43fc-af9f-8f6f68fb5e51","method":"POST","status":201,"durationMs":16}
+2026-10-22T13:41:27.4513861Z 
+2026-10-22T13:41:27.4715422Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mavailable technicians cannot read private history
+2026-10-22T13:41:27.4765449Z [22m[39m{"event":"http_request","requestId":"4ab0174e-fe72-4f82-bb13-9f203561d176","method":"POST","status":200,"durationMs":20}
+2026-10-22T13:41:27.4777082Z 
+2026-10-22T13:41:27.4849246Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mavailable technicians cannot read private history
+2026-10-22T13:41:27.4888920Z [22m[39m{"event":"http_request","requestId":"c8778689-0d7f-441f-b7e1-da9a0e3015dc","method":"GET","status":200,"durationMs":14}
+2026-10-22T13:41:27.4944216Z 
+2026-10-22T13:41:27.5005508Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mavailable technicians cannot read private history
+2026-10-22T13:41:27.5007147Z [22m[39m{"event":"http_request","requestId":"5b5efdc1-edbd-49a0-92ce-668423f218d7","method":"GET","status":403,"durationMs":5}
+2026-10-22T13:41:27.5007884Z 
+2026-10-22T13:41:27.5175739Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:27.5215560Z [22m[39m{"event":"http_request","requestId":"b0be7d69-bf78-4fbe-b388-1a00f7207a2e","method":"POST","status":201,"durationMs":14}
+2026-10-22T13:41:27.5243993Z 
+2026-10-22T13:41:27.5355876Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:27.5385232Z [22m[39m{"event":"http_request","requestId":"bdd27b12-e1eb-4cfa-85aa-60b1f49d9a7a","method":"POST","status":200,"durationMs":13}
+2026-10-22T13:41:27.5424297Z 
+2026-10-22T13:41:27.5536664Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:27.5545118Z [22m[39m{"event":"http_request","requestId":"01816183-6990-4a8b-8581-3ea63e574729","method":"POST","status":200,"durationMs":17}
+2026-10-22T13:41:27.5603830Z 
+2026-10-22T13:41:27.5705649Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:27.5725318Z [22m[39m{"event":"http_request","requestId":"49481970-e264-4e38-ab2f-2d413609ed93","method":"POST","status":200,"durationMs":11}
+2026-10-22T13:41:27.5783795Z 
+2026-10-22T13:41:27.5845425Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:27.5855703Z [22m[39m{"event":"http_request","requestId":"02abf485-90d1-474a-8101-b9d83baaff08","method":"POST","status":200,"durationMs":12}
+2026-10-22T13:41:27.5903765Z 
+2026-10-22T13:41:27.5965466Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:27.5995141Z [22m[39m{"event":"http_request","requestId":"221e8158-6e22-483f-b3e8-484903f419b9","method":"POST","status":409,"durationMs":8}
+2026-10-22T13:41:27.6033963Z 
+2026-10-22T13:41:27.6085405Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:27.6115750Z [22m[39m{"event":"http_request","requestId":"c87e1879-18b6-4dfc-9482-92a3acf27d09","method":"POST","status":200,"durationMs":8}
+2026-10-22T13:41:27.6173805Z 
+2026-10-22T13:41:27.6205923Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:27.6265576Z [22m[39m{"event":"http_request","requestId":"5267dcd7-c3e9-43d5-b961-8df4418c8c91","method":"POST","status":200,"durationMs":12}
+2026-10-22T13:41:27.6293779Z 
+2026-10-22T13:41:27.6355854Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:27.6385548Z [22m[39m{"event":"http_request","requestId":"e4f3cb21-8971-423b-a57c-4ffe92d9730b","method":"POST","status":409,"durationMs":7}
+2026-10-22T13:41:27.6421775Z 
+2026-10-22T13:41:27.6535670Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:27.6585407Z [22m[39m{"event":"http_request","requestId":"e49f811c-f835-4f7a-a2ac-fe8e7668d332","method":"GET","status":200,"durationMs":14}
+2026-10-22T13:41:27.6586175Z 
+2026-10-22T13:41:27.6665910Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:27.6695525Z [22m[39m{"event":"http_request","requestId":"e60bb9ca-286d-423b-bcf2-08149f5dbe12","method":"GET","status":200,"durationMs":9}
+2026-10-22T13:41:27.6754063Z 
+2026-10-22T13:41:27.6795433Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrecords resolve/reopen/resolve/close with stable paginated progress and notes
+2026-10-22T13:41:27.6825164Z [22m[39m{"event":"http_request","requestId":"5c8ff78b-10c7-4fb5-9d89-2981dbb4d986","method":"GET","status":400,"durationMs":2}
+2026-10-22T13:41:27.6883784Z 
+2026-10-22T13:41:27.6915241Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.6945146Z [22m[39m{"event":"http_request","requestId":"1e4932e5-80f0-4711-bf12-5705d679c41b","method":"POST","status":201,"durationMs":6}
+2026-10-22T13:41:27.7003778Z 
+2026-10-22T13:41:27.7058360Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.7085272Z [22m[39m{"event":"http_request","requestId":"d456ae23-ff18-4c8f-add1-9c9b44d164b8","method":"POST","status":200,"durationMs":6}
+2026-10-22T13:41:27.7113894Z 
+2026-10-22T13:41:27.7195437Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.7205512Z [22m[39m{"event":"http_request","requestId":"d8fc0693-93f9-41ae-b5e1-0ef3f8648305","method":"POST","status":200,"durationMs":10}
+2026-10-22T13:41:27.7233855Z 
+2026-10-22T13:41:27.7298291Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.7355563Z [22m[39m{"event":"http_request","requestId":"27b3ffda-0a5c-4ea3-874c-05225a6d387c","method":"POST","status":200,"durationMs":17}
+2026-10-22T13:41:27.7373854Z 
+2026-10-22T13:41:27.7456615Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.7465535Z [22m[39m{"event":"http_request","requestId":"2579afad-a989-40aa-8b3e-b999feb7f2c3","method":"POST","status":404,"durationMs":7}
+2026-10-22T13:41:27.7466263Z 
+2026-10-22T13:41:27.7467207Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.7468728Z [22m[39m{"event":"http_request","requestId":"aae1889f-c3d0-4cab-a28f-a83f13673519","method":"POST","status":403,"durationMs":6}
+2026-10-22T13:41:27.7469417Z 
+2026-10-22T13:41:27.7525495Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can close; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.7555569Z [22m[39m{"event":"http_request","requestId":"6cccc54c-55ae-4beb-8282-27a0111eb378","method":"POST","status":403,"durationMs":6}
+2026-10-22T13:41:27.7563816Z 
+2026-10-22T13:41:27.7675531Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.7755743Z [22m[39m{"event":"http_request","requestId":"4b623aa0-b6ab-40fe-8c30-de9e408a0419","method":"POST","status":201,"durationMs":6}
+2026-10-22T13:41:27.7783885Z 
+2026-10-22T13:41:27.7815377Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.7845236Z [22m[39m{"event":"http_request","requestId":"48766010-ed56-4fa8-8eb2-81362910a2cc","method":"POST","status":200,"durationMs":9}
+2026-10-22T13:41:27.7863903Z 
+2026-10-22T13:41:27.7955508Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.7985194Z [22m[39m{"event":"http_request","requestId":"b8316f87-0564-4a91-b940-b05180b6184d","method":"POST","status":200,"durationMs":10}
+2026-10-22T13:41:27.8013742Z 
+2026-10-22T13:41:27.8015249Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.8075309Z [22m[39m{"event":"http_request","requestId":"41904c4f-c13d-4cce-9869-260eefad0a25","method":"POST","status":200,"durationMs":6}
+2026-10-22T13:41:27.8114109Z 
+2026-10-22T13:41:27.8135311Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.8165256Z [22m[39m{"event":"http_request","requestId":"d2908f43-f929-49d3-8fc0-fe35afc96616","method":"POST","status":404,"durationMs":10}
+2026-10-22T13:41:27.8184774Z 
+2026-10-22T13:41:27.8235639Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.8265476Z [22m[39m{"event":"http_request","requestId":"82ec7468-6481-422b-9e56-f2ee37e787a3","method":"POST","status":403,"durationMs":6}
+2026-10-22T13:41:27.8306489Z 
+2026-10-22T13:41:27.8315326Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2monly reporter can reopen; resolution cannot be performed by coordinator
+2026-10-22T13:41:27.8345139Z [22m[39m{"event":"http_request","requestId":"33baf6a2-0f2f-4f9f-9e57-cb1ff3169e6a","method":"POST","status":403,"durationMs":5}
+2026-10-22T13:41:27.8373710Z 
+2026-10-22T13:41:27.8497686Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:27.8515367Z [22m[39m{"event":"http_request","requestId":"6247ee94-4e11-487e-958f-3ad7fe2a0aa0","method":"POST","status":201,"durationMs":11}
+2026-10-22T13:41:27.8541260Z 
+2026-10-22T13:41:27.8675489Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:27.8685415Z [22m[39m{"event":"http_request","requestId":"c4ec7254-9114-42af-8346-2b5d9389bd1d","method":"POST","status":200,"durationMs":7}
+2026-10-22T13:41:27.8706714Z 
+2026-10-22T13:41:27.8726178Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:27.8765312Z [22m[39m{"event":"http_request","requestId":"10b78219-da04-4207-b72e-5888e722e068","method":"POST","status":200,"durationMs":7}
+2026-10-22T13:41:27.8787528Z 
+2026-10-22T13:41:27.8815462Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:27.8825136Z [22m[39m{"event":"http_request","requestId":"79106634-e1a2-446b-a76e-e7b03bffaafe","method":"POST","status":400,"durationMs":6}
+2026-10-22T13:41:27.8853698Z 
+2026-10-22T13:41:27.8946106Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:27.8948546Z [22m[39m{"event":"http_request","requestId":"56cbb600-812b-4416-bb5b-83b0647fbf2d","method":"POST","status":400,"durationMs":7}
+2026-10-22T13:41:27.8973871Z 
+2026-10-22T13:41:27.9005845Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mwrong and unknown credentials share the same response
+2026-10-22T13:41:27.9035681Z [22m[39m{"event":"http_request","requestId":"14f0b3b6-0307-4858-8a3c-979cea9ef3e8","method":"POST","status":401,"durationMs":965}
+2026-10-22T13:41:27.9063732Z 
+2026-10-22T13:41:27.9066009Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:27.9095549Z [22m[39m{"event":"http_request","requestId":"86b8045d-8292-49a8-802f-57c7e7cba480","method":"POST","status":400,"durationMs":7}
+2026-10-22T13:41:27.9123784Z 
+2026-10-22T13:41:27.9135449Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:27.9165525Z [22m[39m{"event":"http_request","requestId":"275490b5-0a61-45cf-a500-b73f019ac22b","method":"POST","status":400,"durationMs":5}
+2026-10-22T13:41:27.9217986Z 
+2026-10-22T13:41:27.9276480Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogout invalidates the server-side session
+2026-10-22T13:41:27.9335389Z [22m[39m{"event":"http_request","requestId":"5984923b-d56c-4767-9b63-22bfd5dc61b3","method":"POST","status":204,"durationMs":10}
+2026-10-22T13:41:27.9367210Z 
+2026-10-22T13:41:27.9385546Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:27.9415348Z [22m[39m{"event":"http_request","requestId":"e203e4ef-0a15-4cc2-a9e3-762bfe6a0510","method":"POST","status":400,"durationMs":5}
+2026-10-22T13:41:27.9443923Z 
+2026-10-22T13:41:27.9485810Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogout invalidates the server-side session
+2026-10-22T13:41:27.9515179Z [22m[39m{"event":"http_request","requestId":"c8a1038f-5be0-4cca-a126-1dd01ed609bb","method":"GET","status":401,"durationMs":4}
+2026-10-22T13:41:27.9516237Z 
+2026-10-22T13:41:27.9545479Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mrejects missing/invalid versions, blank/oversized notes and mass assignment
+2026-10-22T13:41:27.9575159Z [22m[39m{"event":"http_request","requestId":"491df567-a5e8-446d-acbd-a017f714e6ed","method":"POST","status":200,"durationMs":6}
+2026-10-22T13:41:27.9603767Z 
+2026-10-22T13:41:27.9605640Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mexpired sessions cannot authenticate
+2026-10-22T13:41:27.9639418Z [22m[39m{"event":"http_request","requestId":"ef786589-53b4-4a20-b0d0-d12a06222eae","method":"GET","status":401,"durationMs":2}
+2026-10-22T13:41:27.9663774Z 
+2026-10-22T13:41:27.9695562Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnew writes retain authentication, exact Origin and CSRF protections
+2026-10-22T13:41:27.9705016Z [22m[39m{"event":"http_request","requestId":"56fa09ce-2887-4a1c-af6e-3d7f927e5378","method":"POST","status":201,"durationMs":5}
+2026-10-22T13:41:27.9724180Z 
+2026-10-22T13:41:27.9755000Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnew writes retain authentication, exact Origin and CSRF protections
+2026-10-22T13:41:27.9785106Z [22m[39m{"event":"http_request","requestId":"fe67944e-63b9-4805-91b8-55ffa475e41b","method":"POST","status":401,"durationMs":1}
+2026-10-22T13:41:27.9803763Z 
+2026-10-22T13:41:27.9844881Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnew writes retain authentication, exact Origin and CSRF protections
+2026-10-22T13:41:27.9846772Z [22m[39m{"event":"http_request","requestId":"6f027d2e-dd73-4839-b44a-3b03ff1fd686","method":"POST","status":403,"durationMs":4}
+2026-10-22T13:41:27.9873737Z 
+2026-10-22T13:41:27.9886787Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnew writes retain authentication, exact Origin and CSRF protections
+2026-10-22T13:41:27.9929457Z [90mstderr[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T13:41:27.9931165Z [22m[39m{"event":"http_request","requestId":"e5c6c239-c2c0-4d07-9c7a-9a53a9725b04","method":"POST","status":403,"durationMs":1}
+2026-10-22T13:41:27.9943971Z 
+2026-10-22T13:41:27.9974809Z [22m[39m{"event":"request_error","requestId":"ce0f8f05-e880-4975-bd58-f02edaed1f08"}
+2026-10-22T13:41:27.9976267Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T13:41:27.9985698Z [22m[39m{"event":"http_request","requestId":"d6f0a6a9-505c-4a0d-9454-6078edea65b0","method":"POST","status":201,"durationMs":8}
+2026-10-22T13:41:28.0003848Z 
+2026-10-22T13:41:28.0013728Z 
+2026-10-22T13:41:28.0044716Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T13:41:28.0046647Z [22m[39m{"event":"http_request","requestId":"38886ba3-0500-4657-8d71-6a687a0269f3","method":"POST","status":200,"durationMs":11}
+2026-10-22T13:41:28.0073771Z 
+2026-10-22T13:41:28.0105679Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T13:41:28.0116755Z [22m[39m{"event":"http_request","requestId":"ce0f8f05-e880-4975-bd58-f02edaed1f08","method":"POST","status":500,"durationMs":9}
+2026-10-22T13:41:28.0146025Z 
+2026-10-22T13:41:28.0175056Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T13:41:28.0204933Z [22m[39m{"event":"http_request","requestId":"79b0a89e-ba7c-42af-924c-10156f4eaed8","method":"GET","status":200,"durationMs":2}
+2026-10-22T13:41:28.0213817Z 
+2026-10-22T13:41:28.0234877Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mevent insertion failure rolls assignment and version back
+2026-10-22T13:41:28.0264939Z [22m[39m{"event":"http_request","requestId":"e68d1315-f8d4-4e16-b9ee-2e2317a582f5","method":"POST","status":200,"durationMs":11}
+2026-10-22T13:41:28.0283716Z 
+2026-10-22T13:41:28.0465454Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mdatabase rejects non-technician assignees and duplicate audit versions
+2026-10-22T13:41:28.0467535Z [22m[39m{"event":"http_request","requestId":"847fafb6-061b-4141-bd71-62989c154840","method":"POST","status":201,"durationMs":9}
+2026-10-22T13:41:28.0493895Z 
+2026-10-22T13:41:28.0585295Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mdatabase rejects non-technician assignees and duplicate audit versions
+2026-10-22T13:41:28.0587319Z [22m[39m{"event":"http_request","requestId":"4bdeea3e-c295-4c26-8bf7-1509e3ec1eb0","method":"POST","status":200,"durationMs":10}
+2026-10-22T13:41:28.0613784Z 
+2026-10-22T13:41:28.5807128Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2msets HttpOnly SameSite cookies and rotates the current session
+2026-10-22T13:41:28.5815537Z [22m[39m{"event":"http_request","requestId":"99f4eee6-978f-41df-a245-9d363cff210a","method":"POST","status":200,"durationMs":643}
+2026-10-22T13:41:28.5839703Z 
+2026-10-22T13:41:28.5885989Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2msets HttpOnly SameSite cookies and rotates the current session
+2026-10-22T13:41:28.5915154Z [22m[39m{"event":"http_request","requestId":"31945863-91ec-4804-b5c4-642f098adf1b","method":"GET","status":401,"durationMs":7}
+2026-10-22T13:41:28.5943709Z 
+2026-10-22T13:41:28.5956266Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogin rate limit returns JSON errors
+2026-10-22T13:41:28.5974949Z [22m[39m{"event":"http_request","requestId":"59ce153b-24a6-4937-8818-fbd626a65161","method":"POST","status":400,"durationMs":4}
+2026-10-22T13:41:28.5984050Z 
+2026-10-22T13:41:28.6036520Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogin rate limit returns JSON errors
+2026-10-22T13:41:28.6045172Z [22m[39m{"event":"http_request","requestId":"a155c3af-bdc0-4556-9b17-72e55029e5af","method":"POST","status":400,"durationMs":1}
+2026-10-22T13:41:28.6074028Z 
+2026-10-22T13:41:28.6105284Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogin rate limit returns JSON errors
+2026-10-22T13:41:28.6107217Z [22m[39m{"event":"http_request","requestId":"bb1dc4b4-72e9-4a3f-bc3d-08c716eaa837","method":"POST","status":400,"durationMs":1}
+2026-10-22T13:41:28.6133940Z 
+2026-10-22T13:41:28.6165788Z [90mstdout[2m | tests/integration.test.ts[2m > [22m[2mauthentication and PostgreSQL-backed requests[2m > [22m[2mlogin rate limit returns JSON errors
+2026-10-22T13:41:28.6195355Z [22m[39m{"event":"http_request","requestId":"70f08777-0e17-4ea2-89b4-01312e44e42d","method":"POST","status":429,"durationMs":1}
+2026-10-22T13:41:28.6223701Z 
+2026-10-22T13:41:28.6304756Z  [32m✓[39m tests/integration.test.ts [2m([22m[2m32 tests[22m[2m)[22m[33m 5052[2mms[22m[39m
+2026-10-22T13:41:28.6305992Z    [32m✓[39m authentication and PostgreSQL-backed requests [2m(32)[22m
+2026-10-22T13:41:28.6334925Z      [33m[2m✓[22m[39m stores salted password hashes and hashed session tokens[33m 416[2mms[22m[39m
+2026-10-22T13:41:28.6394789Z      [33m[2m✓[22m[39m wrong and unknown credentials share the same response[33m 1368[2mms[22m[39m
+2026-10-22T13:41:28.6396117Z      [33m[2m✓[22m[39m sets HttpOnly SameSite cookies and rotates the current session[33m 658[2mms[22m[39m
+2026-10-22T13:41:29.8185724Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: assign has exactly one winner
+2026-10-22T13:41:29.8215391Z [22m[39m{"event":"http_request","requestId":"f88b7041-7dac-4921-901a-d2ace3190b3f","method":"POST","status":201,"durationMs":395}
+2026-10-22T13:41:29.8243786Z 
+2026-10-22T13:41:29.8275210Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: assign has exactly one winner
+2026-10-22T13:41:29.8302137Z [22m[39m{"event":"http_request","requestId":"b358d3a3-d2f0-4e66-8a92-3e7556c54e57","method":"POST","status":200,"durationMs":6}
+2026-10-22T13:41:29.8333748Z 
+2026-10-22T13:41:29.9126267Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: assign has exactly one winner
+2026-10-22T13:41:29.9150870Z [22m[39m{"event":"http_request","requestId":"7ee4f4f2-250c-437d-8cf2-5a512238d1ad","method":"POST","status":200,"durationMs":61}
+2026-10-22T13:41:29.9169842Z 
+2026-10-22T13:41:29.9171471Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: assign has exactly one winner
+2026-10-22T13:41:29.9173351Z [22m[39m{"event":"http_request","requestId":"f39657ae-3de6-4526-b915-5c3ed3fe429b","method":"POST","status":409,"durationMs":65}
+2026-10-22T13:41:29.9192713Z 
+2026-10-22T13:41:29.9312748Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: assign has exactly one winner
+2026-10-22T13:41:29.9316191Z [22m[39m{"event":"http_request","requestId":"c4c1d7f2-4da4-4ce7-aa63-efb74e185227","method":"POST","status":201,"durationMs":5}
+2026-10-22T13:41:29.9317245Z 
+2026-10-22T13:41:29.9419007Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: assign has exactly one winner
+2026-10-22T13:41:29.9445454Z [22m[39m{"event":"http_request","requestId":"94bde1be-992e-4d02-bd97-9c6a444b2b0e","method":"POST","status":200,"durationMs":9}
+2026-10-22T13:41:29.9473828Z 
+2026-10-22T13:41:29.9768836Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: assign has exactly one winner
+2026-10-22T13:41:29.9771108Z [22m[39m{"event":"http_request","requestId":"07131fb4-ef4d-4dc3-b416-4a5991a29685","method":"POST","status":200,"durationMs":30}
+2026-10-22T13:41:29.9772165Z 
+2026-10-22T13:41:29.9780031Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: assign has exactly one winner
+2026-10-22T13:41:29.9782853Z [22m[39m{"event":"http_request","requestId":"b5719689-7574-4476-ac7e-b066e8fbe18f","method":"POST","status":409,"durationMs":31}
+2026-10-22T13:41:29.9784069Z 
+2026-10-22T13:41:29.9849712Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: assign has exactly one winner
+2026-10-22T13:41:29.9852911Z [22m[39m{"event":"http_request","requestId":"b821c81b-735f-4c10-a527-c2942812c78f","method":"POST","status":201,"durationMs":4}
+2026-10-22T13:41:29.9854132Z 
+2026-10-22T13:41:29.9903607Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: assign has exactly one winner
+2026-10-22T13:41:29.9906481Z [22m[39m{"event":"http_request","requestId":"edcf5e30-c11e-499b-b6c2-cc9782d82351","method":"POST","status":200,"durationMs":4}
+2026-10-22T13:41:29.9907134Z 
+2026-10-22T13:41:30.0204622Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: assign has exactly one winner
+2026-10-22T13:41:30.0206453Z [22m[39m{"event":"http_request","requestId":"b40ea83e-2e4b-4473-8f1b-ca6700982db4","method":"POST","status":200,"durationMs":28}
+2026-10-22T13:41:30.0207231Z 
+2026-10-22T13:41:30.0215364Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: assign has exactly one winner
+2026-10-22T13:41:30.0216556Z [22m[39m{"event":"http_request","requestId":"b3d9a7fd-3bd4-454b-aa5e-3ef52c983b1c","method":"POST","status":409,"durationMs":28}
+2026-10-22T13:41:30.0217018Z 
+2026-10-22T13:41:30.0313935Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: triage has exactly one winner
+2026-10-22T13:41:30.0316094Z [22m[39m{"event":"http_request","requestId":"98359341-042c-43da-a156-e39b97f03a93","method":"POST","status":201,"durationMs":4}
+2026-10-22T13:41:30.0317231Z 
+2026-10-22T13:41:30.0616396Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: triage has exactly one winner
+2026-10-22T13:41:30.0618652Z [22m[39m{"event":"http_request","requestId":"1c483319-3ca0-47cb-ac4d-d0d9fcedc9e2","method":"POST","status":200,"durationMs":27}
+2026-10-22T13:41:30.0619763Z 
+2026-10-22T13:41:30.0624438Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: triage has exactly one winner
+2026-10-22T13:41:30.0626097Z [22m[39m{"event":"http_request","requestId":"cdb7d75e-61df-42f2-a1ae-983c0affb15b","method":"POST","status":409,"durationMs":29}
+2026-10-22T13:41:30.0627024Z 
+2026-10-22T13:41:30.0691743Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: triage has exactly one winner
+2026-10-22T13:41:30.0694163Z [22m[39m{"event":"http_request","requestId":"8291d26e-7d1b-48f7-b7aa-b1d62a7af26f","method":"POST","status":201,"durationMs":4}
+2026-10-22T13:41:30.0695790Z 
+2026-10-22T13:41:30.0999935Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: triage has exactly one winner
+2026-10-22T13:41:30.1002345Z [22m[39m{"event":"http_request","requestId":"a84f9ad3-0267-4c4c-85b7-c8353a295e5d","method":"POST","status":200,"durationMs":27}
+2026-10-22T13:41:30.1003659Z 
+2026-10-22T13:41:30.1010888Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: triage has exactly one winner
+2026-10-22T13:41:30.1012770Z [22m[39m{"event":"http_request","requestId":"ead1d23d-4eae-46e3-8a6f-63c1fa4f6ae0","method":"POST","status":409,"durationMs":27}
+2026-10-22T13:41:30.1014079Z 
+2026-10-22T13:41:30.1075028Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: triage has exactly one winner
+2026-10-22T13:41:30.1078438Z [22m[39m{"event":"http_request","requestId":"575d7c21-cb55-48b4-baad-6712dbc9f6bb","method":"POST","status":201,"durationMs":4}
+2026-10-22T13:41:30.1079652Z 
+2026-10-22T13:41:30.1359918Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: triage has exactly one winner
+2026-10-22T13:41:30.1362317Z [22m[39m{"event":"http_request","requestId":"64b8bad4-1a79-45dc-aa40-1c2b28793648","method":"POST","status":200,"durationMs":26}
+2026-10-22T13:41:30.1363608Z 
+2026-10-22T13:41:30.1371800Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mnative two-coordinator race: triage has exactly one winner
+2026-10-22T13:41:30.1373956Z [22m[39m{"event":"http_request","requestId":"6b4ad7ca-56f5-47dc-bbaa-0af8b9d79783","method":"POST","status":409,"durationMs":27}
+2026-10-22T13:41:30.1374990Z 
+2026-10-22T13:41:30.1525685Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mversioned history rejects a missing previous status
+2026-10-22T13:41:30.1555376Z [22m[39m{"event":"http_request","requestId":"b4c9e673-b4cb-4341-a255-cb5f663d843a","method":"POST","status":201,"durationMs":4}
+2026-10-22T13:41:30.1573187Z 
+2026-10-22T13:41:30.2266031Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits compact committed creation to coordinator but not unrelated users
+2026-10-22T13:41:30.2275622Z [22m[39m{"event":"http_request","requestId":"30ed3475-208a-4b6b-8483-152bd24580c3","method":"POST","status":201,"durationMs":9}
+2026-10-22T13:41:30.2276680Z 
+2026-10-22T13:41:30.3515785Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO notifies assigned technician and reporter after assignment
+2026-10-22T13:41:30.3545070Z [22m[39m{"event":"http_request","requestId":"65ff4045-340f-4494-8950-04f35344cd14","method":"POST","status":201,"durationMs":9}
+2026-10-22T13:41:30.3556699Z 
+2026-10-22T13:41:30.3605560Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO notifies assigned technician and reporter after assignment
+2026-10-22T13:41:30.3631557Z [22m[39m{"event":"http_request","requestId":"6847028d-0100-477f-83d6-96a8b5a2d0c3","method":"POST","status":200,"durationMs":8}
+2026-10-22T13:41:30.3653966Z 
+2026-10-22T13:41:30.3806625Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO notifies assigned technician and reporter after assignment
+2026-10-22T13:41:30.3835590Z [22m[39m{"event":"http_request","requestId":"1fa6f95b-c1c1-4cb3-893e-0f70ca615c30","method":"POST","status":200,"durationMs":8}
+2026-10-22T13:41:30.3854249Z 
+2026-10-22T13:41:30.3965584Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T13:41:30.4005385Z [22m[39m{"event":"http_request","requestId":"f47c59c2-5bf5-40db-8116-56c9bf399370","method":"POST","status":201,"durationMs":6}
+2026-10-22T13:41:30.4063860Z 
+2026-10-22T13:41:30.4115614Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T13:41:30.4149408Z [90mstderr[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T13:41:30.4153062Z [22m[39m{"event":"request_error","requestId":"a27ee16f-8e88-4059-b94d-ec283428dfc4"}
+2026-10-22T13:41:30.4154086Z 
+2026-10-22T13:41:30.4165433Z [22m[39m{"event":"http_request","requestId":"8c5c8dcb-e60f-4978-a419-a54aa0550ac6","method":"POST","status":200,"durationMs":5}
+2026-10-22T13:41:30.4194004Z 
+2026-10-22T13:41:30.4225130Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO emits no successful update on audit rollback
+2026-10-22T13:41:30.4227090Z [22m[39m{"event":"http_request","requestId":"a27ee16f-8e88-4059-b94d-ec283428dfc4","method":"POST","status":500,"durationMs":6}
+2026-10-22T13:41:30.4253812Z 
+2026-10-22T13:41:31.7476632Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO rechecks a revoked session before delivering private events
+2026-10-22T13:41:31.7485705Z [22m[39m{"event":"http_request","requestId":"4c80a2a6-98a3-4fd7-83b7-f245fc934674","method":"POST","status":200,"durationMs":1224}
+2026-10-22T13:41:31.7510161Z 
+2026-10-22T13:41:31.7555299Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO rechecks a revoked session before delivering private events
+2026-10-22T13:41:31.7557619Z [22m[39m{"event":"http_request","requestId":"0a7fa43d-82d9-4f41-b0c5-99114f399c98","method":"POST","status":204,"durationMs":3}
+2026-10-22T13:41:31.7558693Z 
+2026-10-22T13:41:31.7636958Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO rechecks a revoked session before delivering private events
+2026-10-22T13:41:31.7639337Z [22m[39m{"event":"http_request","requestId":"540a80f7-4f31-4c78-a611-3a8b960918e2","method":"POST","status":201,"durationMs":6}
+2026-10-22T13:41:31.7640310Z 
+2026-10-22T13:41:31.7827038Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO reconnection has one server connection and one update
+2026-10-22T13:41:31.7845501Z [22m[39m{"event":"http_request","requestId":"aff2d2b4-920b-42e6-8858-432400bdb6be","method":"POST","status":201,"durationMs":6}
+2026-10-22T13:41:31.7846317Z 
+2026-10-22T13:41:31.8038835Z [90mstderr[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO publish failure cannot undo an already committed REST change
+2026-10-22T13:41:31.8055287Z [90mstdout[2m | tests/workflow-api.test.ts[2m > [22m[2mSocket.IO publish failure cannot undo an already committed REST change
+2026-10-22T13:41:31.8084778Z [22m[39m{"event":"realtime_publish_failed"}
+2026-10-22T13:41:31.8086237Z [22m[39m{"event":"http_request","requestId":"172cfec8-8599-4c93-b092-615c1529ab01","method":"POST","status":201,"durationMs":10}
+2026-10-22T13:41:31.8113689Z 
+2026-10-22T13:41:31.8113737Z 
+2026-10-22T13:41:31.9278719Z  [31m❯[39m tests/workflow-api.test.ts [2m([22m[2m27 tests[22m[2m)[22m[33m 8302[2mms[22m[39m
+2026-10-22T13:41:31.9292429Z    [32m✓[39m lists only technician names/IDs with bounded pagination for coordinators[32m 37[2mms[22m[39m
+2026-10-22T13:41:31.9313098Z    [32m✓[39m rejects student/technician triage and exposes no claim API[32m 55[2mms[22m[39m
+2026-10-22T13:41:31.9314828Z    [32m✓[39m rejects student/technician assign and exposes no claim API[32m 52[2mms[22m[39m
+2026-10-22T13:41:31.9316004Z    [32m✓[39m requires triage before assignment and a real technician[32m 96[2mms[22m[39m
+2026-10-22T13:41:31.9317228Z    [32m✓[39m assigns once and prevents both duplicate and conflicting assignments[32m 77[2mms[22m[39m
+2026-10-22T13:41:31.9318592Z    [32m✓[39m assigned work and history are inaccessible to another technician or student[32m 126[2mms[22m[39m
+2026-10-22T13:41:31.9319812Z    [32m✓[39m available technicians cannot read private history[32m 82[2mms[22m[39m
+2026-10-22T13:41:31.9321969Z    [32m✓[39m records resolve/reopen/resolve/close with stable paginated progress and notes[32m 176[2mms[22m[39m
+2026-10-22T13:41:31.9323365Z    [32m✓[39m only reporter can close; resolution cannot be performed by coordinator[32m 78[2mms[22m[39m
+2026-10-22T13:41:31.9325087Z    [32m✓[39m only reporter can reopen; resolution cannot be performed by coordinator[32m 80[2mms[22m[39m
+2026-10-22T13:41:31.9327683Z    [32m✓[39m rejects missing/invalid versions, blank/oversized notes and mass assignment[32m 94[2mms[22m[39m
+2026-10-22T13:41:31.9351521Z    [32m✓[39m new writes retain authentication, exact Origin and CSRF protections[32m 22[2mms[22m[39m
+2026-10-22T13:41:31.9353030Z    [32m✓[39m event insertion failure rolls assignment and version back[32m 68[2mms[22m[39m
+2026-10-22T13:41:31.9356010Z    [33m[2m✓[22m[39m database rejects non-technician assignees and duplicate audit versions[33m 1402[2mms[22m[39m
+2026-10-22T13:41:31.9357506Z    [33m[2m✓[22m[39m native two-coordinator race: assign has exactly one winner[33m 607[2mms[22m[39m
+2026-10-22T13:41:31.9358683Z    [32m✓[39m native two-coordinator race: triage has exactly one winner[32m 116[2mms[22m[39m
+2026-10-22T13:41:31.9359907Z    [32m✓[39m M3 migration preserves existing requests/history and safely reruns[32m 4[2mms[22m[39m
+2026-10-22T13:41:31.9361188Z    [32m✓[39m versioned history rejects a missing previous status[32m 14[2mms[22m[39m
+2026-10-22T13:41:31.9362620Z    [32m✓[39m incompatible legacy assignment fails migration atomically without deleting the record[32m 3[2mms[22m[39m
+2026-10-22T13:41:31.9364818Z    [32m✓[39m Socket.IO authenticates cookie/CSRF and rejects unauthenticated and cross-origin connections[32m 33[2mms[22m[39m
+2026-10-22T13:41:31.9366140Z    [32m✓[39m Socket.IO rejects arbitrary room subscriptions[32m 8[2mms[22m[39m
+2026-10-22T13:41:31.9367477Z    [32m✓[39m Socket.IO emits compact committed creation to coordinator but not unrelated users[32m 127[2mms[22m[39m
+2026-10-22T13:41:31.9368948Z    [32m✓[39m Socket.IO notifies assigned technician and reporter after assignment[32m 52[2mms[22m[39m
+2026-10-22T13:41:31.9370128Z    [32m✓[39m Socket.IO emits no successful update on audit rollback[32m 136[2mms[22m[39m
+2026-10-22T13:41:31.9371383Z    [33m[2m✓[22m[39m Socket.IO rechecks a revoked session before delivering private events[33m 1249[2mms[22m[39m
+2026-10-22T13:41:31.9372722Z    [32m✓[39m Socket.IO reconnection has one server connection and one update[32m 17[2mms[22m[39m
+2026-10-22T13:41:31.9374094Z    [32m✓[39m Socket.IO publish failure cannot undo an already committed REST change[32m 23[2mms[22m[39m
+2026-10-22T13:41:31.9374747Z 
+2026-10-22T13:41:31.9375291Z [31m⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Suites 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+2026-10-22T13:41:31.9375678Z 
+2026-10-22T13:41:31.9376287Z [41m[1m FAIL [22m[49m tests/workflow-api.test.ts[2m [ tests/workflow-api.test.ts ][22m
+2026-10-22T13:41:31.9377536Z [31m[1mError[22m: ENOENT: no such file or directory, open 'docs/evidence/m5-native-concurrency.json'[39m
+2026-10-22T13:41:31.9378598Z [36m [2m❯[22m tests/workflow-api.test.ts:[2m238:5[22m[39m
+2026-10-22T13:41:31.9485399Z     [90m236|[39m   await live?.close();
+2026-10-22T13:41:31.9486023Z     [90m237|[39m   if (native)
+2026-10-22T13:41:31.9486547Z     [90m238|[39m     await writeFile(
+2026-10-22T13:41:31.9487186Z     [90m   |[39m     [31m^[39m
+2026-10-22T13:41:31.9487848Z     [90m239|[39m       "docs/evidence/m5-native-concurrency.json",
+2026-10-22T13:41:31.9488492Z     [90m240|[39m       JSON.stringify(
+2026-10-22T13:41:31.9488777Z 
+2026-10-22T13:41:31.9489149Z [31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+2026-10-22T13:41:31.9489440Z 
+2026-10-22T13:41:31.9493692Z 
+2026-10-22T13:41:31.9524888Z [2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+2026-10-22T13:41:31.9555019Z [2m      Tests [22m [1m[32m59 passed[39m[22m[90m (59)[39m
+2026-10-22T13:41:31.9555818Z [2m   Start at [22m 13:41:22
+2026-10-22T13:41:31.9556663Z [2m   Duration [22m 9.42s[2m (tests 87%, import 10%, transform 2%)[22m
+2026-10-22T13:41:31.9557150Z 
+2026-10-22T13:41:31.9557849Z JSON report written to /home/runner/work/CampusFix/CampusFix/docs/evidence/m5-native-results.json
+2026-10-22T13:41:32.0225721Z ##[error]Process completed with exit code 1.
+2026-10-22T13:41:32.0334640Z ##[group]Run actions/upload-artifact@v4
+2026-10-22T13:41:32.0335216Z with:
+2026-10-22T13:41:32.0335644Z   name: campusfix-final-evidence
+2026-10-22T13:41:32.0336178Z   path: docs/evidence/m5-*.json
+2026-10-22T13:41:32.0336724Z   if-no-files-found: warn
+2026-10-22T13:41:32.0337166Z   compression-level: 6
+2026-10-22T13:41:32.0337606Z   overwrite: false
+2026-10-22T13:41:32.0337988Z   include-hidden-files: false
+2026-10-22T13:41:32.0338360Z ##[endgroup]
+2026-10-22T13:41:32.2166550Z (node:3404) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-22T13:41:32.2167879Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-22T13:41:32.2245613Z With the provided path, there will be 1 file uploaded
+2026-10-22T13:41:32.2246498Z Artifact name is valid!
+2026-10-22T13:41:32.2247015Z Root directory input is valid!
+2026-10-22T13:41:32.4421905Z Beginning upload of artifact content to blob storage
+2026-10-22T13:41:32.4610392Z (node:3404) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-22T13:41:32.5150193Z Uploaded bytes 3002
+2026-10-22T13:41:32.5465019Z Finished uploading artifact content to blob storage!
+2026-10-22T13:41:32.5466215Z SHA256 digest of uploaded artifact zip is bcf21286f7e6f213c6ee987bf135d17540cc3725048c8b82e7280aeaf3a8e3bc
+2026-10-22T13:41:32.5467100Z Finalizing artifact upload
+2026-10-22T13:41:32.9987772Z Artifact campusfix-final-evidence.zip successfully finalized. Artifact ID 12430596270
+2026-10-22T13:41:32.9989136Z Artifact campusfix-final-evidence has been successfully uploaded! Final size is 3002 bytes. Artifact ID is 12430596270
+2026-10-22T13:41:32.9995164Z Artifact download URL: https://github.com/yusufthecoder474/CampusFix/actions/runs/39788918217/artifacts/12430596270
+2026-10-22T13:41:33.0233170Z Post job cleanup.
+2026-10-22T13:41:33.1148162Z [command]/usr/bin/git version
+2026-10-22T13:41:33.1195015Z git version 2.55.0
+2026-10-22T13:41:33.1237718Z Temporarily overriding HOME='/home/runner/work/_temp/64062c24-8ff5-42e4-a5f7-04877af64de9' before making global git config changes
+2026-10-22T13:41:33.1239148Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-22T13:41:33.1244967Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/CampusFix/CampusFix
+2026-10-22T13:41:33.1299931Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T13:41:33.1350364Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-22T13:41:33.1653291Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T13:41:33.1691155Z http.https://github.com/.extraheader
+2026-10-22T13:41:33.1706624Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-22T13:41:33.1752811Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-22T13:41:33.2059176Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-22T13:41:33.2125074Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-22T13:41:33.2568409Z Print service container logs: 64c30e8910d642d3ac4410b53c2a931a_postgres18_56db8b
+2026-10-22T13:41:33.2573018Z ##[command]/usr/bin/docker logs --details b768fbc0fd6839e6cc38d3e4eae685d27644c1e0a4c1fefcb6e5534cb643e255
+2026-10-22T13:41:33.2742524Z  The files belonging to this database system will be owned by user "postgres".
+2026-10-22T13:41:33.2746363Z  initdb: warning: enabling "trust" authentication for local connections
+2026-10-22T13:41:33.2747532Z  initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+2026-10-22T13:41:33.2748804Z  2026-10-22 13:40:39.785 UTC [1] LOG:  starting PostgreSQL 18.6 (Debian 18.6-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-10-22T13:41:33.2749803Z  2026-10-22 13:40:39.786 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-10-22T13:41:33.2750598Z  2026-10-22 13:40:39.786 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-10-22T13:41:33.2751124Z  2026-10-22 13:40:39.787 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-22T13:41:33.2751674Z  2026-10-22 13:40:39.791 UTC [75] LOG:  database system was shut down at 2026-10-22 13:40:39 UTC
+2026-10-22T13:41:33.2752208Z  2026-10-22 13:40:39.794 UTC [1] LOG:  database system is ready to accept connections
+2026-10-22T13:41:33.2752910Z  2026-10-22 13:41:23.802 UTC [157] ERROR:  insert or update on table "maintenance_requests" violates foreign key constraint "requests_technician_fk"
+2026-10-22T13:41:33.2759847Z  2026-10-22 13:41:23.802 UTC [157] DETAIL:  Key (assignee_id, assignee_role)=(a108d239-5bc1-4c73-8ea1-2fcc65cb3f23, technician) is not present in table "users".
+2026-10-22T13:41:33.2760828Z  2026-10-22 13:41:23.802 UTC [157] STATEMENT:  ALTER TABLE maintenance_requests ADD COLUMN version integer NOT NULL DEFAULT 0 CHECK (version >= 0);
+2026-10-22T13:41:33.2761551Z  	ALTER TABLE users ADD CONSTRAINT users_id_role_unique UNIQUE (id, role);
+2026-10-22T13:41:33.2762253Z  	ALTER TABLE maintenance_requests ADD COLUMN assignee_role text NOT NULL DEFAULT 'technician' CHECK (assignee_role = 'technician');
+2026-10-22T13:41:33.2763138Z  	ALTER TABLE maintenance_requests ADD CONSTRAINT requests_technician_fk FOREIGN KEY (assignee_id, assignee_role) REFERENCES users(id, role);
+2026-10-22T13:41:33.2764051Z  	ALTER TABLE request_events DROP CONSTRAINT request_events_action_check;
+2026-10-22T13:41:33.2764794Z  	ALTER TABLE request_events ADD CONSTRAINT request_events_action_check CHECK (action IN ('create','triage','claim','assign','resolve','close','reopen'));
+2026-10-22T13:41:33.2765628Z  	ALTER TABLE request_events ADD COLUMN request_version integer CHECK (request_version >= 0);
+2026-10-22T13:41:33.2766177Z  	ALTER TABLE request_events ADD COLUMN assignee_id uuid REFERENCES users(id);
+2026-10-22T13:41:33.2766773Z  	ALTER TABLE request_events ADD COLUMN note text CHECK (note IS NULL OR length(trim(note)) BETWEEN 1 AND 2000);
+2026-10-22T13:41:33.2767406Z  	CREATE UNIQUE INDEX events_request_version ON request_events(request_id, request_version);
+2026-10-22T13:41:33.2768022Z  	ALTER TABLE request_events ADD CONSTRAINT events_transition_shape CHECK (request_version IS NULL OR (
+2026-10-22T13:41:33.2768679Z  	 (action = 'create' AND previous_status IS NULL AND next_status = 'reported' AND request_version = 0) OR
+2026-10-22T13:41:33.2769326Z  	 (action = 'triage' AND previous_status = 'reported' AND next_status = 'available' AND request_version > 0) OR
+2026-10-22T13:41:33.2770195Z  	 (action = 'assign' AND previous_status = 'available' AND next_status = 'in_progress' AND assignee_id IS NOT NULL AND request_version > 0) OR
+2026-10-22T13:41:33.2772145Z  	 (action = 'resolve' AND previous_status = 'in_progress' AND next_status = 'resolved' AND note IS NOT NULL AND request_version > 0) OR
+2026-10-22T13:41:33.2773285Z  	 (action = 'close' AND previous_status = 'resolved' AND next_status = 'closed' AND request_version > 0) OR
+2026-10-22T13:41:33.2775167Z  	 (action = 'reopen' AND previous_status = 'resolved' AND next_status = 'in_progress' AND note IS NOT NULL AND request_version > 0)
+2026-10-22T13:41:33.2775999Z  	));
+2026-10-22T13:41:33.2777161Z  	ALTER TABLE request_events ADD CONSTRAINT events_versioned_previous CHECK (request_version IS NULL OR ((action = 'create' AND previous_status IS NULL) OR (action <> 'create' AND previous_status IS NOT NULL)));
+2026-10-22T13:41:33.2778765Z  	ALTER TABLE request_events ADD CONSTRAINT events_versioned_assignee CHECK (request_version IS NULL OR action NOT IN ('assign','resolve','close','reopen') OR assignee_id IS NOT NULL);
+2026-10-22T13:41:33.2779631Z  	CREATE INDEX requests_assignee_created ON maintenance_requests(assignee_id, created_at DESC);
+2026-10-22T13:41:33.2780063Z  	
+2026-10-22T13:41:33.2780544Z  2026-10-22 13:41:26.499 UTC [159] ERROR:  new row for relation "maintenance_requests" violates check constraint "maintenance_requests_check"
+2026-10-22T13:41:33.2781885Z  2026-10-22 13:41:26.499 UTC [159] DETAIL:  Failing row contains (077bbd1b-7fe8-4dbe-a12d-42ae5c7f116c, 3ffb5b22-3052-4319-aecc-dd8bdb6a8401, null, Broken window latch, Window latch does not close securely., Hostel A, in_progress, null, 2026-10-22 13:41:26.421921+00, 2026-10-22 13:41:26.421921+00, 0, technician).
+2026-10-22T13:41:33.2783126Z  2026-10-22 13:41:26.499 UTC [159] STATEMENT:  UPDATE maintenance_requests SET status='in_progress' WHERE id=$1
+2026-10-22T13:41:33.2784388Z  2026-10-22 13:41:26.511 UTC [169] ERROR:  insert or update on table "maintenance_requests" violates foreign key constraint "maintenance_requests_reporter_id_fkey"
+2026-10-22T13:41:33.2785249Z  2026-10-22 13:41:26.511 UTC [169] DETAIL:  Key (reporter_id)=(b835cde2-d383-465d-ac72-c77992ff6eef) is not present in table "users".
+2026-10-22T13:41:33.2785920Z  2026-10-22 13:41:26.511 UTC [169] STATEMENT:  UPDATE maintenance_requests SET reporter_id=$1 WHERE id=$2
+2026-10-22T13:41:33.2786581Z  2026-10-22 13:41:26.525 UTC [170] ERROR:  new row for relation "request_events" violates check constraint "injected_failure"
+2026-10-22T13:41:33.2787564Z  2026-10-22 13:41:26.525 UTC [170] DETAIL:  Failing row contains (5, 11a06bfd-45c8-43ee-b73e-14df52fc78a7, 3ffb5b22-3052-4319-aecc-dd8bdb6a8401, create, null, reported, 2026-10-22 13:41:26.523119+00, 0, null, null).
+2026-10-22T13:41:33.2788940Z  2026-10-22 13:41:26.525 UTC [170] STATEMENT:  insert into "request_events" ("id", "request_id", "actor_id", "action", "request_version", "assignee_id", "note", "previous_status", "next_status", "created_at") values (default, $1, $2, $3, $4, default, default, default, $5, default)
+2026-10-22T13:41:33.2790074Z  2026-10-22 13:41:27.987 UTC [160] ERROR:  new row for relation "request_events" violates check constraint "injected_audit_failure"
+2026-10-22T13:41:33.2791172Z  2026-10-22 13:41:27.987 UTC [160] DETAIL:  Failing row contains (36, 0199aa86-3134-4b46-b4d3-abb8c336597c, 71fef002-db37-40c7-9aae-4836528e9e93, assign, available, in_progress, 2026-10-22 13:41:27.98138+00, 2, 2264167d-adb6-46b0-838e-6e6606fe5050, null).
+2026-10-22T13:41:33.2792588Z  2026-10-22 13:41:27.987 UTC [160] STATEMENT:  insert into "request_events" ("id", "request_id", "actor_id", "action", "request_version", "assignee_id", "note", "previous_status", "next_status", "created_at") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default)
+2026-10-22T13:41:33.2793918Z  2026-10-22 13:41:28.055 UTC [160] ERROR:  insert or update on table "maintenance_requests" violates foreign key constraint "requests_technician_fk"
+2026-10-22T13:41:33.2794868Z  2026-10-22 13:41:28.055 UTC [160] DETAIL:  Key (assignee_id, assignee_role)=(b91d621e-35d5-4f05-9cc7-3d7bbbde9aaa, technician) is not present in table "users".
+2026-10-22T13:41:33.2795704Z  2026-10-22 13:41:28.055 UTC [160] STATEMENT:  UPDATE maintenance_requests SET status='in_progress',assignee_id=$1 WHERE id=$2
+2026-10-22T13:41:33.2796436Z  2026-10-22 13:41:29.414 UTC [171] ERROR:  duplicate key value violates unique constraint "events_request_version"
+2026-10-22T13:41:33.2797321Z  2026-10-22 13:41:29.414 UTC [171] DETAIL:  Key (request_id, request_version)=(c521a158-10a7-4245-90ad-97810cb2c73b, 0) already exists.
+2026-10-22T13:41:33.2798190Z  2026-10-22 13:41:29.414 UTC [171] STATEMENT:  INSERT INTO request_events(request_id,actor_id,action,next_status,request_version) VALUES($1,$2,'create','reported',0)
+2026-10-22T13:41:33.2799064Z  2026-10-22 13:41:30.151 UTC [183] ERROR:  new row for relation "request_events" violates check constraint "events_versioned_previous"
+2026-10-22T13:41:33.2800224Z  2026-10-22 13:41:30.151 UTC [183] DETAIL:  Failing row contains (57, 6aacee84-4d4d-4987-a022-2b21b7dcce81, 71fef002-db37-40c7-9aae-4836528e9e93, triage, null, available, 2026-10-22 13:41:30.151113+00, 1, null, null).
+2026-10-22T13:41:33.2801317Z  2026-10-22 13:41:30.151 UTC [183] STATEMENT:  INSERT INTO request_events(request_id,actor_id,action,next_status,request_version) VALUES($1,$2,'triage','available',1)
+2026-10-22T13:41:33.2802163Z  2026-10-22 13:41:30.412 UTC [172] ERROR:  new row for relation "request_events" violates check constraint "injected_live_failure"
+2026-10-22T13:41:33.2803245Z  2026-10-22 13:41:30.412 UTC [172] DETAIL:  Failing row contains (64, bdc8f51e-0a8c-481f-aeb4-e145c68e13b1, 71fef002-db37-40c7-9aae-4836528e9e93, assign, available, in_progress, 2026-10-22 13:41:30.409154+00, 2, 2264167d-adb6-46b0-838e-6e6606fe5050, null).
+2026-10-22T13:41:33.2804833Z  2026-10-22 13:41:30.412 UTC [172] STATEMENT:  insert into "request_events" ("id", "request_id", "actor_id", "action", "request_version", "assignee_id", "note", "previous_status", "next_status", "created_at") values (default, $1, $2, $3, $4, $5, $6, $7, $8, default)
+2026-10-22T13:41:33.2805707Z  This user must also own the server process.
+2026-10-22T13:41:33.2805991Z  
+2026-10-22T13:41:33.2806285Z  The database cluster will be initialized with locale "en_US.utf8".
+2026-10-22T13:41:33.2806726Z  The default database encoding has accordingly been set to "UTF8".
+2026-10-22T13:41:33.2807154Z  The default text search configuration will be set to "english".
+2026-10-22T13:41:33.2807490Z  
+2026-10-22T13:41:33.2807686Z  Data page checksums are enabled.
+2026-10-22T13:41:33.2807929Z  
+2026-10-22T13:41:33.2808238Z  fixing permissions on existing directory /var/lib/postgresql/18/docker ... ok
+2026-10-22T13:41:33.2808648Z  creating subdirectories ... ok
+2026-10-22T13:41:33.2808970Z  selecting dynamic shared memory implementation ... posix
+2026-10-22T13:41:33.2809335Z  selecting default "max_connections" ... 100
+2026-10-22T13:41:33.2809649Z  selecting default "shared_buffers" ... 128MB
+2026-10-22T13:41:33.2809948Z  selecting default time zone ... Etc/UTC
+2026-10-22T13:41:33.2810230Z  creating configuration files ... ok
+2026-10-22T13:41:33.2810521Z  running bootstrap script ... ok
+2026-10-22T13:41:33.2810825Z  performing post-bootstrap initialization ... ok
+2026-10-22T13:41:33.2811136Z  syncing data to disk ... ok
+2026-10-22T13:41:33.2811370Z  
+2026-10-22T13:41:33.2811561Z  
+2026-10-22T13:41:33.2811802Z  Success. You can now start the database server using:
+2026-10-22T13:41:33.2812110Z  
+2026-10-22T13:41:33.2812372Z      pg_ctl -D /var/lib/postgresql/18/docker -l logfile start
+2026-10-22T13:41:33.2812684Z  
+2026-10-22T13:41:33.2813296Z  waiting for server to start....2026-10-22 13:40:39.460 UTC [53] LOG:  starting PostgreSQL 18.6 (Debian 18.6-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-10-22T13:41:33.2814267Z  2026-10-22 13:40:39.461 UTC [53] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-22T13:41:33.2814811Z  2026-10-22 13:40:39.465 UTC [59] LOG:  database system was shut down at 2026-10-22 13:40:39 UTC
+2026-10-22T13:41:33.2815307Z  2026-10-22 13:40:39.468 UTC [53] LOG:  database system is ready to accept connections
+2026-10-22T13:41:33.2815677Z   done
+2026-10-22T13:41:33.2815871Z  server started
+2026-10-22T13:41:33.2816078Z  CREATE DATABASE
+2026-10-22T13:41:33.2816275Z  
+2026-10-22T13:41:33.2816463Z  
+2026-10-22T13:41:33.2816958Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+2026-10-22T13:41:33.2817357Z  
+2026-10-22T13:41:33.2817721Z  waiting for server to shut down...2026-10-22 13:40:39.661 UTC [53] LOG:  received fast shutdown request
+2026-10-22T13:41:33.2818222Z  .2026-10-22 13:40:39.661 UTC [53] LOG:  aborting any active transactions
+2026-10-22T13:41:33.2818777Z  2026-10-22 13:40:39.663 UTC [53] LOG:  background worker "logical replication launcher" (PID 62) exited with exit code 1
+2026-10-22T13:41:33.2819420Z  2026-10-22 13:40:39.665 UTC [57] LOG:  shutting down
+2026-10-22T13:41:33.2819803Z  2026-10-22 13:40:39.665 UTC [57] LOG:  checkpoint starting: shutdown immediate
+2026-10-22T13:41:33.2820900Z  2026-10-22 13:40:39.683 UTC [57] LOG:  checkpoint complete: wrote 943 buffers (5.8%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.016 s, sync=0.002 s, total=0.019 s; sync files=303, longest=0.001 s, average=0.001 s; distance=4352 kB, estimate=4352 kB; lsn=0/1BA1BE8, redo lsn=0/1BA1BE8
+2026-10-22T13:41:33.2821945Z  2026-10-22 13:40:39.695 UTC [53] LOG:  database system is shut down
+2026-10-22T13:41:33.2822268Z   done
+2026-10-22T13:41:33.2822460Z  server stopped
+2026-10-22T13:41:33.2822659Z  
+2026-10-22T13:41:33.2822896Z  PostgreSQL init process complete; ready for start up.
+2026-10-22T13:41:33.2823190Z  
+2026-10-22T13:41:33.2829691Z Stop and remove container: 64c30e8910d642d3ac4410b53c2a931a_postgres18_56db8b
+2026-10-22T13:41:33.2836150Z ##[command]/usr/bin/docker rm --force b768fbc0fd6839e6cc38d3e4eae685d27644c1e0a4c1fefcb6e5534cb643e255
+2026-10-22T13:41:33.4525442Z b768fbc0fd6839e6cc38d3e4eae685d27644c1e0a4c1fefcb6e5534cb643e255
+2026-10-22T13:41:33.4561284Z Remove container network: github_network_447bd30740f94d08acb7f871a78762fb
+2026-10-22T13:41:33.4566419Z ##[command]/usr/bin/docker network rm github_network_447bd30740f94d08acb7f871a78762fb
+2026-10-22T13:41:33.5501695Z github_network_447bd30740f94d08acb7f871a78762fb
+2026-10-22T13:41:33.5595227Z Cleaning up orphan processes
+2026-10-22T13:41:33.6017475Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

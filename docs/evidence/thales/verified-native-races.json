@@ -1,0 +1,271 @@
+{
+  "engine": "native PostgreSQL",
+  "scenarios": [
+    {
+      "command": "assign",
+      "run": 0,
+      "sessionDefault": "read committed",
+      "startingVersions": [
+        1,
+        1
+      ],
+      "requestConnections": [
+        {
+          "pid": 203,
+          "wait_event": "transactionid",
+          "blocking_pids": [
+            204
+          ]
+        },
+        {
+          "pid": 205,
+          "wait_event": "tuple",
+          "blocking_pids": [
+            203
+          ]
+        }
+      ],
+      "blockerPid": 204,
+      "statuses": [
+        200,
+        409
+      ],
+      "rejectedCode": "STALE_VERSION",
+      "finalState": {
+        "status": "in_progress",
+        "version": 2,
+        "assignee_id": "141c0d48-032d-4b29-9dcd-abc637a0b618"
+      },
+      "matchingAuditEvents": 1,
+      "postgres": "18.6 (Debian 18.6-1.pgdg13+2)"
+    },
+    {
+      "command": "assign",
+      "run": 1,
+      "sessionDefault": "read committed",
+      "startingVersions": [
+        1,
+        1
+      ],
+      "requestConnections": [
+        {
+          "pid": 204,
+          "wait_event": "tuple",
+          "blocking_pids": [
+            205
+          ]
+        },
+        {
+          "pid": 205,
+          "wait_event": "transactionid",
+          "blocking_pids": [
+            203
+          ]
+        }
+      ],
+      "blockerPid": 203,
+      "statuses": [
+        200,
+        409
+      ],
+      "rejectedCode": "STALE_VERSION",
+      "finalState": {
+        "status": "in_progress",
+        "version": 2,
+        "assignee_id": "141c0d48-032d-4b29-9dcd-abc637a0b618"
+      },
+      "matchingAuditEvents": 1,
+      "postgres": "18.6 (Debian 18.6-1.pgdg13+2)"
+    },
+    {
+      "command": "assign",
+      "run": 2,
+      "sessionDefault": "read committed",
+      "startingVersions": [
+        1,
+        1
+      ],
+      "requestConnections": [
+        {
+          "pid": 203,
+          "wait_event": "tuple",
+          "blocking_pids": [
+            204
+          ]
+        },
+        {
+          "pid": 204,
+          "wait_event": "transactionid",
+          "blocking_pids": [
+            205
+          ]
+        }
+      ],
+      "blockerPid": 205,
+      "statuses": [
+        200,
+        409
+      ],
+      "rejectedCode": "STALE_VERSION",
+      "finalState": {
+        "status": "in_progress",
+        "version": 2,
+        "assignee_id": "141c0d48-032d-4b29-9dcd-abc637a0b618"
+      },
+      "matchingAuditEvents": 1,
+      "postgres": "18.6 (Debian 18.6-1.pgdg13+2)"
+    },
+    {
+      "command": "triage",
+      "run": 0,
+      "sessionDefault": "read committed",
+      "startingVersions": [
+        0,
+        0
+      ],
+      "requestConnections": [
+        {
+          "pid": 203,
+          "wait_event": "transactionid",
+          "blocking_pids": [
+            204
+          ]
+        },
+        {
+          "pid": 205,
+          "wait_event": "tuple",
+          "blocking_pids": [
+            203
+          ]
+        }
+      ],
+      "blockerPid": 204,
+      "statuses": [
+        200,
+        409
+      ],
+      "rejectedCode": "STALE_VERSION",
+      "finalState": {
+        "status": "available",
+        "version": 1,
+        "assignee_id": null
+      },
+      "matchingAuditEvents": 1,
+      "postgres": "18.6 (Debian 18.6-1.pgdg13+2)"
+    },
+    {
+      "command": "triage",
+      "run": 1,
+      "sessionDefault": "read committed",
+      "startingVersions": [
+        0,
+        0
+      ],
+      "requestConnections": [
+        {
+          "pid": 204,
+          "wait_event": "tuple",
+          "blocking_pids": [
+            205
+          ]
+        },
+        {
+          "pid": 205,
+          "wait_event": "transactionid",
+          "blocking_pids": [
+            203
+          ]
+        }
+      ],
+      "blockerPid": 203,
+      "statuses": [
+        200,
+        409
+      ],
+      "rejectedCode": "STALE_VERSION",
+      "finalState": {
+        "status": "available",
+        "version": 1,
+        "assignee_id": null
+      },
+      "matchingAuditEvents": 1,
+      "postgres": "18.6 (Debian 18.6-1.pgdg13+2)"
+    },
+    {
+      "command": "triage",
+      "run": 2,
+      "sessionDefault": "read committed",
+      "startingVersions": [
+        0,
+        0
+      ],
+      "requestConnections": [
+        {
+          "pid": 203,
+          "wait_event": "tuple",
+          "blocking_pids": [
+            204
+          ]
+        },
+        {
+          "pid": 204,
+          "wait_event": "transactionid",
+          "blocking_pids": [
+            205
+          ]
+        }
+      ],
+      "blockerPid": 205,
+      "statuses": [
+        200,
+        409
+      ],
+      "rejectedCode": "STALE_VERSION",
+      "finalState": {
+        "status": "available",
+        "version": 1,
+        "assignee_id": null
+      },
+      "matchingAuditEvents": 1,
+      "postgres": "18.6 (Debian 18.6-1.pgdg13+2)"
+    },
+    {
+      "command": "assign",
+      "run": 0,
+      "sessionDefault": "repeatable read",
+      "startingVersions": [
+        1,
+        1
+      ],
+      "requestConnections": [
+        {
+          "pid": 206,
+          "wait_event": "transactionid",
+          "blocking_pids": [
+            207
+          ]
+        },
+        {
+          "pid": 215,
+          "wait_event": "tuple",
+          "blocking_pids": [
+            206
+          ]
+        }
+      ],
+      "blockerPid": 207,
+      "statuses": [
+        200,
+        409
+      ],
+      "rejectedCode": "STALE_VERSION",
+      "finalState": {
+        "status": "in_progress",
+        "version": 2,
+        "assignee_id": "141c0d48-032d-4b29-9dcd-abc637a0b618"
+      },
+      "matchingAuditEvents": 1,
+      "postgres": "18.6 (Debian 18.6-1.pgdg13+2)"
+    }
+  ]
+}

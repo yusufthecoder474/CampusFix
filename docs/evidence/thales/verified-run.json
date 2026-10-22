@@ -1,0 +1,193 @@
+{
+  "status": "passed",
+  "runId": "mvjtomll-087b174a",
+  "project": "campusfix-check-mvjtomll-087b174a",
+  "platform": "linux",
+  "node": "v24.21.0",
+  "sourceRevision": "cbfdd92e5d662f211a7a4d2d44673b152d3eefaf",
+  "commands": [
+    {
+      "name": "npm-version",
+      "command": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+        "/opt/hostedtoolcache/node/24.21.0/x64/lib/node_modules/npm/bin/npm-cli.js",
+        "--version"
+      ],
+      "exitCode": 0,
+      "durationMs": 85.680398
+    },
+    {
+      "name": "docker-version",
+      "command": [
+        "docker",
+        "version",
+        "--format",
+        "{{.Server.Version}}"
+      ],
+      "exitCode": 0,
+      "durationMs": 89.03068300000001
+    },
+    {
+      "name": "compose-version",
+      "command": [
+        "docker",
+        "compose",
+        "version"
+      ],
+      "exitCode": 0,
+      "durationMs": 210.42869399999998
+    },
+    {
+      "name": "database-start",
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/runner/work/CampusFix/CampusFix/docs/evidence/thales-local/mvjtomll-087b174a/compose.env",
+        "-p",
+        "campusfix-check-mvjtomll-087b174a",
+        "-f",
+        "/home/runner/work/CampusFix/CampusFix/compose.test.yaml",
+        "up",
+        "-d",
+        "--wait",
+        "--wait-timeout",
+        "90"
+      ],
+      "exitCode": 0,
+      "durationMs": 11493.884919999999
+    },
+    {
+      "name": "database-port",
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/runner/work/CampusFix/CampusFix/docs/evidence/thales-local/mvjtomll-087b174a/compose.env",
+        "-p",
+        "campusfix-check-mvjtomll-087b174a",
+        "-f",
+        "/home/runner/work/CampusFix/CampusFix/compose.test.yaml",
+        "port",
+        "db",
+        "5432"
+      ],
+      "exitCode": 0,
+      "durationMs": 62.91638300000159
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+        "/opt/hostedtoolcache/node/24.21.0/x64/lib/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "check"
+      ],
+      "exitCode": 0,
+      "durationMs": 1022.6002250000001
+    },
+    {
+      "name": "lint",
+      "command": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+        "/opt/hostedtoolcache/node/24.21.0/x64/lib/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "durationMs": 1893.178366
+    },
+    {
+      "name": "format-check",
+      "command": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+        "/opt/hostedtoolcache/node/24.21.0/x64/lib/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "format:check"
+      ],
+      "exitCode": 0,
+      "durationMs": 1887.3908509999983
+    },
+    {
+      "name": "backend",
+      "command": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+        "/opt/hostedtoolcache/node/24.21.0/x64/lib/node_modules/npm/bin/npm-cli.js",
+        "test",
+        "--",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile=/home/runner/work/CampusFix/CampusFix/docs/evidence/thales-local/mvjtomll-087b174a/backend.json"
+      ],
+      "exitCode": 0,
+      "durationMs": 11450.761335000003
+    },
+    {
+      "name": "frontend",
+      "command": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+        "/opt/hostedtoolcache/node/24.21.0/x64/lib/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "test:frontend",
+        "--",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile=/home/runner/work/CampusFix/CampusFix/docs/evidence/thales-local/mvjtomll-087b174a/frontend.json"
+      ],
+      "exitCode": 0,
+      "durationMs": 4066.964963000002
+    },
+    {
+      "name": "native-postgresql",
+      "command": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+        "--import",
+        "tsx",
+        "scripts/test-native.ts"
+      ],
+      "exitCode": 0,
+      "durationMs": 8992.878763
+    },
+    {
+      "name": "build",
+      "command": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+        "/opt/hostedtoolcache/node/24.21.0/x64/lib/node_modules/npm/bin/npm-cli.js",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "durationMs": 1209.1159719999996
+    },
+    {
+      "name": "native-browser",
+      "command": [
+        "/opt/hostedtoolcache/node/24.21.0/x64/bin/node",
+        "--import",
+        "tsx",
+        "scripts/e2e-native.ts"
+      ],
+      "exitCode": 0,
+      "durationMs": 54500.096202999994
+    },
+    {
+      "name": "owned-database-cleanup",
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/runner/work/CampusFix/CampusFix/docs/evidence/thales-local/mvjtomll-087b174a/compose.env",
+        "-p",
+        "campusfix-check-mvjtomll-087b174a",
+        "-f",
+        "/home/runner/work/CampusFix/CampusFix/compose.test.yaml",
+        "down",
+        "--remove-orphans"
+      ],
+      "exitCode": 0,
+      "durationMs": 316.27210800000466
+    }
+  ],
+  "database": "A new ephemeral PostgreSQL 18 container; application .env is not loaded",
+  "coverage": "Not measured"
+}

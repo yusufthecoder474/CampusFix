@@ -73,6 +73,7 @@ temporary PostgreSQL cluster support one command for checks, real database
 tests and browser suites. Logs survive failures; cleanup targets only resources
 created by that run. The CI workflow uses the same runner and uploads diagnostics.
 
-The current scratch host lacks Docker/PostgreSQL and a complete offline npm
-cache. Local prerequisite failure is recorded separately from actual hosted CI
-results. Windows instructions are supplied but Windows execution is unverified.
+The scratch host lacks Docker/PostgreSQL. Its initial offline npm cache was
+incomplete; online installation subsequently succeeded and enabled local embedded
+and React tests. Local Docker prerequisite failure is recorded separately from
+actual successful hosted CI results. Windows instructions are supplied but Windows execution is unverified.
