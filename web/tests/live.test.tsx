@@ -83,13 +83,20 @@ it("socket hook subscribes once, handles reconnect/stale events and cleans every
 it("each connect invalidates authoritative REST caches without replaying notifications", async () => {
   fixture.factory.mockClear();
   vi.spyOn(ApiClient.prototype, "me").mockResolvedValue({
-    user: { id: "reconnect", role: "student", displayName: "Demo" }, csrfToken: "x",
+    user: { id: "reconnect", role: "student", displayName: "Demo" },
+    csrfToken: "x",
   });
   const invalidate = vi.spyOn(QueryClient.prototype, "invalidateQueries");
-  const view = render(<SessionProvider><Probe /></SessionProvider>);
+  const view = render(
+    <SessionProvider>
+      <Probe />
+    </SessionProvider>,
+  );
   await waitFor(() => expect(fixture.factory).toHaveBeenCalledOnce());
   fixture.handlers.get("connect")!();
-  await waitFor(() => expect(invalidate).toHaveBeenCalledWith({ queryKey: ["history"] }));
+  await waitFor(() =>
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["history"] }),
+  );
   fixture.handlers.get("disconnect")!();
   invalidate.mockClear();
   fixture.handlers.get("connect")!();

@@ -34,15 +34,15 @@ claim of successful CI or completed native concurrency coverage.
 
 The Result column is finalized only after the actual verification run completes.
 
-| JD skill | Code location | Test/command | Result | Limitation |
-| --- | --- | --- | --- | --- |
-| Databases and atomicity | src/requests/workflow.ts; db/002_workflow.sql | Native integration; injected audit failure | Pending | Synthetic fixtures, one PostgreSQL instance |
-| Concurrent requests | tests/workflow-api.test.ts controlledRace | Native two-writer assignment/triage and isolation regression | Pending | Seven controlled races do not cover all schedules |
-| Networking | src/realtime.ts; web/src/live.tsx | Actual Socket.IO clients; native browser reconnect | Pending | WebSocket only, one server, no durable replay |
-| Authorization and errors | src/api.ts; src/auth/service.ts; src/app.ts | Role/ownership, CSRF, body limit and socket revocation tests | Pending | Focused cases, not a complete security audit |
-| Linux and automation | scripts/verify-disposable.mjs; compose.test.yaml | Disposable runner in Ubuntu CI | Pending | Windows documented, not executed |
-| Testing and build tools | .github/workflows/ci.yml; web/tests; e2e | Type check, lint, format, Vitest, Playwright, build | Pending | Coverage not measured; no production load test |
-| Technical communication | docs/THALES_FLOWS.md; docs/THALES_INTERVIEW.md | Source-based diagrams and explanations | Reviewed against code | No external team review claimed |
+| JD skill                 | Code location                                    | Test/command                                                 | Result                | Limitation                                        |
+| ------------------------ | ------------------------------------------------ | ------------------------------------------------------------ | --------------------- | ------------------------------------------------- |
+| Databases and atomicity  | src/requests/workflow.ts; db/002_workflow.sql    | Native integration; injected audit failure                   | Pending               | Synthetic fixtures, one PostgreSQL instance       |
+| Concurrent requests      | tests/workflow-api.test.ts controlledRace        | Native two-writer assignment/triage and isolation regression | Pending               | Seven controlled races do not cover all schedules |
+| Networking               | src/realtime.ts; web/src/live.tsx                | Actual Socket.IO clients; native browser reconnect           | Pending               | WebSocket only, one server, no durable replay     |
+| Authorization and errors | src/api.ts; src/auth/service.ts; src/app.ts      | Role/ownership, CSRF, body limit and socket revocation tests | Pending               | Focused cases, not a complete security audit      |
+| Linux and automation     | scripts/verify-disposable.mjs; compose.test.yaml | Disposable runner in Ubuntu CI                               | Pending               | Windows documented, not executed                  |
+| Testing and build tools  | .github/workflows/ci.yml; web/tests; e2e         | Type check, lint, format, Vitest, Playwright, build          | Pending               | Coverage not measured; no production load test    |
+| Technical communication  | docs/THALES_FLOWS.md; docs/THALES_INTERVIEW.md   | Source-based diagrams and explanations                       | Reviewed against code | No external team review claimed                   |
 
 ## Limits and unmeasured behavior
 

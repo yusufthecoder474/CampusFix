@@ -13,11 +13,6 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - name: Collect exact formatter changes during implementation
-        run: |
-          npx prettier --write src/requests/workflow.ts scripts/test-native.ts scripts/verify-disposable.mjs scripts/measure-bundle.mjs tests/workflow-api.test.ts tests/app.test.ts web/tests/live.test.tsx playwright.config.ts playwright.realtime.config.ts e2e/realtime.spec.ts package.json README.md THALES_RESUME_BULLETS.md docs/THALES_*.md
-          git diff -- src/requests/workflow.ts scripts/test-native.ts scripts/verify-disposable.mjs scripts/measure-bundle.mjs tests/workflow-api.test.ts tests/app.test.ts web/tests/live.test.tsx playwright.config.ts playwright.realtime.config.ts e2e/realtime.spec.ts package.json README.md THALES_RESUME_BULLETS.md docs/THALES_*.md
-      - run: npm run check
       - run: npx playwright install --with-deps chromium
       - name: Disposable PostgreSQL and complete verification
         run: npm run verify:disposable -- --skip-install --skip-browser-install

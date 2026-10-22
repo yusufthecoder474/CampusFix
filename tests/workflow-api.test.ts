@@ -234,26 +234,26 @@ beforeEach(() => {
 });
 afterAll(async () => {
   try {
-  for (const socket of clients) socket.disconnect();
-  await live?.close();
-  if (native) {
-    await mkdir(evidence, { recursive: true });
-    await writeFile(
-      `${evidence}/m5-native-concurrency.json`,
-      JSON.stringify(
-        { engine: "native PostgreSQL", scenarios: raceEvidence },
-        null,
-        2,
-      ) + "\n",
-    );
-  }
+    for (const socket of clients) socket.disconnect();
+    await live?.close();
+    if (native) {
+      await mkdir(evidence, { recursive: true });
+      await writeFile(
+        `${evidence}/m5-native-concurrency.json`,
+        JSON.stringify(
+          { engine: "native PostgreSQL", scenarios: raceEvidence },
+          null,
+          2,
+        ) + "\n",
+      );
+    }
   } finally {
-  if (pool) {
-    await pool.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
-    await pool.end();
-  }
-  await socket?.stop();
-  await engine?.close();
+    if (pool) {
+      await pool.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
+      await pool.end();
+    }
+    await socket?.stop();
+    await engine?.close();
   }
 }, 20000);
 it("lists only technician names/IDs with bounded pagination for coordinators", async () => {
@@ -499,7 +499,10 @@ it("new writes retain authentication, exact Origin and CSRF protections", async 
 });
 it("event insertion failure rolls assignment and version back", async () => {
   const id = await available();
-  const before = await pool.query("SELECT * FROM maintenance_requests WHERE id=$1", [id]);
+  const before = await pool.query(
+    "SELECT * FROM maintenance_requests WHERE id=$1",
+    [id],
+  );
   await pool.query(
     "ALTER TABLE request_events ADD CONSTRAINT injected_audit_failure CHECK (action <> 'assign') NOT VALID",
   );
@@ -513,7 +516,10 @@ it("event insertion failure rolls assignment and version back", async () => {
         })
       ).status,
     ).toBe(500);
-    const after = await pool.query("SELECT * FROM maintenance_requests WHERE id=$1", [id]);
+    const after = await pool.query(
+      "SELECT * FROM maintenance_requests WHERE id=$1",
+      [id],
+    );
     expect(after.rows).toEqual(before.rows);
     const r = await get(coordinator, `/api/requests/${id}`);
     expect(r.body.request).toMatchObject({
@@ -575,30 +581,48 @@ async function controlledRace(
   const id = command === "assign" ? await available() : (await create()).id;
   const version = command === "assign" ? 1 : 0;
   const actors = [coordinator, coordinator2];
-  const starting = await Promise.all(actors.map((actor) =>
-    request(target).get(`/api/requests/${id}`).set("Cookie", actor.cookie),
-  ));
+  const starting = await Promise.all(
+    actors.map((actor) =>
+      request(target).get(`/api/requests/${id}`).set("Cookie", actor.cookie),
+    ),
+  );
   for (const snapshot of starting) {
     expect(snapshot.status).toBe(200);
     expect(snapshot.body.request.version).toBe(version);
   }
   const blocker = await database.connect();
-  let observations: { pid: number; wait_event: string; blocking_pids: number[] }[] = [];
-  let pending: Promise<request.Response>[] = [];
+  let observations: {
+    pid: number;
+    wait_event: string;
+    blocking_pids: number[];
+  }[];
+  let pending: Promise<request.Response>[];
   let blockerPid = 0;
   try {
     await blocker.query("BEGIN");
-    blockerPid = (await blocker.query("SELECT pg_backend_pid() AS pid")).rows[0].pid;
-    await blocker.query("SELECT id FROM maintenance_requests WHERE id=$1 FOR UPDATE", [id]);
-    pending = actors.map((actor, index) => request(target)
-      .post(`/api/requests/${id}/actions`)
-      .set("Cookie", actor.cookie)
-      .set("Origin", origin)
-      .set("X-CSRF-Token", actor.csrf)
-      .send(command === "assign"
-        ? { action: command, expectedVersion: version, technicianId: [tech.id, tech2.id][index] }
-        : { action: command, expectedVersion: version })
-      .then((response) => response));
+    blockerPid = (await blocker.query("SELECT pg_backend_pid() AS pid")).rows[0]
+      .pid;
+    await blocker.query(
+      "SELECT id FROM maintenance_requests WHERE id=$1 FOR UPDATE",
+      [id],
+    );
+    pending = actors.map((actor, index) =>
+      request(target)
+        .post(`/api/requests/${id}/actions`)
+        .set("Cookie", actor.cookie)
+        .set("Origin", origin)
+        .set("X-CSRF-Token", actor.csrf)
+        .send(
+          command === "assign"
+            ? {
+                action: command,
+                expectedVersion: version,
+                technicianId: [tech.id, tech2.id][index],
+              }
+            : { action: command, expectedVersion: version },
+        )
+        .then((response) => response),
+    );
     const deadline = performance.now() + 5000;
     do {
       await blocker.query("SELECT pg_stat_clear_snapshot()");
@@ -619,20 +643,30 @@ async function controlledRace(
   const responses = await Promise.all(pending);
   expect(observations).toHaveLength(2);
   expect(new Set(observations.map((row) => row.pid)).size).toBe(2);
-  expect(observations.some((row) => row.blocking_pids.includes(blockerPid))).toBe(true);
-  expect(responses.map((response) => response.status).sort()).toEqual([200, 409]);
+  expect(
+    observations.some((row) => row.blocking_pids.includes(blockerPid)),
+  ).toBe(true);
+  expect(responses.map((response) => response.status).sort()).toEqual([
+    200, 409,
+  ]);
   const winner = responses.findIndex((response) => response.status === 200);
   const success = responses[winner]!;
   const rejected = responses.find((response) => response.status === 409)!;
   expect(rejected.body.error.code).toBe("STALE_VERSION");
-  const persisted = (await database.query(
-    "SELECT status,version,assignee_id FROM maintenance_requests WHERE id=$1", [id],
-  )).rows[0];
-  expect(persisted.status).toBe(command === "assign" ? "in_progress" : "available");
+  const persisted = (
+    await database.query(
+      "SELECT status,version,assignee_id FROM maintenance_requests WHERE id=$1",
+      [id],
+    )
+  ).rows[0];
+  expect(persisted.status).toBe(
+    command === "assign" ? "in_progress" : "available",
+  );
   expect(persisted.version).toBe(version + 1);
   expect(persisted.assignee_id).toBe(success.body.request.assigneeId);
   const audit = await database.query(
-    "SELECT actor_id,request_version,previous_status,next_status,assignee_id FROM request_events WHERE request_id=$1 AND action=$2", [id, command],
+    "SELECT actor_id,request_version,previous_status,next_status,assignee_id FROM request_events WHERE request_id=$1 AND action=$2",
+    [id, command],
   );
   expect(audit.rowCount).toBe(1);
   expect(audit.rows[0]).toMatchObject({
@@ -643,45 +677,79 @@ async function controlledRace(
     assignee_id: persisted.assignee_id,
   });
   const history = await database.query(
-    "SELECT request_version FROM request_events WHERE request_id=$1 ORDER BY request_version", [id],
+    "SELECT request_version FROM request_events WHERE request_id=$1 ORDER BY request_version",
+    [id],
   );
   expect(history.rows.map((row) => row.request_version)).toEqual(
     Array.from({ length: version + 2 }, (_, index) => index),
   );
   raceEvidence.push({
-    command, run, sessionDefault, startingVersions: starting.map((row) => row.body.request.version),
-    requestConnections: observations, blockerPid,
-    statuses: responses.map((response) => response.status), rejectedCode: rejected.body.error.code,
-    finalState: persisted, matchingAuditEvents: audit.rowCount,
-    postgres: (await database.query("SHOW server_version")).rows[0].server_version,
+    command,
+    run,
+    sessionDefault,
+    startingVersions: starting.map((row) => row.body.request.version),
+    requestConnections: observations,
+    blockerPid,
+    statuses: responses.map((response) => response.status),
+    rejectedCode: rejected.body.error.code,
+    finalState: persisted,
+    matchingAuditEvents: audit.rowCount,
+    postgres: (await database.query("SHOW server_version")).rows[0]
+      .server_version,
   });
 }
 
 it.skipIf(!native).each(["assign", "triage"] as const)(
   "native controlled two-coordinator race: %s commits once and rejects stale state",
   async (command) => {
-    for (let run = 0; run < 3; run++) await controlledRace(app, pool, schema, command, run);
+    for (let run = 0; run < 3; run++)
+      await controlledRace(app, pool, schema, command, run);
   },
   30000,
 );
 
-it.skipIf(!native)("workflow pins READ COMMITTED even when sessions default to REPEATABLE READ", async () => {
-  const applicationName = schema + "_isolation";
-  const isolated = new pg.Pool({
-    connectionString: url, max: 5, application_name: applicationName,
-    onConnect: async (client) => {
-      await client.query(`SET search_path TO "${schema}"`);
-      await client.query("SET default_transaction_isolation = 'repeatable read'");
-    },
-  });
-  try {
-    expect((await isolated.query("SHOW default_transaction_isolation")).rows[0].default_transaction_isolation).toBe("repeatable read");
-    const target = createApp(async () => {}, {
-      db: drizzle(isolated), config: readConfig({ DATABASE_URL: url, NODE_ENV: "test", APP_ORIGIN: origin }),
+it.skipIf(!native)(
+  "workflow pins READ COMMITTED even when sessions default to REPEATABLE READ",
+  async () => {
+    const applicationName = schema + "_isolation";
+    const isolated = new pg.Pool({
+      connectionString: url,
+      max: 5,
+      application_name: applicationName,
+      onConnect: async (client) => {
+        await client.query(`SET search_path TO "${schema}"`);
+        await client.query(
+          "SET default_transaction_isolation = 'repeatable read'",
+        );
+      },
     });
-    await controlledRace(target, isolated, applicationName, "assign", 0, "repeatable read");
-  } finally { await isolated.end(); }
-}, 15000);
+    try {
+      expect(
+        (await isolated.query("SHOW default_transaction_isolation")).rows[0]
+          .default_transaction_isolation,
+      ).toBe("repeatable read");
+      const target = createApp(async () => {}, {
+        db: drizzle(isolated),
+        config: readConfig({
+          DATABASE_URL: url,
+          NODE_ENV: "test",
+          APP_ORIGIN: origin,
+        }),
+      });
+      await controlledRace(
+        target,
+        isolated,
+        applicationName,
+        "assign",
+        0,
+        "repeatable read",
+      );
+    } finally {
+      await isolated.end();
+    }
+  },
+  15000,
+);
 
 it("M3 migration preserves existing requests/history and safely reruns", async () => {
   const r = await pool.query(
@@ -747,15 +815,30 @@ function nextChange(connection: Socket) {
   );
 }
 async function socketBarrier(connections: Socket[]) {
-  await Promise.all(connections.map((connection) => new Promise<void>((ok, no) => {
-    const timeout = setTimeout(() => no(new Error("Socket barrier timeout")), 2000);
-    connection.once("verification:barrier", () => { clearTimeout(timeout); ok(); });
-    const peer = live.io.sockets.sockets.get(connection.id!);
-    if (!peer) { clearTimeout(timeout); no(new Error("Missing socket peer")); return; }
-    // Server-to-client ordering places this marker after all publish() frames.
-    // This event exists only in tests; the application exposes no barrier API.
-    peer.emit("verification:barrier");
-  })));
+  await Promise.all(
+    connections.map(
+      (connection) =>
+        new Promise<void>((ok, no) => {
+          const timeout = setTimeout(
+            () => no(new Error("Socket barrier timeout")),
+            2000,
+          );
+          connection.once("verification:barrier", () => {
+            clearTimeout(timeout);
+            ok();
+          });
+          const peer = live.io.sockets.sockets.get(connection.id!);
+          if (!peer) {
+            clearTimeout(timeout);
+            no(new Error("Missing socket peer"));
+            return;
+          }
+          // Server-to-client ordering places this marker after all publish() frames.
+          // This event exists only in tests; the application exposes no barrier API.
+          peer.emit("verification:barrier");
+        }),
+    ),
+  );
 }
 it("Socket.IO authenticates cookie/CSRF and rejects unauthenticated and cross-origin connections", async () => {
   const s = await liveSocket(student);
@@ -913,17 +996,21 @@ it("Socket.IO publish failure cannot undo an already committed REST change", asy
 it("Socket.IO accepts WebSocket transport and rejects HTTP long polling", async () => {
   const connection = await liveSocket(coordinator);
   expect(connection.io.engine.transport.name).toBe("websocket");
-  const response = await fetch(`${liveURL}/socket.io/?EIO=4&transport=polling`, {
-    headers: { Origin: origin, Cookie: coordinator.cookie },
-    signal: AbortSignal.timeout(2000),
-  });
+  const response = await fetch(
+    `${liveURL}/socket.io/?EIO=4&transport=polling`,
+    {
+      headers: { Origin: origin, Cookie: coordinator.cookie },
+      signal: AbortSignal.timeout(2000),
+    },
+  );
   expect(response.status).toBe(400);
   connection.disconnect();
 });
 
 it("Socket.IO rejects a well-formed but fabricated session token", async () => {
-  await expect(liveSocket({ ...student, cookie: "campusfix=" + "a".repeat(64) }))
-    .rejects.toThrow("AUTHENTICATION_REQUIRED");
+  await expect(
+    liveSocket({ ...student, cookie: "campusfix=" + "a".repeat(64) }),
+  ).rejects.toThrow("AUTHENTICATION_REQUIRED");
 });
 
 it("Socket.IO disconnects a session whose role changed before delivery", async () => {
@@ -932,44 +1019,91 @@ it("Socket.IO disconnects a session whose role changed before delivery", async (
   const received: unknown[] = [];
   connection.on("request:changed", (event) => received.push(event));
   const expired = new Promise<void>((resolve, reject) => {
-    const timeout = setTimeout(() => reject(new Error("Role change was not enforced")), 2000);
-    connection.once("session:expired", () => { clearTimeout(timeout); resolve(); });
+    const timeout = setTimeout(
+      () => reject(new Error("Role change was not enforced")),
+      2000,
+    );
+    connection.once("session:expired", () => {
+      clearTimeout(timeout);
+      resolve();
+    });
   });
   try {
-    await pool.query("UPDATE users SET role='coordinator' WHERE id=$1", [identity.id]);
+    await pool.query("UPDATE users SET role='coordinator' WHERE id=$1", [
+      identity.id,
+    ]);
     await create();
     await expired;
     expect(received).toEqual([]);
     expect(connection.connected).toBe(false);
   } finally {
-    await pool.query("UPDATE users SET role='student' WHERE id=$1", [identity.id]);
+    await pool.query("UPDATE users SET role='student' WHERE id=$1", [
+      identity.id,
+    ]);
     connection.disconnect();
   }
 });
 
 it("pagination validates bounds and empty pages retain the scoped total", async () => {
   const row = await create();
-  for (const query of ["page=0", "page=10001", "limit=0", "limit=51", "page=1&page=2"])
-    expect((await get(student, `/api/requests/${row.id}/events?${query}`)).status).toBe(400);
-  const history = await get(student, `/api/requests/${row.id}/events?page=10000&limit=50`);
+  for (const query of [
+    "page=0",
+    "page=10001",
+    "limit=0",
+    "limit=51",
+    "page=1&page=2",
+  ])
+    expect(
+      (await get(student, `/api/requests/${row.id}/events?${query}`)).status,
+    ).toBe(400);
+  const history = await get(
+    student,
+    `/api/requests/${row.id}/events?page=10000&limit=50`,
+  );
   expect(history.status).toBe(200);
-  expect(history.body).toMatchObject({ page: 10000, limit: 50, total: 1, items: [] });
+  expect(history.body).toMatchObject({
+    page: 10000,
+    limit: 50,
+    total: 1,
+    items: [],
+  });
   const list = await get(other, "/api/requests?page=10000&limit=50");
   expect(list.status).toBe(200);
   expect(list.body.items).toEqual([]);
-  const count = await pool.query("SELECT count(*)::int AS n FROM maintenance_requests WHERE reporter_id=$1", [other.id]);
+  const count = await pool.query(
+    "SELECT count(*)::int AS n FROM maintenance_requests WHERE reporter_id=$1",
+    [other.id],
+  );
   expect(list.body.total).toBe(count.rows[0].n);
 });
 
 it("forbidden workflow actions leave both record and audit unchanged", async () => {
   const id = await assigned();
-  const before = await pool.query("SELECT * FROM maintenance_requests WHERE id=$1", [id]);
-  const eventsBefore = await pool.query("SELECT * FROM request_events WHERE request_id=$1 ORDER BY id", [id]);
+  const before = await pool.query(
+    "SELECT * FROM maintenance_requests WHERE id=$1",
+    [id],
+  );
+  const eventsBefore = await pool.query(
+    "SELECT * FROM request_events WHERE request_id=$1 ORDER BY id",
+    [id],
+  );
   const response = await action(coordinator, id, {
-    action: "resolve", expectedVersion: 2, note: "Forbidden coordinator action",
+    action: "resolve",
+    expectedVersion: 2,
+    note: "Forbidden coordinator action",
   });
   expect(response.status).toBe(403);
   expect(response.body.error.code).toBe("FORBIDDEN");
-  expect((await pool.query("SELECT * FROM maintenance_requests WHERE id=$1", [id])).rows).toEqual(before.rows);
-  expect((await pool.query("SELECT * FROM request_events WHERE request_id=$1 ORDER BY id", [id])).rows).toEqual(eventsBefore.rows);
+  expect(
+    (await pool.query("SELECT * FROM maintenance_requests WHERE id=$1", [id]))
+      .rows,
+  ).toEqual(before.rows);
+  expect(
+    (
+      await pool.query(
+        "SELECT * FROM request_events WHERE request_id=$1 ORDER BY id",
+        [id],
+      )
+    ).rows,
+  ).toEqual(eventsBefore.rows);
 });

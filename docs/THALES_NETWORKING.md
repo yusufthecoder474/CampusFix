@@ -11,8 +11,7 @@ are generated UUID-based names, rather than user input.
 
 Successful creation returns 201; successful actions return 200. Invalid input is
 400, missing authentication 401, forbidden roles 403, concealed or absent records
-404, stale versions or invalid transitions 409, large bodies 413 and rate limits
-429. Unexpected failures return a generic 500 code and request ID, without SQL,
+404, stale versions or invalid transitions 409, large bodies 413 and rate limits 429. Unexpected failures return a generic 500 code and request ID, without SQL,
 credentials or stack traces in the response. Internal diagnostics stay in logs.
 
 ## Connection setup and access
