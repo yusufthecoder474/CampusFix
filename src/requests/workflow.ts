@@ -115,7 +115,7 @@ export class WorkflowService {
         requestVersion: updated.version,
         assigneeId,
         note: "note" in input ? input.note : null,
-      }, { isolationLevel: "read committed" });
+      });
       if (actor.role !== "technician") return updated;
       const {
         reporterId: _reporter,
