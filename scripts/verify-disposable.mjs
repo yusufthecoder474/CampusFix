@@ -17,6 +17,12 @@ const runId = Date.now().toString(36) + "-" + randomBytes(4).toString("hex");
 const project = "campusfix-check-" + runId;
 const evidence = resolve(root, "docs/evidence/thales-local", runId);
 mkdirSync(evidence, { recursive: true });
+// Prevent Compose from implicitly reading the application .env file.
+const composeEnv = resolve(evidence, "compose.env");
+writeFileSync(
+  composeEnv,
+  "# Verification uses generated environment values only.\n",
+);
 const steps = [];
 const npmFile = process.env.npm_execpath;
 const environment = {
@@ -29,6 +35,8 @@ const environment = {
 };
 const compose = [
   "compose",
+  "--env-file",
+  composeEnv,
   "-p",
   project,
   "-f",
