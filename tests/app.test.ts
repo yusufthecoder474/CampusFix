@@ -43,3 +43,13 @@ it("malformed JSON is rejected without a stack trace", async () => {
   expect(result.status).toBe(400);
   expect(result.body.error.code).toBe("INVALID_JSON");
 });
+it("oversized JSON returns a bounded 413 without exposing parser internals", async () => {
+  const result = await request(createApp(async () => {}))
+    .post("/missing")
+    .send({ description: "private-payload-".repeat(2000) });
+  expect(result.status).toBe(413);
+  expect(result.body.error.code).toBe("PAYLOAD_TOO_LARGE");
+  expect(result.body.error.requestId).toBe(result.headers["x-request-id"]);
+  expect(result.text).not.toContain("private-payload");
+  expect(result.text).not.toContain("stack");
+});

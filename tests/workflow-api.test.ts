@@ -4,7 +4,7 @@ import { attachRealtime } from "../src/realtime.js";
 import { beforeAll, beforeEach, afterAll, it, expect } from "vitest";
 import { randomUUID } from "node:crypto";
 import { createServer } from "node:net";
-import { writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import pg from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { PGlite } from "@electric-sql/pglite";
@@ -31,6 +31,7 @@ let student: Identity,
   tech: Identity,
   tech2: Identity;
 const raceEvidence: unknown[] = [];
+const evidence = process.env.CAMPUSFIX_EVIDENCE_DIR ?? "docs/evidence";
 let live: ReturnType<typeof attachRealtime>,
   liveServer: ReturnType<typeof createHttpServer>,
   liveURL: string;
@@ -232,23 +233,28 @@ beforeEach(() => {
   app = makeApp();
 });
 afterAll(async () => {
+  try {
   for (const socket of clients) socket.disconnect();
   await live?.close();
-  if (native)
+  if (native) {
+    await mkdir(evidence, { recursive: true });
     await writeFile(
-      "docs/evidence/m5-native-concurrency.json",
+      `${evidence}/m5-native-concurrency.json`,
       JSON.stringify(
         { engine: "native PostgreSQL", scenarios: raceEvidence },
         null,
         2,
       ) + "\n",
     );
+  }
+  } finally {
   if (pool) {
     await pool.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
     await pool.end();
   }
   await socket?.stop();
   await engine?.close();
+  }
 }, 20000);
 it("lists only technician names/IDs with bounded pagination for coordinators", async () => {
   const a = await get(coordinator, "/api/technicians?limit=1&page=1"),
@@ -493,6 +499,7 @@ it("new writes retain authentication, exact Origin and CSRF protections", async 
 });
 it("event insertion failure rolls assignment and version back", async () => {
   const id = await available();
+  const before = await pool.query("SELECT * FROM maintenance_requests WHERE id=$1", [id]);
   await pool.query(
     "ALTER TABLE request_events ADD CONSTRAINT injected_audit_failure CHECK (action <> 'assign') NOT VALID",
   );
@@ -506,6 +513,8 @@ it("event insertion failure rolls assignment and version back", async () => {
         })
       ).status,
     ).toBe(500);
+    const after = await pool.query("SELECT * FROM maintenance_requests WHERE id=$1", [id]);
+    expect(after.rows).toEqual(before.rows);
     const r = await get(coordinator, `/api/requests/${id}`);
     expect(r.body.request).toMatchObject({
       version: 1,
@@ -552,78 +561,127 @@ it("database rejects non-technician assignees and duplicate audit versions", asy
     await expect(engine.query(duplicate, [id, student.id])).rejects.toThrow();
   else await expect(pool.query(duplicate, [id, student.id])).rejects.toThrow();
 });
-// Native-only: PGlite's adapter is single-connection and cannot validate contention.
-it.skipIf(!native).each(["assign", "triage"])(
-  "native two-coordinator race: %s has exactly one winner",
+// Native-only: a held row lock is the barrier. We release it only after PostgreSQL
+// reports two distinct request connections waiting on locks. No timing sleep is
+// used to manufacture contention, and PGlite never runs these assertions.
+async function controlledRace(
+  target: ReturnType<typeof createApp>,
+  database: pg.Pool,
+  applicationName: string,
+  command: "assign" | "triage",
+  run: number,
+  sessionDefault = "read committed",
+) {
+  const id = command === "assign" ? await available() : (await create()).id;
+  const version = command === "assign" ? 1 : 0;
+  const actors = [coordinator, coordinator2];
+  const starting = await Promise.all(actors.map((actor) =>
+    request(target).get(`/api/requests/${id}`).set("Cookie", actor.cookie),
+  ));
+  for (const snapshot of starting) {
+    expect(snapshot.status).toBe(200);
+    expect(snapshot.body.request.version).toBe(version);
+  }
+  const blocker = await database.connect();
+  let observations: { pid: number; wait_event: string; blocking_pids: number[] }[] = [];
+  let pending: Promise<request.Response>[] = [];
+  let blockerPid = 0;
+  try {
+    await blocker.query("BEGIN");
+    blockerPid = (await blocker.query("SELECT pg_backend_pid() AS pid")).rows[0].pid;
+    await blocker.query("SELECT id FROM maintenance_requests WHERE id=$1 FOR UPDATE", [id]);
+    pending = actors.map((actor, index) => request(target)
+      .post(`/api/requests/${id}/actions`)
+      .set("Cookie", actor.cookie)
+      .set("Origin", origin)
+      .set("X-CSRF-Token", actor.csrf)
+      .send(command === "assign"
+        ? { action: command, expectedVersion: version, technicianId: [tech.id, tech2.id][index] }
+        : { action: command, expectedVersion: version })
+      .then((response) => response));
+    const deadline = performance.now() + 5000;
+    do {
+      await blocker.query("SELECT pg_stat_clear_snapshot()");
+      const observed = await blocker.query(
+        "SELECT pid,wait_event,pg_blocking_pids(pid) AS blocking_pids FROM pg_stat_activity WHERE application_name=$1 AND pid<>pg_backend_pid() AND state='active' AND wait_event_type='Lock' AND query ILIKE '%maintenance_requests%for update%'",
+        [applicationName],
+      );
+      observations = observed.rows;
+      if (observations.length === 2) break;
+      // Yield to I/O; correctness depends on observed lock state, not elapsed delay.
+      await new Promise<void>((resolve) => setImmediate(resolve));
+    } while (performance.now() < deadline);
+  } finally {
+    await blocker.query("ROLLBACK");
+    blocker.release();
+  }
+  // Always settle both HTTP requests before assertions/cleanup.
+  const responses = await Promise.all(pending);
+  expect(observations).toHaveLength(2);
+  expect(new Set(observations.map((row) => row.pid)).size).toBe(2);
+  expect(observations.some((row) => row.blocking_pids.includes(blockerPid))).toBe(true);
+  expect(responses.map((response) => response.status).sort()).toEqual([200, 409]);
+  const winner = responses.findIndex((response) => response.status === 200);
+  const success = responses[winner]!;
+  const rejected = responses.find((response) => response.status === 409)!;
+  expect(rejected.body.error.code).toBe("STALE_VERSION");
+  const persisted = (await database.query(
+    "SELECT status,version,assignee_id FROM maintenance_requests WHERE id=$1", [id],
+  )).rows[0];
+  expect(persisted.status).toBe(command === "assign" ? "in_progress" : "available");
+  expect(persisted.version).toBe(version + 1);
+  expect(persisted.assignee_id).toBe(success.body.request.assigneeId);
+  const audit = await database.query(
+    "SELECT actor_id,request_version,previous_status,next_status,assignee_id FROM request_events WHERE request_id=$1 AND action=$2", [id, command],
+  );
+  expect(audit.rowCount).toBe(1);
+  expect(audit.rows[0]).toMatchObject({
+    actor_id: actors[winner]!.id,
+    request_version: version + 1,
+    previous_status: command === "assign" ? "available" : "reported",
+    next_status: persisted.status,
+    assignee_id: persisted.assignee_id,
+  });
+  const history = await database.query(
+    "SELECT request_version FROM request_events WHERE request_id=$1 ORDER BY request_version", [id],
+  );
+  expect(history.rows.map((row) => row.request_version)).toEqual(
+    Array.from({ length: version + 2 }, (_, index) => index),
+  );
+  raceEvidence.push({
+    command, run, sessionDefault, startingVersions: starting.map((row) => row.body.request.version),
+    requestConnections: observations, blockerPid,
+    statuses: responses.map((response) => response.status), rejectedCode: rejected.body.error.code,
+    finalState: persisted, matchingAuditEvents: audit.rowCount,
+    postgres: (await database.query("SHOW server_version")).rows[0].server_version,
+  });
+}
+
+it.skipIf(!native).each(["assign", "triage"] as const)(
+  "native controlled two-coordinator race: %s commits once and rejects stale state",
   async (command) => {
-    for (let run = 0; run < 3; run++) {
-      const id = command === "assign" ? await available() : (await create()).id;
-      const version = command === "assign" ? 1 : 0;
-      const blocker = await pool.connect();
-      await blocker.query("BEGIN");
-      await blocker.query(
-        "SELECT id FROM maintenance_requests WHERE id=$1 FOR UPDATE",
-        [id],
-      );
-      let waiting = 0;
-      const bodies = [tech.id, tech2.id].map((technicianId) =>
-        command === "assign"
-          ? { action: command, expectedVersion: version, technicianId }
-          : { action: command, expectedVersion: version },
-      );
-      const pending = [
-        action(coordinator, id, bodies[0]!).then((r) => r),
-        action(coordinator2, id, bodies[1]!).then((r) => r),
-      ];
-      try {
-        for (let attempt = 0; attempt < 100; attempt++) {
-          await blocker.query("SELECT pg_stat_clear_snapshot()");
-          const r = await blocker.query(
-            "SELECT count(*)::int AS n FROM pg_stat_activity WHERE application_name=$1 AND pid<>pg_backend_pid() AND wait_event_type='Lock'",
-            [schema],
-          );
-          waiting = r.rows[0].n;
-          if (waiting >= 2) break;
-          await new Promise((ok) => setTimeout(ok, 20));
-        }
-      } finally {
-        await blocker.query("COMMIT");
-        blocker.release();
-      }
-      const responses = await Promise.all(pending);
-      expect(waiting).toBeGreaterThanOrEqual(2);
-      expect(responses.map((r) => r.status).sort()).toEqual([200, 409]);
-      const success = responses.find((r) => r.status === 200)!;
-      const rows = await pool.query(
-        "SELECT * FROM request_events WHERE request_id=$1 AND action=$2",
-        [id, command],
-      );
-      expect(rows.rowCount).toBe(1);
-      expect(success.body.request.version).toBe(version + 1);
-      if (command === "assign")
-        expect(rows.rows[0].assignee_id).toBe(success.body.request.assigneeId);
-      const persisted = await pool.query(
-        "SELECT version,assignee_id FROM maintenance_requests WHERE id=$1",
-        [id],
-      );
-      expect(persisted.rows[0].version).toBe(version + 1);
-      expect(persisted.rows[0].assignee_id).toBe(
-        success.body.request.assigneeId,
-      );
-      raceEvidence.push({
-        command,
-        run,
-        waitingActors: waiting,
-        statuses: responses.map((r) => r.status),
-        eventCount: rows.rowCount,
-        version: success.body.request.version,
-        postgres: (await pool.query("SHOW server_version")).rows[0]
-          .server_version,
-      });
-    }
+    for (let run = 0; run < 3; run++) await controlledRace(app, pool, schema, command, run);
   },
   30000,
 );
+
+it.skipIf(!native)("workflow pins READ COMMITTED even when sessions default to REPEATABLE READ", async () => {
+  const applicationName = schema + "_isolation";
+  const isolated = new pg.Pool({
+    connectionString: url, max: 5, application_name: applicationName,
+    onConnect: async (client) => {
+      await client.query(`SET search_path TO "${schema}"`);
+      await client.query("SET default_transaction_isolation = 'repeatable read'");
+    },
+  });
+  try {
+    expect((await isolated.query("SHOW default_transaction_isolation")).rows[0].default_transaction_isolation).toBe("repeatable read");
+    const target = createApp(async () => {}, {
+      db: drizzle(isolated), config: readConfig({ DATABASE_URL: url, NODE_ENV: "test", APP_ORIGIN: origin }),
+    });
+    await controlledRace(target, isolated, applicationName, "assign", 0, "repeatable read");
+  } finally { await isolated.end(); }
+}, 15000);
 
 it("M3 migration preserves existing requests/history and safely reruns", async () => {
   const r = await pool.query(
@@ -688,6 +746,17 @@ function nextChange(connection: Socket) {
     },
   );
 }
+async function socketBarrier(connections: Socket[]) {
+  await Promise.all(connections.map((connection) => new Promise<void>((ok, no) => {
+    const timeout = setTimeout(() => no(new Error("Socket barrier timeout")), 2000);
+    connection.once("verification:barrier", () => { clearTimeout(timeout); ok(); });
+    const peer = live.io.sockets.sockets.get(connection.id!);
+    if (!peer) { clearTimeout(timeout); no(new Error("Missing socket peer")); return; }
+    // Server-to-client ordering places this marker after all publish() frames.
+    // This event exists only in tests; the application exposes no barrier API.
+    peer.emit("verification:barrier");
+  })));
+}
 it("Socket.IO authenticates cookie/CSRF and rejects unauthenticated and cross-origin connections", async () => {
   const s = await liveSocket(student);
   expect(s.connected).toBe(true);
@@ -706,6 +775,7 @@ it("Socket.IO rejects arbitrary room subscriptions", async () => {
     s.emit("subscribe", "coordinator", ok),
   );
   expect(ack.error).toBe("FORBIDDEN");
+  expect([...live.io.sockets.sockets.get(s.id!)!.rooms]).toEqual([s.id]);
   s.disconnect();
 });
 it("Socket.IO emits compact committed creation to coordinator but not unrelated users", async () => {
@@ -724,7 +794,7 @@ it("Socket.IO emits compact committed creation to coordinator but not unrelated 
     [row.id],
   );
   expect(committed.rows[0].version).toBe(0);
-  await new Promise((ok) => setTimeout(ok, 100));
+  await socketBarrier([allowed, outsider, worker]);
   expect(denied).toEqual([]);
   allowed.disconnect();
   outsider.disconnect();
@@ -767,7 +837,7 @@ it("Socket.IO emits no successful update on audit rollback", async () => {
         })
       ).status,
     ).toBe(500);
-    await new Promise((ok) => setTimeout(ok, 100));
+    await socketBarrier([s]);
     expect(events).toEqual([]);
   } finally {
     await pool.query(
@@ -838,4 +908,68 @@ it("Socket.IO publish failure cannot undo an already committed REST change", asy
       ])
     ).rowCount,
   ).toBe(1);
+});
+
+it("Socket.IO accepts WebSocket transport and rejects HTTP long polling", async () => {
+  const connection = await liveSocket(coordinator);
+  expect(connection.io.engine.transport.name).toBe("websocket");
+  const response = await fetch(`${liveURL}/socket.io/?EIO=4&transport=polling`, {
+    headers: { Origin: origin, Cookie: coordinator.cookie },
+    signal: AbortSignal.timeout(2000),
+  });
+  expect(response.status).toBe(400);
+  connection.disconnect();
+});
+
+it("Socket.IO rejects a well-formed but fabricated session token", async () => {
+  await expect(liveSocket({ ...student, cookie: "campusfix=" + "a".repeat(64) }))
+    .rejects.toThrow("AUTHENTICATION_REQUIRED");
+});
+
+it("Socket.IO disconnects a session whose role changed before delivery", async () => {
+  const identity = await login("student2@campusfix.test");
+  const connection = await liveSocket(identity);
+  const received: unknown[] = [];
+  connection.on("request:changed", (event) => received.push(event));
+  const expired = new Promise<void>((resolve, reject) => {
+    const timeout = setTimeout(() => reject(new Error("Role change was not enforced")), 2000);
+    connection.once("session:expired", () => { clearTimeout(timeout); resolve(); });
+  });
+  try {
+    await pool.query("UPDATE users SET role='coordinator' WHERE id=$1", [identity.id]);
+    await create();
+    await expired;
+    expect(received).toEqual([]);
+    expect(connection.connected).toBe(false);
+  } finally {
+    await pool.query("UPDATE users SET role='student' WHERE id=$1", [identity.id]);
+    connection.disconnect();
+  }
+});
+
+it("pagination validates bounds and empty pages retain the scoped total", async () => {
+  const row = await create();
+  for (const query of ["page=0", "page=10001", "limit=0", "limit=51", "page=1&page=2"])
+    expect((await get(student, `/api/requests/${row.id}/events?${query}`)).status).toBe(400);
+  const history = await get(student, `/api/requests/${row.id}/events?page=10000&limit=50`);
+  expect(history.status).toBe(200);
+  expect(history.body).toMatchObject({ page: 10000, limit: 50, total: 1, items: [] });
+  const list = await get(other, "/api/requests?page=10000&limit=50");
+  expect(list.status).toBe(200);
+  expect(list.body.items).toEqual([]);
+  const count = await pool.query("SELECT count(*)::int AS n FROM maintenance_requests WHERE reporter_id=$1", [other.id]);
+  expect(list.body.total).toBe(count.rows[0].n);
+});
+
+it("forbidden workflow actions leave both record and audit unchanged", async () => {
+  const id = await assigned();
+  const before = await pool.query("SELECT * FROM maintenance_requests WHERE id=$1", [id]);
+  const eventsBefore = await pool.query("SELECT * FROM request_events WHERE request_id=$1 ORDER BY id", [id]);
+  const response = await action(coordinator, id, {
+    action: "resolve", expectedVersion: 2, note: "Forbidden coordinator action",
+  });
+  expect(response.status).toBe(403);
+  expect(response.body.error.code).toBe("FORBIDDEN");
+  expect((await pool.query("SELECT * FROM maintenance_requests WHERE id=$1", [id])).rows).toEqual(before.rows);
+  expect((await pool.query("SELECT * FROM request_events WHERE request_id=$1 ORDER BY id", [id])).rows).toEqual(eventsBefore.rows);
 });

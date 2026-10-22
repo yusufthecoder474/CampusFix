@@ -8,7 +8,7 @@ export default defineConfig({
   testMatch: "**/realtime.spec.ts",
   reporter: [
     ["list"],
-    ["json", { outputFile: "docs/evidence/m5-realtime-browser-results.json" }],
+    ["json", { outputFile: `${process.env.CAMPUSFIX_EVIDENCE_DIR ?? "docs/evidence"}/m5-realtime-browser-results.json` }],
   ],
   use: { ...base.use, baseURL: `http://127.0.0.1:${port}` },
   webServer: {

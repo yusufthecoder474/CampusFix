@@ -1,0 +1,3 @@
+# Preserve raw machine-generated evidence without rewriting its bytes.
+docs/evidence/thales/
+docs/evidence/thales-local/

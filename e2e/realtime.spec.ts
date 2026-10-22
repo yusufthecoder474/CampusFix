@@ -12,6 +12,8 @@ async function login(page: Page, email: string) {
     page.getByText("Connection: Live", { exact: true }),
   ).toBeVisible();
 }
+const evidence = process.env.CAMPUSFIX_EVIDENCE_DIR ?? "docs/evidence";
+const screenshots = process.env.CAMPUSFIX_SCREENSHOT_DIR ?? "docs/screenshots";
 const accessibility: unknown[] = [];
 async function confirm(page: Page, button: string) {
   await page.getByRole("button", { name: button, exact: true }).click();
@@ -160,9 +162,9 @@ test.describe.serial("responsive and accessible dashboard", () => {
     await login(page, "student1@campusfix.test");
   });
   test.afterAll(async () => {
-    await mkdir("docs/evidence", { recursive: true });
+    await mkdir(evidence, { recursive: true });
     await writeFile(
-      "docs/evidence/m5-accessibility.json",
+      `${evidence}/m5-accessibility.json`,
       JSON.stringify(
         { tool: "axe-core via Playwright", scans: accessibility },
         null,
@@ -186,9 +188,9 @@ test.describe.serial("responsive and accessible dashboard", () => {
       await expect(
         page.getByRole("heading", { name: "Maintenance requests" }),
       ).toBeVisible();
-      await mkdir("docs/screenshots", { recursive: true });
+      await mkdir(screenshots, { recursive: true });
       await page.screenshot({
-        path: `docs/screenshots/dashboard-${width}.png`,
+        path: `${screenshots}/dashboard-${width}.png`,
         fullPage: true,
       });
       const dashboard = await new AxeBuilder({ page })
@@ -257,7 +259,7 @@ test.describe.serial("responsive and accessible dashboard", () => {
     page.off("request", count);
     expect(calls).toBe(0);
     await writeFile(
-      "docs/evidence/m5-cache-navigation.json",
+      `${evidence}/m5-cache-navigation.json`,
       JSON.stringify(
         {
           browser: browser.version(),

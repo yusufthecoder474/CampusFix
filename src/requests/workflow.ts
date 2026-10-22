@@ -115,7 +115,7 @@ export class WorkflowService {
         requestVersion: updated.version,
         assigneeId,
         note: "note" in input ? input.note : null,
-      });
+      }, { isolationLevel: "read committed" });
       if (actor.role !== "technician") return updated;
       const {
         reporterId: _reporter,
@@ -123,7 +123,7 @@ export class WorkflowService {
         ...safe
       } = updated;
       return safe;
-    });
+    }, { isolationLevel: "read committed" });
   }
   async technicians(actor: Principal, page: { page: number; limit: number }) {
     if (actor.role !== "coordinator") throw new ApiError(403, "FORBIDDEN");
