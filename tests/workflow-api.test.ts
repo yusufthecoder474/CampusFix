@@ -4,7 +4,7 @@ import { attachRealtime } from "../src/realtime.js";
 import { beforeAll, beforeEach, afterAll, it, expect } from "vitest";
 import { randomUUID } from "node:crypto";
 import { createServer } from "node:net";
-import { writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import pg from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { PGlite } from "@electric-sql/pglite";
@@ -234,7 +234,8 @@ beforeEach(() => {
 afterAll(async () => {
   for (const socket of clients) socket.disconnect();
   await live?.close();
-  if (native)
+  if (native) {
+    await mkdir("docs/evidence", { recursive: true });
     await writeFile(
       "docs/evidence/m5-native-concurrency.json",
       JSON.stringify(
@@ -243,6 +244,7 @@ afterAll(async () => {
         2,
       ) + "\n",
     );
+  }
   if (pool) {
     await pool.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
     await pool.end();
