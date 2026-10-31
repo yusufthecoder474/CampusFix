@@ -69,3 +69,7 @@ The bundle grows with the new functionality; lazy workspace loading measurably r
 ## Limits
 
 One campus/server/process, synthetic data, no public registration/password reset/uploads/reassignment. Notifications are ephemeral with no outbox/durable delivery. Reconnect restores state, not missed notification history. No public deployment, TLS runtime verification, remote CI run or team code review is claimed. Native final-milestone verification remains incomplete in a build environment without PostgreSQL/Docker; run the documented Windows gates before claiming a fully verified final release.
+
+### Migration failure and recovery tests
+
+The isolated [migration rollback verifier](docs/MIGRATION_SAFETY.md) exercises transactional DDL failure, preserved records, repeatability and checksum drift in a disposable local `*_test` database. It is CI-gated, not a claim of zero-downtime production migrations.
