@@ -71,10 +71,9 @@ try {
   );
   assert.equal(
     (
-      await client.query(
-        `SELECT id FROM "${schema}".users WHERE id=$1`,
-        [userId],
-      )
+      await client.query(`SELECT id FROM "${schema}".users WHERE id=$1`, [
+        userId,
+      ])
     ).rowCount,
     1,
   );
