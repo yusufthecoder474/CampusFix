@@ -26,8 +26,6 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run lint
-      - name: Show expected verifier formatting (temporary diagnostic)
-        run: npx prettier scripts/verify-migrations.ts
       - run: npm run format:check
       - run: npm test
       - run: npm run test:frontend
